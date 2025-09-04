@@ -1,13 +1,12 @@
 Todos os scripts tem seu arquivo de leiura obrigatório 
 
-#####
+///////////////////////////////////////////
 MENU - ABAIXO OS SCRIPTS EM ORDEM DO README
 1 - Organizador de Downloads (Windows) 
-#####
+//////////////////////////////////////////
 
-#####
+//////////////////////////////////////
 1 - Organizador de Downloads (Windows) 
-#####
 
 Versão Python-puro e robusta, com comentários
 
@@ -33,4 +32,4 @@ Como executar:
 - Execute no terminal:  python organizador_downloads.py
 - Verifique o arquivo "Downloads/organizador.log" para ver o histórico de ações.
 
-FIM #####
+FIM /////////////////////////
