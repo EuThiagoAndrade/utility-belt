@@ -1,14 +1,10 @@
 <div align="center">
   
-# Coleção de Scripts Python
+# Coleção de Scripts Python para Windows
 
 <p>
-  <strong>Um repositório com diversos scripts úteis para automação de tarefas do dia a dia.</strong>
+  <strong>Um repositório com diversos scripts úteis para automação de tarefas Windows do dia a dia.</strong>
 </p>
-
-![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-orange?style=for-the-badge)
 
 </div>
 
@@ -16,15 +12,15 @@
 
 ## Sobre o Projeto
 
-Este repositório serve como uma coleção centralizada de scripts Python práticos e bem documentados. O objetivo é fornecer soluções simples e eficientes para tarefas comuns, que podem ser facilmente adaptadas e utilizadas por qualquer pessoa com conhecimentos básicos de Python.
+Este repositório serve como uma coleção centralizada de scripts Python práticos para facilitar a sua vida com o Windows. O objetivo é fornecer soluções simples e eficientes para tarefas comuns, que podem ser facilmente adaptadas e utilizadas por qualquer pessoa com conhecimentos básicos de Python.
 
-Todos os scripts aqui presentes são criados com o mínimo de dependências externas, priorizando o uso de bibliotecas padrão do Python para garantir a portabilidade e facilidade de execução.
+Os scripts aqui presentes, na medida do possível, serão criados com o mínimo de dependências externas, priorizando o uso de bibliotecas padrão do Python para garantir a portabilidade e facilidade de execução.
 
 ## Navegação
 
 Abaixo está a lista de scripts disponíveis neste repositório. Clique no nome para ir diretamente para a sua descrição.
 
-1.  [Organizador de Downloads (Windows)](#1--organizador-de-downloads-windows)
+1.  Organizador de Downloads
 2.  *(Próximo script a ser adicionado)*
 3.  *(Próximo script a ser adicionado)*
 
@@ -34,11 +30,7 @@ Abaixo está a lista de scripts disponíveis neste repositório. Clique no nome 
 
 Aqui você encontrará a documentação detalhada de cada script.
 
-### 1. Organizador de Downloads (Windows)
-
-<p align="center">
-  <i>Versão Python-puro e robusta, com comentários.</i>
-</p>
+### 1. Organizador de Downloads
 
 #### **Resumo**
 -   Varre a pasta "Downloads" do usuário.
@@ -83,10 +75,4 @@ Contribuições são o que tornam a comunidade de código aberto um lugar incrí
 
 ## Licença
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
-
-## Contato
-
-Seu Nome – [@seu_twitter](https://twitter.com/seu_twitter) – seu_email@exemplo.com
-
-Link do Projeto: [https://github.com/seu_usuario/nome_do_repositorio](https://github.com/seu_usuario/nome_do_repositorio)
+Distribuído sob a licença MIT.
