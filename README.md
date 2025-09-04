@@ -1,35 +1,92 @@
-Todos os scripts tem seu arquivo de leiura obrigatório 
+<div align="center">
+  
+# Coleção de Scripts Python
 
-///////////////////////////////////////////
-MENU - ABAIXO OS SCRIPTS EM ORDEM DO README
-1 - Organizador de Downloads (Windows) 
-//////////////////////////////////////////
+<p>
+  <strong>Um repositório com diversos scripts úteis para automação de tarefas do dia a dia.</strong>
+</p>
 
-//////////////////////////////////////
-1 - Organizador de Downloads (Windows) 
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-orange?style=for-the-badge)
 
-Versão Python-puro e robusta, com comentários
+</div>
 
-Resumo:
-- Varre a pasta "Downloads" do usuário.
-- Classifica arquivos por extensão e move para subpastas (ex.: PDFs, Imagens, etc.).
-- Evita mover arquivos ainda em download (ex.: .crdownload, .part) ou recém-modificados.
-- Resolve colisões de nomes gerando "arquivo (1).ext", "arquivo (2).ext", etc.
-- Gera logs detalhados em console e em arquivo (Downloads/organizador.log).
-- Não depende de PowerShell usa apenas bibliotecas padrão do Python.
+---
 
-Por que não usar PowerShell aqui?
-- shutil.move() faz rename quando no mesmo volume (rápido) e cópia+remoção em volumes diferentes,
-  sem necessidade de invocar processos externos. Isso torna o comportamento mais previsível e 
-  simplifica o tratamento de erros.
+## Sobre o Projeto
 
-Requisitos:
-- Python 3.10+ em Windows 10/11.
-- Sem bibliotecas externas.
+Este repositório serve como uma coleção centralizada de scripts Python práticos e bem documentados. O objetivo é fornecer soluções simples e eficientes para tarefas comuns, que podem ser facilmente adaptadas e utilizadas por qualquer pessoa com conhecimentos básicos de Python.
 
-Como executar:
-- Salve este arquivo como "organizador_downloads.py" (ou nome de sua preferência).
-- Execute no terminal:  python organizador_downloads.py
-- Verifique o arquivo "Downloads/organizador.log" para ver o histórico de ações.
+Todos os scripts aqui presentes são criados com o mínimo de dependências externas, priorizando o uso de bibliotecas padrão do Python para garantir a portabilidade e facilidade de execução.
 
-FIM /////////////////////////
+## Navegação
+
+Abaixo está a lista de scripts disponíveis neste repositório. Clique no nome para ir diretamente para a sua descrição.
+
+1.  [Organizador de Downloads (Windows)](#1--organizador-de-downloads-windows)
+2.  *(Próximo script a ser adicionado)*
+3.  *(Próximo script a ser adicionado)*
+
+---
+
+## Scripts Disponíveis
+
+Aqui você encontrará a documentação detalhada de cada script.
+
+### 1. Organizador de Downloads (Windows)
+
+<p align="center">
+  <i>Versão Python-puro e robusta, com comentários.</i>
+</p>
+
+#### **Resumo**
+-   Varre a pasta "Downloads" do usuário.
+-   Classifica arquivos por extensão e move para subpastas (ex.: `PDFs`, `Imagens`, etc.).
+-   Evita mover arquivos ainda em download (ex.: `.crdownload`, `.part`) ou recém-modificados.
+-   Resolve colisões de nomes gerando `arquivo (1).ext`, `arquivo (2).ext`, etc.
+-   Gera logs detalhados no console e em um arquivo (`Downloads/organizador.log`).
+-   Não depende de PowerShell, usa apenas bibliotecas padrão do Python.
+
+> **Por que não usar PowerShell aqui?**
+>
+> `shutil.move()` faz *rename* quando no mesmo volume (operação extremamente rápida) e cópia+remoção caso o destino seja em um volume diferente, sem a necessidade de invocar processos externos. Isso torna o comportamento mais previsível e simplifica o tratamento de erros.
+
+#### **Requisitos**
+-   Python 3.10+
+-   Windows 10/11
+-   Nenhuma biblioteca externa necessária.
+
+#### **Como Executar**
+1.  Salve o código do script como `organizador_downloads.py`.
+2.  Abra um terminal (CMD ou PowerShell).
+3.  Navegue até a pasta onde salvou o arquivo e execute o comando:
+    ```sh
+    python organizador_downloads.py
+    ```
+4.  Verifique o arquivo `Downloads/organizador.log` para ver o histórico de ações e o console para o log em tempo real.
+
+<br>
+
+---
+---
+
+## Como Contribuir
+
+Contribuições são o que tornam a comunidade de código aberto um lugar incrível para aprender, inspirar e criar. Qualquer contribuição que você fizer será **muito apreciada**.
+
+1.  Faça um *Fork* do projeto.
+2.  Crie uma *Branch* para sua Feature (`git checkout -b feature/AmazingFeature`).
+3.  Faça o *Commit* de suas mudanças (`git commit -m 'Add some AmazingFeature'`).
+4.  Faça o *Push* para a Branch (`git push origin feature/AmazingFeature`).
+5.  Abra um *Pull Request*.
+
+## Licença
+
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+
+## Contato
+
+Seu Nome – [@seu_twitter](https://twitter.com/seu_twitter) – seu_email@exemplo.com
+
+Link do Projeto: [https://github.com/seu_usuario/nome_do_repositorio](https://github.com/seu_usuario/nome_do_repositorio)
