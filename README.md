@@ -6,7 +6,7 @@ Resumo:
 - Evita mover arquivos ainda em download (ex.: .crdownload, .part) ou recém-modificados.
 - Resolve colisões de nomes gerando "arquivo (1).ext", "arquivo (2).ext", etc.
 - Gera logs detalhados em console e em arquivo (Downloads/organizador.log).
-- Não depende de PowerShell — usa apenas bibliotecas padrão do Python.
+- Não depende de PowerShell usa apenas bibliotecas padrão do Python.
 
 Por que não usar PowerShell aqui?
 - shutil.move() faz rename quando no mesmo volume (rápido) e cópia+remoção em volumes diferentes,
