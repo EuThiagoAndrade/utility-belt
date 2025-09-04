@@ -1,4 +1,15 @@
-Organizador de Downloads (Windows) — Versão Python-puro e robusta, com comentários
+Todos os scripts tem seu arquivo de leiura obrigatório 
+
+#####
+MENU - ABAIXO OS SCRIPTS EM ORDEM DO README
+1 - Organizador de Downloads (Windows) 
+#####
+
+#####
+1 - Organizador de Downloads (Windows) 
+#####
+
+Versão Python-puro e robusta, com comentários
 
 Resumo:
 - Varre a pasta "Downloads" do usuário.
@@ -21,3 +32,5 @@ Como executar:
 - Salve este arquivo como "organizador_downloads.py" (ou nome de sua preferência).
 - Execute no terminal:  python organizador_downloads.py
 - Verifique o arquivo "Downloads/organizador.log" para ver o histórico de ações.
+
+FIM #####
