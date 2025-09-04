@@ -27,7 +27,7 @@ PASTAS_POR_TIPO = {
     "Fontes": [".ttf", ".otf", ".woff", ".woff2"],
 
     # --- DOCUMENTOS E ESCRITÓRIO ---
-    "Documentos_de_Texto": [".docx", ".doc", ".txt", ".rtf", ".odt", ".pages", ".md"],
+    "Documentos_de_Texto": [".docx", ".doc", ".txt", ".rtf", ".odt", ".pages", ".md", ".markdown"],
     "PDFs": [".pdf"],
     "Planilhas": [".xlsx", ".xls", ".csv", ".ods", ".numbers"],
     "Apresentacoes": [".pptx", ".ppt", ".odp", ".key"],

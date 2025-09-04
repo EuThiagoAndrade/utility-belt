@@ -35,14 +35,11 @@ Aqui você encontrará a documentação detalhada de cada script.
 #### **Resumo**
 -   Varre a pasta "Downloads" do usuário.
 -   Classifica arquivos por extensão e move para subpastas (ex.: `PDFs`, `Imagens`, etc.).
+-   Move as pastas que estejam diretamente dentro de "Downloads" e que NÃO sejam as pastas predefinidas (PASTAS_POR_TIPO) para uma pasta especial chamada "Pastas_Diversas".
 -   Evita mover arquivos ainda em download (ex.: `.crdownload`, `.part`) ou recém-modificados.
 -   Resolve colisões de nomes gerando `arquivo (1).ext`, `arquivo (2).ext`, etc.
 -   Gera logs detalhados no console e em um arquivo (`Downloads/organizador.log`).
 -   Não depende de PowerShell, usa apenas bibliotecas padrão do Python.
-
-> **Por que não usar PowerShell aqui?**
->
-> `shutil.move()` faz *rename* quando no mesmo volume (operação extremamente rápida) e cópia+remoção caso o destino seja em um volume diferente, sem a necessidade de invocar processos externos. Isso torna o comportamento mais previsível e simplifica o tratamento de erros.
 
 #### **Requisitos**
 -   Python 3.10+
