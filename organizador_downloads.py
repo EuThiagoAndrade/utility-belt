@@ -40,16 +40,34 @@ DOWNLOADS = Path.home() / "Downloads"
 # Mapeamento de pastas de destino -> extensões (todas em minúsculas)
 # Observação: acrescente/remova extensões conforme sua realidade.
 PASTAS_POR_TIPO = {
-    "Imagens": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".webp"],
-    "Documentos": [".docx", ".doc", ".txt", ".rtf", ".odt"],
+    # --- MÍDIA E DESIGN ---
+    "Imagens_Raster": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff", ".heic", ".avif"],
+    "Imagens_Vetor_e_Design": [".svg", ".ai", ".eps", ".psd", ".fig", ".sketch", ".xd"],
+    "Videos": [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv", ".webm", ".mpg", ".mpeg"],
+    "Audio": [".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma"],
+    "Modelos_3D": [".obj", ".fbx", ".stl", ".blend", ".dae", ".3ds"],
+    "Fontes": [".ttf", ".otf", ".woff", ".woff2"],
+
+    # --- DOCUMENTOS E ESCRITÓRIO ---
+    "Documentos_de_Texto": [".docx", ".doc", ".txt", ".rtf", ".odt", ".pages", ".md"],
     "PDFs": [".pdf"],
-    "Aplicativos": [".exe", ".msi"],
-    "Compactados": [".zip", ".rar", ".7z", ".tar", ".gz"],
-    "Planilhas": [".xlsx", ".xls", ".csv"],
-    "Apresentacoes": [".pptx", ".ppt"],
-    # Extras (opcionais):
-    "Videos": [".mp4", ".mkv", ".avi", ".mov"],
-    "Audio": [".mp3", ".wav", ".flac", ".m4a"],
+    "Planilhas": [".xlsx", ".xls", ".csv", ".ods", ".numbers"],
+    "Apresentacoes": [".pptx", ".ppt", ".odp", ".key"],
+    "eBooks": [".epub", ".mobi", ".azw3"],
+
+    # --- SISTEMA E EXECUTÁVEIS ---
+    "Executaveis_e_Instaladores": [".exe", ".msi", ".bat", ".cmd", ".app", ".dmg", ".deb", ".rpm", ".AppImage", ".apk"],
+    "Compactados": [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".tgz"],
+    "Imagens_de_Disco": [".iso", ".img", ".vhd", ".vmdk"],
+    
+    # --- DESENVOLVIMENTO E CÓDIGO (CATEGORIA REESTRUTURADA) ---
+    "Codigo_Fonte": [".py", ".java", ".c", ".cpp", ".cs", ".go", ".rs", ".kt", ".swift", ".rb", ".pl", ".scala", ".pas", ".m"],
+    "Web_FrontEnd": [".html", ".htm", ".css", ".js", ".ts", ".jsx", ".tsx"],
+    "Estilos_e_Preprocessadores": [".scss", ".sass", ".less", ".styl"],
+    "Scripts_de_Automacao": [".sh", ".ps1", ".vbs"],
+    "Dados_e_Configuracao": [".json", ".xml", ".yaml", ".yml", ".ini", ".toml", ".env"],
+    "Banco_de_Dados": [".sql", ".db", ".sqlite", ".sqlite3", ".mdb"],
+    "Notebooks_e_Analise": [".ipynb", ".r"] # Específico para ciência de dados
 }
 
 # Extensões que caracterizam arquivo "incompleto" de download (não mover)
