@@ -8,8 +8,12 @@ from pathlib import Path
 #  CONFIGURAÇÕES (edite à vontade)
 # ==============================
 
-# Pasta base a organizar (por padrão, Downloads do usuário atual)
+# Pasta base a organizar (Downloads do usuário atual)
 DOWNLOADS = Path.home() / "Downloads"
+
+# Nome da pasta onde serão guardadas as pastas "não-predefinidas"
+PASTA_PASTAS_DIVERSAS = "Pastas_Diversas"
+DIVERSAS_DIR = DOWNLOADS / PASTA_PASTAS_DIVERSAS
 
 # Mapeamento de pastas de destino -> extensões (todas em minúsculas)
 # Observação: acrescente/remova extensões conforme sua realidade.
@@ -44,13 +48,16 @@ PASTAS_POR_TIPO = {
     "Notebooks_e_Analise": [".ipynb", ".r"] # Específico para ciência de dados
 }
 
+# Conjunto com os nomes de pastas "reservadas"/predefinidas que NÃO devem ser movidas
+PREDEFINIDAS = set(PASTAS_POR_TIPO.keys()) | {PASTA_PASTAS_DIVERSAS}
+
 # Extensões que caracterizam arquivo "incompleto" de download (não mover)
 INCOMPLETOS = {".crdownload", ".part", ".tmp"}
 
 # Arquivos temporários comuns do Office/Windows começam com "~$"
 TMP_PREFIXES = ("~$",)
 
-# Critérios de estabilidade:
+# Critérios de estabilidade (para arquivos):
 # - idade mínima desde a última modificação (segundos)
 # - e confirmação de tamanho estável em sondagens sucessivas
 IDADE_MIN_SEG = 60          # Exige pelo menos 60s sem alteração
@@ -76,15 +83,16 @@ def pasta_destino_para(ext: str) -> Path | None:
 
 def caminho_unico(dest: Path) -> Path:
     """
-    Se 'dest' (arquivo de destino) já existir, gera um novo nome único com sufixo incremental:
-    "arquivo.ext" -> "arquivo (1).ext", "arquivo (2).ext", ...
-    Caso contrário, retorna o próprio 'dest'.
+    Gera um nome único se 'dest' já existir.
+    - Para arquivos: "arquivo.ext" -> "arquivo (1).ext", "arquivo (2).ext", ...
+    - Para pastas:  "pasta" -> "pasta (1)", "pasta (2)", ...
+    Obs.: Funciona para ambos porque usamos Path.exists() e montamos o novo nome.
     """
     if not dest.exists():
         return dest
 
     i = 1
-    stem, suf = dest.stem, dest.suffix
+    stem, suf = dest.stem, dest.suffix  # para pastas, suffix = ""
     while True:
         candidato = dest.with_name(f"{stem} ({i}){suf}")
         if not candidato.exists():
@@ -92,19 +100,29 @@ def caminho_unico(dest: Path) -> Path:
         i += 1
 
 
-def mover_seguro(src: Path, dst_dir: Path) -> Path:
+def mover_arquivo_seguro(src: Path, dst_dir: Path) -> Path:
     """
-    Move 'src' para a pasta 'dst_dir', garantindo que:
+    Move um ARQUIVO 'src' para a pasta 'dst_dir', garantindo que:
     - a pasta de destino existe (mkdir com parents=True, exist_ok=True)
     - o nome final não colide (usa caminho_unico)
     Retorna o caminho final do arquivo movido.
     """
     dst_dir.mkdir(parents=True, exist_ok=True)
     destino_final = caminho_unico(dst_dir / src.name)
-    # shutil.move:
-    # - no mesmo volume: operação é rename (muito rápida)
-    # - em volume diferente: copia+remove (mais lenta, porém confiável)
     shutil.move(str(src), str(destino_final))
+    return destino_final
+
+
+def mover_pasta_seguro(src_dir: Path, dst_dir: Path) -> Path:
+    """
+    Move uma PASTA 'src_dir' para dentro de 'dst_dir', garantindo:
+    - criação de 'dst_dir' se não existir;
+    - resolução de colisão de nomes (sufixo " (1)", " (2)", ...).
+    Retorna o caminho final da pasta movida.
+    """
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    destino_final = caminho_unico(dst_dir / src_dir.name)
+    shutil.move(str(src_dir), str(destino_final))
     return destino_final
 
 
@@ -151,15 +169,18 @@ def main() -> None:
     """
     Executa a organização:
     - Faz um "snapshot" (lista) dos itens em Downloads antes de começar a mover
-      (evita iterar em uma pasta que está mudando durante o loop).
-    - Ignora temporários e arquivos incompletos.
-    - Só move arquivos que estejam estáveis conforme critérios definidos.
-    - Registra logs de tudo que foi movido, postergado/ignorado e de eventuais erros.
+      (evita iterar numa pasta que está mudando durante o loop).
+    - ARQUIVOS: ignora temporários e incompletos; só move se estiverem estáveis.
+    - PASTAS: move todas as pastas diretamente dentro de Downloads, exceto:
+        * as predefinidas (as chaves de PASTAS_POR_TIPO),
+        * a própria "Pastas_Diversas".
+      Todas as demais pastas vão para "Downloads/Pastas_Diversas".
+    - Loga tudo o que foi movido/postergado/ignorado e eventuais erros.
     """
 
     # Configuração de logging: imprime no console e salva em arquivo.
     logging.basicConfig(
-        level=logging.INFO,  # Mude para DEBUG se quiser ver ainda mais detalhes
+        level=logging.INFO,  # Mude para DEBUG se quiser mais verbosidade
         format="%(asctime)s %(levelname)s: %(message)s",
         handlers=[
             logging.StreamHandler(),
@@ -176,15 +197,19 @@ def main() -> None:
         logging.error("Pasta de Downloads não encontrada: %s", DOWNLOADS)
         return
 
-    movidos = 0   # contador de arquivos efetivamente movidos
-    pulados = 0   # contador de arquivos ignorados/postergados
-    erros = 0     # contador de falhas ao tentar mover
+    # Contadores
+    movidos_arquivos = 0
+    movidos_pastas  = 0
+    pulados         = 0
+    erros           = 0
 
+    # ============
+    # 1) ARQUIVOS
+    # ============
     for p in itens:
         try:
-            # Processa apenas arquivos regulares (ignora pastas, atalhos, etc.)
             if not p.is_file():
-                continue
+                continue  # Só arquivos nesta primeira etapa
 
             # Ignora arquivos temporários comuns (prefixos) e extensões de download incompleto
             if p.name.startswith(TMP_PREFIXES) or p.suffix.lower() in INCOMPLETOS:
@@ -204,23 +229,55 @@ def main() -> None:
                 logging.info("Postergando (arquivo instável/recente): %s", p.name)
                 continue
 
-            # Tenta mover e registra o caminho final
-            final = mover_seguro(p, destino_dir)
-            movidos += 1
-            logging.info("Movido: %s  ->  %s", p.name, final)
+            # Move o arquivo
+            final = mover_arquivo_seguro(p, destino_dir)
+            movidos_arquivos += 1
+            logging.info("Arquivo movido: %s  ->  %s", p.name, final)
 
         except PermissionError as e:
-            # Permissão negada geralmente indica arquivo aberto/bloqueado por outro processo
             erros += 1
             logging.warning("Arquivo bloqueado, pulando: %s (%s)", p, e)
 
         except Exception as e:
-            # Qualquer outra exceção é logada com stack trace para depuração
             erros += 1
-            logging.exception("Erro ao mover %s: %s", p, e)
+            logging.exception("Erro ao mover arquivo %s: %s", p, e)
+
+    # ==========
+    # 2) PASTAS
+    # ==========
+    for p in itens:
+        try:
+            if not p.is_dir():
+                continue  # Só pastas nesta segunda etapa
+
+            # Não mover pastas "predefinidas" (as chaves de PASTAS_POR_TIPO) nem a "Pastas_Diversas"
+            if p.name in PREDEFINIDAS:
+                continue
+
+            # Evitar mover links simbólicos (se existirem)
+            if p.is_symlink():
+                pulados += 1
+                logging.info("Ignorando link simbólico: %s", p.name)
+                continue
+
+            # Move a pasta para "Downloads/Pastas_Diversas"
+            final_dir = mover_pasta_seguro(p, DIVERSAS_DIR)
+            movidos_pastas += 1
+            logging.info("Pasta movida: %s  ->  %s", p.name, final_dir)
+
+        except PermissionError as e:
+            erros += 1
+            logging.warning("Pasta bloqueada, pulando: %s (%s)", p, e)
+
+        except Exception as e:
+            erros += 1
+            logging.exception("Erro ao mover pasta %s: %s", p, e)
 
     # Sumário final da execução
-    logging.info("Concluído: movidos=%s | pulados=%s | erros=%s", movidos, pulados, erros)
+    logging.info(
+        "Concluído: arquivos_movidos=%s | pastas_movidas=%s | pulados=%s | erros=%s",
+        movidos_arquivos, movidos_pastas, pulados, erros
+    )
 
 
 # Ponto de entrada padrão em scripts Python
