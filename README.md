@@ -21,7 +21,7 @@ Os scripts aqui presentes, na medida do possível, serão criados com o mínimo 
 Abaixo está a lista de scripts disponíveis neste repositório. Clique no nome para ir diretamente para a sua descrição.
 
 1.  Organizador de Downloads
-2.  *(Próximo script a ser adicionado)*
+2.  Listar os Python.exe do ambiente CONDA
 3.  *(Próximo script a ser adicionado)*
 
 ---
@@ -54,6 +54,28 @@ Aqui você encontrará a documentação detalhada de cada script.
     python organizador_downloads.py
     ```
 4.  Verifique o arquivo `Downloads/organizador.log` para ver o histórico de ações e o console para o log em tempo real.
+
+
+### 2. Listar os Python.exe do ambiente CONDA
+
+#### **Resumo**
+-   Listar todos os ambientes Conda disponíveis na máquina e exibir, em formato de tabela, o nome de cada ambiente e o caminho absoluto do executável Python correspondente (python.exe no Windows, bin/python em Linux/macOS).
+
+#### **Como Funciona**
+1)  Invoca "conda info --json" para obter metadados do Conda em formato JSON.
+2)  Extrai o "root_prefix" (ambiente base) e a lista de "envs" (prefixos).
+3)  Garante que o ambiente base apareça junto dos demais.
+4)  Para cada prefixo (caminho de um ambiente Conda), constrói o caminho do executável de Python e verifica se existe.
+5)  Ordena a saída colocando "base" no topo e o restante em ordem alfabética.
+6)  Imprime uma tabela alinhada: coluna "Env" e coluna "Python".
+
+#### **Observações**
+- Não é necessário ativar nenhum ambiente: o script consulta o Conda diretamente.
+- Se algum ambiente estiver corrompido ou incompleto, o executável pode não existir; nesse caso, a tabela indicará "(não encontrado)".
+- O script foi pensado para Windows, mas também funciona em Linux/macOS.
+
+#### **Exemplo de uso**
+- python listar_pythons_conda.py
 
 <br>
 
