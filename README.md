@@ -77,6 +77,18 @@ Aqui você encontrará a documentação detalhada de cada script.
 #### **Exemplo de uso**
 - python listar_pythons_conda.py
 
+##### **Problema ao executar**
+- Caso apareça a mensagem de erro 'conda' não foi encontrado no PATH
+- Se você usa a instalação base em C:\ProgramData\anaconda3, siga o caminho abaixo:
+
+- Abrir variáveis de ambiente
+- Win + R → digite sysdm.cpl → Enter → aba Avançado → Variáveis de Ambiente…
+- Em Variáveis de usuário (recomendado) selecione Path → Editar → Novo e adicione:
+- C:\ProgramData\anaconda3\condabin (mínimo para o comando conda)
+- (opcional) C:\ProgramData\anaconda3
+- (opcional) C:\ProgramData\anaconda3\Scripts
+- OK em tudo e feche/reabra
+
 <br>
 
 ---
