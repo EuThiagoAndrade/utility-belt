@@ -51,6 +51,14 @@ PASTAS_POR_TIPO = {
 # Conjunto com os nomes de pastas "reservadas"/predefinidas que NÃO devem ser movidas
 PREDEFINIDAS = set(PASTAS_POR_TIPO.keys()) | {PASTA_PASTAS_DIVERSAS}
 
+# Conjunto de pastas adicionais que devem ser mantidas no local e NÃO movidas
+PASTAS_MANTER = {
+    "Telegram Desktop",
+}
+
+# Atualiza o conjunto de predefinidas para incluir as pastas a manter
+PREDEFINIDAS = PREDEFINIDAS | set(PASTAS_MANTER)
+
 # Extensões que caracterizam arquivo "incompleto" de download (não mover)
 INCOMPLETOS = {".crdownload", ".part", ".tmp"}
 
