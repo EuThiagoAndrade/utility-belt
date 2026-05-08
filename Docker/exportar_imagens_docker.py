@@ -12,7 +12,7 @@ def main():
 
     # Nome do arquivo com a data atual
     hoje = datetime.now()
-    nome_arquivo = f"imagens_para_casa_{hoje.day:02d}_{hoje.month:02d}_{hoje.year}.tar"
+    nome_arquivo = f"imagens_exportadas{hoje.day:02d}_{hoje.month:02d}_{hoje.year}.tar"
 
     # Quantidade de imagens
     while True:
@@ -26,7 +26,7 @@ def main():
     print()
     imagens = []
     for i in range(1, qtd + 1):
-        img = input(f"Digite o nome ou ID da imagem {i} de {qtd}: ").strip()
+        img = input(f"Digite o nome da imagem com tag (ex: ubuntu:latest) [{i} de {qtd}]: ").strip()
         imagens.append(img)
 
     # Exporta as imagens
@@ -39,7 +39,7 @@ def main():
 
     if resultado.returncode != 0:
         print("\nERRO! Algo deu errado durante a exportacao.")
-        print("Verifique se os nomes/IDs das imagens estao corretos e tente novamente.")
+        print("Verifique se os nomes das imagens estao corretos e tente novamente.")
         input("\nPressione Enter para sair...")
         sys.exit(1)
 
