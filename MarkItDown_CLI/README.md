@@ -1,10 +1,10 @@
-# 🚀 MarkItDown CLI - Manual de Utilização
+# MarkItDown CLI - Manual de Utilização
 
 Este script é um "wrapper" em Python para a ferramenta **MarkItDown**, projetado para facilitar a conversão de diversos formatos de arquivos para Markdown de maneira rápida e organizada, com suporte a limpeza de metadados e menu interativo.
 
 ---
 
-## 🛠️ Pré-requisitos
+## Pré-requisitos
 
 Para utilizar este script, você precisa apenas de:
 1.  **Python** instalado na sua máquina.
@@ -15,7 +15,7 @@ Para utilizar este script, você precisa apenas de:
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 O script oferece dois modos principais de operação: **Menu Interativo** e **Linha de Comando (CLI)**.
 
@@ -28,8 +28,9 @@ python markitdown_cli.py
 
 **Funcionalidades do Menu:**
 *   **1 a 3**: Funções de conversão (Arquivo, Pasta ou URL do YouTube/Web).
-*   **4. Cabeçalho YAML**: Alterne entre **REMOVER** (limpeza automática de metadados) ou **MANTER**.
-*   **5. Redefinir Caminho**: Use esta opção se você mudar seu ambiente virtual de lugar ou quiser trocar a versão do MarkItDown utilizada.
+*   **4. Cabeçalho YAML**: Alterne entre **REMOVER** (limpeza automática) ou **MANTER**.
+*   **5. Definir Pasta de Saída**: Escolha uma pasta central para salvar todas as conversões (ou deixe em branco para salvar na origem).
+*   **6. Redefinir Caminho**: Use esta opção se mudar seu ambiente virtual de lugar.
 
 ---
 
@@ -45,17 +46,18 @@ Para uso rápido ou em automações.
 
 ---
 
-## ✨ Inteligência e Configuração
+## Inteligência e Configuração
 
 O script agora gerencia as configurações de forma dinâmica:
 
-*   **Configuração Persistente**: O caminho do executável é salvo no arquivo `markitdown_config.json` no mesmo diretório do script.
-*   **Limpeza de Front Matter**: Remove automaticamente aqueles blocos técnicos entre `---` no início do arquivo, comuns em conteúdos do Microsoft Learn.
-*   **Flexibilidade Total**: Se o script for movido para outra máquina ou diretório, ele saberá se reajustar ou guiar o usuário na configuração.
+*   **Configuração Persistente**: Caminhos e preferências de saída são salvos no arquivo `markitdown_config.json`.
+*   **Correção de Caracteres (Encoding)**: Implementado suporte robusto para Windows, corrigindo problemas com acentuação (`ç`, `ã`, `é`) tanto na leitura quanto na gravação.
+*   **Limpeza de Front Matter**: Remove automaticamente blocos técnicos entre `---` no início do arquivo.
+*   **Flexibilidade Total**: Se o script for movido para outra máquina ou diretório, ele saberá se reajustar.
 
 ---
 
-## 📖 Referência de Parâmetros
+## Referência de Parâmetros
 
 Se você preferir não usar o menu e invocar o script diretamente via terminal, aqui estão todos os parâmetros disponíveis:
 
@@ -69,4 +71,3 @@ Se você preferir não usar o menu e invocar o script diretamente via terminal, 
 | `-h`, `--help` | Mostra a ajuda oficial do script com todos os comandos. | `python markitdown_cli.py --help` |
 
 ---
-**Manual atualizado com suporte a Descoberta Dinâmica e Referência de Parâmetros.** 🚀

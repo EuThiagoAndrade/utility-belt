@@ -1,0 +1,21 @@
+# Configurações locais do MarkItDown CLI (Contém caminhos pessoais)
+MarkItDown_CLI/markitdown_config.json
+
+# Ambientes Virtuais (Venvs locais)
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode e cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Arquivos de sistema e IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
