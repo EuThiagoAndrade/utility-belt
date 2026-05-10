@@ -6,9 +6,10 @@ Este script é um "wrapper" em Python para a ferramenta **MarkItDown**, projetad
 
 ## Pré-requisitos
 
-Para utilizar este script, você precisa apenas de:
-1.  **Python** instalado na sua máquina.
-2.  A ferramenta **MarkItDown** instalada em algum lugar (Ambiente Virtual, Global ou Conda).
+Para utilizar este script, você precisa de:
+1.  **Python** instalado na sua máquina (versão 3.7+).
+2.  A ferramenta **MarkItDown** instalada.
+3.  A biblioteca **Rich** (instalada automaticamente via `pip install rich`).
 
 > [!TIP]
 > **Descoberta Automática:** O script é inteligente! Ele tentará encontrar o MarkItDown sozinho no seu sistema ou em pastas `.venv` e `venv` próximas. Se não encontrar, ele solicitará o caminho na primeira execução e salvará a configuração para que você não precise digitar novamente.
@@ -20,16 +21,19 @@ Para utilizar este script, você precisa apenas de:
 O script oferece dois modos principais de operação: **Menu Interativo** e **Linha de Comando (CLI)**.
 
 ### 1. Modo Menu Interativo (Recomendado)
-Execute o script sem argumentos para abrir a interface visual:
+Execute o script sem argumentos para abrir a interface visual moderna:
 
 ```powershell
 python markitdown_cli.py
 ```
 
 **Funcionalidades do Menu:**
-*   **1 a 3**: Funções de conversão (Arquivo, Pasta ou URL do YouTube/Web).
-*   **4. Cabeçalho YAML**: Alterne entre **REMOVER** (limpeza automática) ou **MANTER**.
-*   **5. Definir Pasta de Saída**: Escolha uma pasta central para salvar todas as conversões (ou deixe em branco para salvar na origem).
+*   **Interface Visual**: Design inspirado em terminais.
+*   **Navegação**: Use as setas do teclado (**↑** e **↓**) para navegar e **Enter** para selecionar, ou digite o número da opção.
+*   **1. 2. 3. Conversões**: Opções de menu detalhadas para conversão de Arquivos, Pastas (Lote) ou URLs.
+*   **4. Limpeza de Metadados YAML**: Controle visual se os metadados do MarkItDown serão removidos (**ATIVADA**) ou mantidos (**DESATIVADA**).
+*   **5. Definir Pasta de Saída**: Configuração de pasta padrão para salvar os arquivos `.md` gerados.
+*   **Barra de Status**: Rodapé informativo centralizado com créditos do desenvolvedor.
 *   **6. Redefinir Caminho**: Use esta opção se mudar seu ambiente virtual de lugar.
 
 ---

@@ -4,7 +4,27 @@ import subprocess
 import argparse
 import re
 import json
+import msvcrt
 from pathlib import Path
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+from rich.table import Table
+from rich.theme import Theme
+
+# Configuração de tema para a interface
+custom_theme = Theme({
+    "info": "dim cyan",
+    "warning": "magenta",
+    "danger": "bold red",
+    "success": "bold green",
+    "header": "bold white",
+    "menu_opt": "white",
+    "selected": "bold white on blue",
+    "status": "white on blue"
+})
+
+console = Console(theme=custom_theme)
 
 # Arquivo de configuração persistente
 CONFIG_FILE = Path(__file__).parent / "markitdown_config.json"
@@ -52,8 +72,8 @@ def get_markitdown_path():
 
 def setup_interactive_path():
     """Solicita o caminho do executável ao usuário."""
-    print("\n🔍 MarkItDown não localizado automaticamente.")
-    path = input("Digite o caminho completo do executável: ").strip('"').strip("'").strip()
+    console.print("\n[warning]🔍 MarkItDown não localizado automaticamente.[/warning]")
+    path = console.input("[info]Digite o caminho completo do executável: [/info]").strip('"').strip("'").strip()
     if os.path.exists(path):
         config = load_config()
         config["path"] = path
@@ -93,7 +113,7 @@ def convert_file(exe_path, input_path, output_path=None, remove_header=True):
                 output_path = Path("web_content.md")
 
     output_path = Path(output_path)
-    print(f"🔄 Processando: {input_path if is_url else input_path.name} ...")
+    console.print(f"[info]🔄 Processando: {input_path if is_url else input_path.name} ...[/info]")
     
     try:
         # BUG FIX: Para resolver caracteres corrompidos no Windows,
@@ -117,7 +137,7 @@ def convert_file(exe_path, input_path, output_path=None, remove_header=True):
             output_path.parent.mkdir(parents=True, exist_ok=True)
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(f"✅ Sucesso: {output_path}")
+            console.print(f"[success]✅ Sucesso: {output_path}[/success]")
             return True
         else:
             # Erros também podem ter caracteres especiais
@@ -125,82 +145,154 @@ def convert_file(exe_path, input_path, output_path=None, remove_header=True):
                 err_msg = result.stderr.decode('utf-8')
             except:
                 err_msg = result.stderr.decode('cp1252', errors='replace')
-            print(f"❌ Erro: {err_msg}")
+            console.print(f"[danger]❌ Erro: {err_msg}[/danger]")
             return False
     except Exception as e:
-        print(f"❌ Erro inesperado: {e}")
+        console.print(f"[danger]❌ Erro inesperado: {e}[/danger]")
         return False
 
 def set_output_dir():
     """Configura a pasta de saída padrão."""
-    print("\n📂 Configurar Pasta de Saída Padrão")
-    print("Deixe em branco para salvar sempre na pasta do arquivo original.")
-    path = input("Caminho da pasta: ").strip('"').strip("'").strip()
+    console.print("\n[header]📂 Configurar Pasta de Saída Padrão[/header]")
+    console.print("[menu_opt]Deixe em branco para salvar sempre na pasta do arquivo original.[/menu_opt]")
+    path = console.input("[info]Caminho da pasta: [/info]").strip('"').strip("'").strip()
     
     config = load_config()
     if not path:
         config["output_dir"] = None
-        print("✅ Pasta padrão removida. Salvando arquivos na origem.")
+        console.print("[success]✅ Pasta padrão removida. Salvando arquivos na origem.[/success]")
     else:
         out_path = Path(path)
         out_path.mkdir(parents=True, exist_ok=True)
         config["output_dir"] = str(out_path)
-        print(f"✅ Pasta de saída configurada: {out_path}")
+        console.print(f"[success]✅ Pasta de saída configurada: {out_path}[/success]")
     
     save_config(config)
 
+def draw_header():
+    """Desenha o cabeçalho estilo terminal da imagem."""
+    header = Text()
+    header.append("terminal", style="success")
+    header.append(" MarkItDown CLI v1.0", style="header")
+    
+    # Botões simulados (bolinhas do macOS/Windows Terminal)
+    buttons = Text("  ○ ○ ○", style="dim white")
+    
+    # Criamos uma tabela invisível para alinhar o título e os botões
+    header_table = Table.grid(expand=True)
+    header_table.add_column(justify="left")
+    header_table.add_column(justify="right")
+    header_table.add_row(header, buttons)
+    
+    console.print(Panel(header_table, style="on grey15", padding=(0, 1)))
+
+def draw_status_bar():
+    """Desenha a barra de status inferior com créditos do desenvolvedor."""
+    status = Text(" CLI - Desenvolvido por: THIAGO ANDRADE  |  https://github.com/EuThiagoAndrade ", style="bold white")
+    
+    # Tabela azul que ocupa toda a largura para centralizar o texto
+    status_table = Table.grid(expand=True)
+    status_table.add_column(justify="center")
+    status_table.add_row(status)
+    
+    console.print(status_table, style="on blue")
+
 def show_menu(exe_path):
-    """Menu interativo."""
+    """Menu interativo com navegação por setas e interface Rich."""
+    options = [
+        "1. Converter Arquivo Único para Markdown",
+        "2. Converter Pasta Inteira para Markdown (Lote)",
+        "3. Converter URL (Web/YouTube) para Markdown",
+        "4. Limpeza de Metadados YAML",
+        "5. Definir Pasta de Saída Padrão",
+        "6. Redefinir Localização do MarkItDown",
+        "0. Sair do Programa"
+    ]
+    
+    selected_index = 0
     remove_header = True
+    
     while True:
         config = load_config()
         out_dir = config.get("output_dir", "Mesma pasta da origem")
         
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("="*60)
-        print("🚀 MARKITDOWN CLI - VERSÃO CORRIGIDA")
-        print(f"Motor: {exe_path}")
-        print(f"Saída: {out_dir}")
-        print("="*60)
-        print("1. Converter Arquivo Único")
-        print("2. Converter Pasta (Lote)")
-        print("3. Converter URL (YouTube ou Site)")
-        print("-" * 60)
-        print(f"4. Opção: [ {'REMOVER' if remove_header else 'MANTER'} ] Cabeçalho YAML")
-        print("5. Definir pasta de saída padrão")
-        print("6. Redefinir caminho do MarkItDown")
-        print("-" * 60)
-        print("0. Sair")
-        print("="*60)
+        console.clear()
+        draw_header()
         
-        opcao = input("\nEscolha: ")
-        if opcao == '1':
-            path = input("Arquivo: ").strip('"').strip("'")
-            convert_file(exe_path, path, remove_header=remove_header)
-            input("\nEnter...")
-        elif opcao == '2':
-            path = input("Pasta: ").strip('"').strip("'")
-            process_directory(exe_path, Path(path), remove_header)
-            input("\nEnter...")
-        elif opcao == '3':
-            url = input("URL: ").strip()
-            convert_file(exe_path, url, remove_header=remove_header)
-            input("\nEnter...")
-        elif opcao == '4':
+        console.print("\n[header]MarkItDown - Conversor Universal para Markdown[/header]")
+        console.print("[menu_opt]Use as setas [bold]↑ ↓[/bold] para navegar e [bold]Enter[/bold] para selecionar.[/menu_opt]\n")
+
+        # Renderização das Opções
+        for i, option in enumerate(options):
+            style = "selected" if i == selected_index else "menu_opt"
+            prefix = " > " if i == selected_index else "   "
+            
+            line = Text(f"{prefix}{option}", style=style)
+            
+            if "4. Limpeza" in option:
+                status_text = Text.from_markup("[bold green] [ ATIVADA ][/bold green]" if remove_header else "[bold red] [ DESATIVADA ][/bold red]")
+                line.append(status_text)
+            
+            console.print(line)
+        
+        console.print("\n" + "─" * 60, style="dim white")
+        console.print(f" [info]Saída:[/info] [white]{out_dir}[/white]\n")
+        
+        draw_status_bar()
+
+        # Prompt visualmente informativo logo abaixo da barra
+        console.print("\n [bold blue]➜[/bold blue] [bold white]Escolha:[/bold white] ", end="")
+        
+        # Captura de tecla no Windows
+        key = msvcrt.getch()
+        
+        if key == b'\xe0':  # Tecla especial (setas)
+            key = msvcrt.getch()
+            if key == b'H':  # Seta para Cima
+                selected_index = (selected_index - 1) % len(options)
+            elif key == b'P':  # Seta para Baixo
+                selected_index = (selected_index + 1) % len(options)
+            continue
+        
+        if key == b'\r':  # Tecla Enter
+            opcao_escolhida = options[selected_index].split('.')[0].strip()
+        elif key.isdigit():
+            opcao_escolhida = key.decode()
+        else:
+            continue
+
+        # Lógica das opções
+        if opcao_escolhida == '1':
+            path = console.input("\n[info]Digite o caminho do Arquivo: [/info]").strip('"').strip("'")
+            if path:
+                convert_file(exe_path, path, remove_header=remove_header)
+                console.input("\n[dim]Pressione Enter para voltar...[/dim]")
+        elif opcao_escolhida == '2':
+            path = console.input("\n[info]Digite o caminho da Pasta: [/info]").strip('"').strip("'")
+            if path:
+                process_directory(exe_path, Path(path), remove_header)
+                console.input("\n[dim]Pressione Enter para voltar...[/dim]")
+        elif opcao_escolhida == '3':
+            url = console.input("\n[info]Digite a URL (Web/YouTube): [/info]").strip()
+            if url:
+                convert_file(exe_path, url, remove_header=remove_header)
+                console.input("\n[dim]Pressione Enter para voltar...[/dim]")
+        elif opcao_escolhida == '4':
             remove_header = not remove_header
-        elif opcao == '5':
+        elif opcao_escolhida == '5':
             set_output_dir()
-            input("\nEnter...")
-        elif opcao == '6':
+            console.input("\n[dim]Pressione Enter para voltar...[/dim]")
+        elif opcao_escolhida == '6':
             if CONFIG_FILE.exists(): os.remove(CONFIG_FILE)
+            console.print("[warning]Configurações redefinidas. Saindo...[/warning]")
             sys.exit(0)
-        elif opcao == '0':
+        elif opcao_escolhida == '0':
             break
 
 def process_directory(exe_path, input_path, remove_header):
     """Processa diretório."""
     if not input_path.is_dir():
-        print("❌ Pasta inválida.")
+        console.print("[danger]❌ Pasta inválida.[/danger]")
         return
     exts = ['.pdf', '.docx', '.doc', '.pptx', '.ppt', '.xlsx', '.xls', 
             '.jpg', '.png', '.mp3', '.wav', '.html', '.htm', '.csv', 
