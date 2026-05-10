@@ -1,6 +1,3 @@
-# Configurações locais do File2MD (Contém caminhos pessoais)
-File2MD/file2md_config.json
-
 # Ambientes Virtuais (Venvs locais)
 .venv/
 venv/
