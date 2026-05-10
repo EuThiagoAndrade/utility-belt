@@ -27,7 +27,7 @@ custom_theme = Theme({
 console = Console(theme=custom_theme)
 
 # Arquivo de configuração persistente
-CONFIG_FILE = Path(__file__).parent / "markitdown_config.json"
+CONFIG_FILE = Path(__file__).parent / "file2md_config.json"
 
 def load_config():
     """Carrega as configurações do arquivo JSON."""
@@ -170,10 +170,31 @@ def set_output_dir():
     save_config(config)
 
 def draw_header():
-    """Desenha o cabeçalho estilo terminal da imagem."""
+    """Desenha o banner ASCII e o cabeçalho estilo terminal."""
+    # Banner ASCII FILE2MD (Aesthetics)
+    # FILE (White), 2 (Green), MD (White)
+    banner_text = [
+        ( " ███████ ██ ██      ███████ ", "bold white"), ( "  ██████  ", "bold green"), ( " ███    ███ ██████  ", "bold white" ),
+        ( " ██      ██ ██      ██      ", "bold white"), ( "       ██ ", "bold green"), ( " ████  ████ ██   ██ ", "bold white" ),
+        ( " █████   ██ ██      █████   ", "bold white"), ( "   █████  ", "bold green"), ( " ██ ████ ██ ██   ██ ", "bold white" ),
+        ( " ██      ██ ██      ██      ", "bold white"), ( "  ██      ", "bold green"), ( " ██  ██  ██ ██   ██ ", "bold white" ),
+        ( " ██      ██ ███████ ███████ ", "bold white"), ( "  ████████", "bold green"), ( " ██      ██ ██████  ", "bold white" )
+    ]
+    
+    console.print() # Espaço extra no topo
+    for i in range(0, len(banner_text), 3):
+        line = Text()
+        line.append(banner_text[i][0], style=banner_text[i][1])
+        line.append(banner_text[i+1][0], style=banner_text[i+1][1])
+        line.append(banner_text[i+2][0], style=banner_text[i+2][1])
+        console.print(line)
+    console.print()
+
     header = Text()
-    header.append("terminal", style="success")
-    header.append(" MarkItDown CLI v1.0", style="header")
+    header.append("File ", style="header")
+    header.append("2", style="success")
+    header.append(" MD", style="header")
+    header.append(" - \"wrapper\" em Python para a ferramenta MarkItDown", style="header")
     
     # Botões simulados (bolinhas do macOS/Windows Terminal)
     buttons = Text("  ○ ○ ○", style="dim white")
@@ -188,7 +209,10 @@ def draw_header():
 
 def draw_status_bar():
     """Desenha a barra de status inferior com créditos do desenvolvedor."""
-    status = Text(" CLI - Desenvolvido por: THIAGO ANDRADE  |  https://github.com/EuThiagoAndrade ", style="bold white")
+    status = Text()
+    status.append("File ", style="bold white")
+    status.append("2", style="success")
+    status.append(" MD - Desenvolvido por: THIAGO ANDRADE  |  https://github.com/EuThiagoAndrade ", style="bold white")
     
     # Tabela azul que ocupa toda a largura para centralizar o texto
     status_table = Table.grid(expand=True)
@@ -219,7 +243,7 @@ def show_menu(exe_path):
         console.clear()
         draw_header()
         
-        console.print("\n[header]MarkItDown - Conversor Universal para Markdown[/header]")
+        console.print()
         console.print("[menu_opt]Use as setas [bold]↑ ↓[/bold] para navegar e [bold]Enter[/bold] para selecionar.[/menu_opt]\n")
 
         # Renderização das Opções

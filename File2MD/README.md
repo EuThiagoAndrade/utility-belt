@@ -24,7 +24,7 @@ O script oferece dois modos principais de operação: **Menu Interativo** e **Li
 Execute o script sem argumentos para abrir a interface visual moderna:
 
 ```powershell
-python markitdown_cli.py
+python File2MD.py
 ```
 
 **Funcionalidades do Menu:**
@@ -43,10 +43,10 @@ Para uso rápido ou em automações.
 
 | Comando | Descrição |
 | :--- | :--- |
-| `python markitdown_cli.py "arquivo.pdf"` | Converte o arquivo com limpeza de cabeçalho padrão. |
-| `python markitdown_cli.py "C:\Pasta" -d` | Processamento inteligente em lote (pasta inteira). |
-| `python markitdown_cli.py "doc.docx" --keep-header` | Converte mantendo os metadados originais. |
-| `python markitdown_cli.py --set-path "C:\caminho\exe"` | Configura o local do MarkItDown manualmente. |
+| `python File2MD.py "arquivo.pdf"` | Converte o arquivo com limpeza de cabeçalho padrão. |
+| `python File2MD.py "C:\Pasta" -d` | Processamento inteligente em lote (pasta inteira). |
+| `python File2MD.py "doc.docx" --keep-header` | Converte mantendo os metadados originais. |
+| `python File2MD.py --set-path "C:\caminho\exe"` | Configura o local do MarkItDown manualmente. |
 
 ---
 
@@ -54,7 +54,7 @@ Para uso rápido ou em automações.
 
 O script agora gerencia as configurações de forma dinâmica:
 
-*   **Configuração Persistente**: Caminhos e preferências de saída são salvos no arquivo `markitdown_config.json`.
+*   **Configuração Persistente**: Caminhos e preferências de saída são salvos no arquivo `file2md_config.json`.
 *   **Correção de Caracteres (Encoding)**: Implementado suporte robusto para Windows, corrigindo problemas com acentuação (`ç`, `ã`, `é`) tanto na leitura quanto na gravação.
 *   **Limpeza de Front Matter**: Remove automaticamente blocos técnicos entre `---` no início do arquivo.
 *   **Flexibilidade Total**: Se o script for movido para outra máquina ou diretório, ele saberá se reajustar.

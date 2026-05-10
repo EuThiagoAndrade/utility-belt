@@ -1,5 +1,5 @@
-# Configurações locais do MarkItDown CLI (Contém caminhos pessoais)
-MarkItDown_CLI/markitdown_config.json
+# Configurações locais do File2MD (Contém caminhos pessoais)
+File2MD/file2md_config.json
 
 # Ambientes Virtuais (Venvs locais)
 .venv/
