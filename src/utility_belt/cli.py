@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 
 import typer
 
@@ -17,7 +18,7 @@ from utility_belt.runner import run_tool
 app = typer.Typer(
     name="belt",
     help="Utility Belt (`belt`): Canivete suíço pessoal de terminal para Windows e Linux.",
-    no_args_is_help=True,
+    no_args_is_help=False,
     add_completion=False,
 )
 
@@ -32,8 +33,9 @@ def version_callback(value: bool) -> None:
         raise typer.Exit()
 
 
-@app.callback()
+@app.callback(invoke_without_command=True)
 def common_options(
+    ctx: typer.Context,
     version: bool | None = typer.Option(
         None,
         "--version",
@@ -43,7 +45,13 @@ def common_options(
         is_eager=True,
     ),
 ) -> None:
-    pass
+    if ctx.invoked_subcommand is None:
+        if sys.stdin.isatty():
+            show_menu()
+        else:
+            # Fora de TTY, exibe ajuda padrão
+            typer.echo(ctx.get_help())
+            raise typer.Exit()
 
 
 @app.command(name="list", help="Lista as ferramentas registradas no catálogo.")

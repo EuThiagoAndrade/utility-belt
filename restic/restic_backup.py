@@ -7,11 +7,11 @@ import datetime as dt
 import getpass
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
 import uuid
+from pathlib import Path
 
 BASE = Path(os.environ.get('LOCALAPPDATA', str(Path.home()))) / 'ResticMenu'
 CONFIG = BASE / 'config.json'

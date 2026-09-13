@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import typer
@@ -12,8 +13,21 @@ from utility_belt.runner import run_tool
 restic_app = typer.Typer(
     name="restic",
     help="Comandos para backup, restauração e integridade com Restic.",
-    no_args_is_help=True,
+    no_args_is_help=False,
 )
+
+
+@restic_app.callback(invoke_without_command=True)
+def restic_callback(ctx: typer.Context) -> None:
+    """Abre o menu interativo do Restic quando chamado sem subcomando."""
+    if ctx.invoked_subcommand is None:
+        if sys.stdin.isatty():
+            from utility_belt.ui.restic_menu import show_restic_menu
+
+            show_restic_menu()
+        else:
+            typer.echo(ctx.get_help())
+            raise typer.Exit()
 
 
 def _exec_restic_tool(subcommand: str, extra_args: list[str], non_interactive: bool = False) -> None:
@@ -126,3 +140,16 @@ def restic_init(
 @restic_app.command(name="migrate-config", help="Migra a configuração do ResticMenu para o config.toml do Utility Belt.")
 def restic_migrate_config() -> None:
     _exec_restic_tool("migrate-config", [])
+
+
+@restic_app.command(name="menu", help="Abre o menu interativo do Restic.")
+def restic_menu_cmd() -> None:
+    import sys
+
+    if not sys.stdin.isatty():
+        typer.secho("Erro: 'belt restic menu' requer um terminal interativo (TTY).", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=2)
+
+    from utility_belt.ui.restic_menu import show_restic_menu
+
+    show_restic_menu()
