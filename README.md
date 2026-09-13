@@ -6,7 +6,7 @@ Canivete suíço pessoal de terminal para Windows e Linux.
 
 Instalação isolada recomendada via `uv`:
 ```bash
-uv tool install "git+https://github.com/EuThiagoAndrade/Scripts-Windows-Python.git@main"
+uv tool install "git+https://github.com/EuThiagoAndrade/utility-belt.git@main"
 uv tool update-shell
 ```
 

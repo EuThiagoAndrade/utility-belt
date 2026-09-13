@@ -105,7 +105,7 @@ Pré-requisitos por máquina: `uv`, acesso à origem e Git quando a instalação
 Comandos abaixo são modelos para depois do empacotamento; substituir `ORGANIZACAO` e confirmar a branch real. Não executar contra esses placeholders.
 
 ```text
-uv tool install "git+https://github.com/ORGANIZACAO/utility-belt.git@main"
+uv tool install "git+https://github.com/EuThiagoAndrade/utility-belt.git@main"
 uv tool update-shell
 ```
 
