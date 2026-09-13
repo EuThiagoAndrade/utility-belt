@@ -1,0 +1,32 @@
+name: Feature Request
+description: Propor uma nova funcionalidade ou melhoria planejada para o Utility Belt
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por propor uma funcionalidade para o `utility-belt`. Preencha os campos abaixo com as informações do plano aprovado.
+  - type: textarea
+    id: cycle
+    attributes:
+      label: Ciclo e Rastreabilidade
+      description: Ciclo de governança e plano associado.
+      placeholder: "Ciclo: NNN | Plano: _project/drafts/NNN_assunto/NNN_plan.md"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição e Contexto
+      description: O que esta funcionalidade entrega e por quê.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Critérios de Aceite
+      description: Lista verificável de requisitos para conclusão.
+      placeholder: "- [ ] Critério 1\n- [ ] Critério 2"
+    validations:
+      required: true
