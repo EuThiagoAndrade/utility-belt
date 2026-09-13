@@ -1,0 +1,11 @@
+schema_version = 1
+id = "system.info"
+name = "Informações do Sistema"
+description = "Exibe dados sobre o ambiente, sistema operacional e terminal atual."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux", "darwin"]
+interactive = false
+risk = "read"
+supports_dry_run = false
+external_dependencies = []

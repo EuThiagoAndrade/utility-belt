@@ -1,0 +1,11 @@
+schema_version = 1
+id = "docker.import"
+name = "Importar Imagens Docker"
+description = "Importa imagens de um arquivo .tar para o Docker com separação estrita da execução."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux", "darwin"]
+interactive = false
+risk = "write"
+supports_dry_run = true
+external_dependencies = ["docker"]

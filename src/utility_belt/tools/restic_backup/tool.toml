@@ -1,0 +1,11 @@
+schema_version = 1
+id = "restic.backup"
+name = "Backup e Restauração Restic"
+description = "Operações seguras de backup, restauração e verificação com Restic, preservando ID e memória de senha."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux", "darwin"]
+interactive = false
+risk = "write"
+supports_dry_run = true
+external_dependencies = ["restic"]

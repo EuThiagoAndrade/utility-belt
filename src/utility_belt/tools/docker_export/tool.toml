@@ -1,0 +1,11 @@
+schema_version = 1
+id = "docker.export"
+name = "Exportar Imagens Docker"
+description = "Exporta imagens Docker para arquivo .tar com manifesto e promoção atômica."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux", "darwin"]
+interactive = false
+risk = "read"
+supports_dry_run = true
+external_dependencies = ["docker"]
