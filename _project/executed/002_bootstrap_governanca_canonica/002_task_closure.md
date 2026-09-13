@@ -4,8 +4,10 @@
 > **Estado:** `Concluído`
 > **Plano:** `_project/executed/002_bootstrap_governanca_canonica/002_plan.md`
 > **Data de encerramento:** 2026-09-13
+> **Pull Request:** [PR #4](https://github.com/EuThiagoAndrade/utility-belt/pull/4)
+> **Commit de integração:** `2e201e3`
 > **handoff_schema_version:** `1`
-> **handoff_id:** EuThiagoAndrade/utility-belt+002+task_closure+bootstrap_governanca_canonica+HEAD
+> **handoff_id:** EuThiagoAndrade/utility-belt+002+task_closure+bootstrap_governanca_canonica+2e201e3
 
 ## Resumo das entregas
 
@@ -22,10 +24,12 @@ O ciclo 002 estabeleceu a governança canônica no Utility Belt:
 
 | Gate | Resultado |
 | :-- | :-- |
-| `scripts/validate_governance.py` | 24 verificações | 24 OK | 0 falhas |
+| `scripts/validate_governance.py` | 25 verificações | 25 OK | 0 falhas |
 | `pytest` | 52 passed |
 | `ruff check` | Passou |
 | `git diff --check` | Limpo |
+| Pull Request | [PR #4](https://github.com/EuThiagoAndrade/utility-belt/pull/4) (Merged) |
+| Commit de integração | `2e201e3` |
 
 ## Handoff de saída
 
