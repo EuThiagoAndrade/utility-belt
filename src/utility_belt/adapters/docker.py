@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import typer
@@ -12,8 +13,21 @@ from utility_belt.runner import run_tool
 docker_app = typer.Typer(
     name="docker",
     help="Comandos para exportação e importação segura de imagens Docker.",
-    no_args_is_help=True,
+    no_args_is_help=False,
 )
+
+
+@docker_app.callback(invoke_without_command=True)
+def docker_callback(ctx: typer.Context) -> None:
+    """Abre o menu interativo do Docker quando chamado sem subcomando."""
+    if ctx.invoked_subcommand is None:
+        if sys.stdin.isatty():
+            from utility_belt.ui.docker_menu import show_docker_menu
+
+            show_docker_menu()
+        else:
+            typer.echo(ctx.get_help())
+            raise typer.Exit()
 
 
 @docker_app.command(name="export", help="Exporta imagens Docker para arquivo .tar com manifesto.")
@@ -78,3 +92,16 @@ def import_images(
 
     exit_code = run_tool(tool, args=args)
     raise typer.Exit(code=exit_code)
+
+
+@docker_app.command(name="menu", help="Abre o menu interativo do Docker.")
+def docker_menu_cmd() -> None:
+    import sys
+
+    if not sys.stdin.isatty():
+        typer.secho("Erro: 'belt docker menu' requer um terminal interativo (TTY).", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=2)
+
+    from utility_belt.ui.docker_menu import show_docker_menu
+
+    show_docker_menu()
