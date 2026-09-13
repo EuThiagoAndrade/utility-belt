@@ -1,0 +1,38 @@
+name: Bug Report
+description: Reportar um defeito ou comportamento inesperado no Utility Belt
+title: "fix: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Descreva o problema encontrado com evidências e passos para reprodução.
+  - type: textarea
+    id: cycle
+    attributes:
+      label: Ciclo e Rastreabilidade
+      description: Ciclo associado ou identificação da versão do Utility Belt.
+      placeholder: "Versão: X.Y.Z | Ciclo: NNN"
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: Descrição do Defeito
+      description: O que aconteceu e o que era esperado.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Passos para Reproduzir
+      description: Comandos e ambiente (Windows/Linux, versão Python, etc.).
+      placeholder: "1. Executar 'belt ...'\n2. Observar erro..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Comportamento Esperado
+    validations:
+      required: true

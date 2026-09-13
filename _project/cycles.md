@@ -1,0 +1,14 @@
+# Registro de ciclos
+
+> **Próximo ciclo:** `003`
+> **Última atualização:** 2026-09-13
+
+| Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
+| :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
+| `000` | Fundação CLI e Distribuição | `Concluído` | — (bootstrap do projeto) | `_project/executed/000_fundacao_cli_distribuicao/000_plan.md` | — | Commit `8d8a028` |
+| `001` | Menus Interativos com Questionary | `Concluído` | — | `_project/executed/001_menus_interativos/001_plan.md` | — | [PR #3](https://github.com/EuThiagoAndrade/utility-belt/pull/3) — integrada em `f613ae8` |
+| `002` | Bootstrap da Governança Canônica | `Concluído` | — | `_project/executed/002_bootstrap_governanca_canonica/002_plan.md` | — | PR de encerramento documental |
+
+O ciclo `000` não possui ideação separada, correspondendo ao bootstrap e fundação técnica do Utility Belt.
+O ciclo `001` originou-se do refinamento interativo de experiência de usuário e foi concluído na PR #3.
+O ciclo `002` estabeleceu o modelo de governança canônica agnóstica, adaptação de agentes e gates automatizados em Python.

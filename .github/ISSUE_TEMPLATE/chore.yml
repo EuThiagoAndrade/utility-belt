@@ -1,0 +1,31 @@
+name: Tarefa de Manutenção (Chore)
+description: Tarefas técnicas, ajustes de governança ou documentação no Utility Belt
+title: "chore: "
+labels: ["chore"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Utilize este template para manutenção interna, governança documental ou automação.
+  - type: textarea
+    id: cycle
+    attributes:
+      label: Ciclo e Rastreabilidade
+      description: Ciclo associado ou escopo documental.
+      placeholder: "Ciclo: NNN"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição da Tarefa
+      description: O que precisa ser ajustado ou mantido.
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist de Execução
+      placeholder: "- [ ] Item 1\n- [ ] Item 2"
+    validations:
+      required: true

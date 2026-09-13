@@ -1,0 +1,25 @@
+# Lições aprendidas
+
+Registro de aprendizados comprovados e reutilizáveis do repositório `utility-belt`. Não use este arquivo como backlog, task corrente ou histórico de conversa.
+
+## Registros
+
+### 2026-09-11 — Subprocess cwd deve sempre apontar para o diretório do usuário
+
+No ciclo `000`, a análise da execução de ferramentas CLI isoladas via `uv tool` evidenciou que mudar o `cwd` do subprocesso para o diretório interno do script faz com que caminhos relativos passados pelo usuário (ex.: `--output ./imagens.tar`) sejam gravados dentro do ambiente virtual em `site-packages`. O runner deve sempre fixar `cwd = Path.cwd()` no diretório corrente de invocação do usuário e injetar a pasta da ferramenta no `PYTHONPATH` do processo filho.
+
+### 2026-09-11 — Subprocessos PowerShell no Windows exigem ExecutionPolicy Bypass
+
+No Windows padrão, a política de execução de scripts PowerShell é frequentemente `Restricted`. Para que scripts `.ps1` empacotados funcionem de forma transparente sem que o usuário precise alterar a política global da sua máquina, a invocação do runner deve passar `-NoProfile -ExecutionPolicy Bypass -File` como argumentos diretos do subprocesso.
+
+### 2026-09-11 — tomllib nativo é somente leitura; escrita atômica exige tomli-w
+
+No Python 3.11+, o módulo nativo `tomllib` provê apenas deserialização (leitura) de TOML. Para edição e gravação de perfis em `config.toml`, deve-se utilizar `tomli-w` com escrita atômica em arquivo temporário seguida de substituição para garantir que falhas de E/S ou interrupções não corrompam o arquivo de configuração do usuário.
+
+### 2026-09-13 — Menus interativos devem ser condicionais ao TTY
+
+No ciclo `001`, a inclusão de menus interativos guiados via `questionary` exigiu a distinção estrita entre chamadas interativas e não-interativas. Comandos executados sem argumentos abrem menus interativos apenas quando conectados a um terminal interativo (`sys.stdin.isatty()`). Em ambientes não-interativos (scripts, CI, cron) ou com `--non-interactive`, a CLI deve manter o comportamento padrão de exibir ajuda ou abortar com código de saída 2, nunca travando à espera de entrada do usuário.
+
+### 2026-09-13 — Handoffs estáveis e rastreabilidade pós-merge
+
+Em rotinas de governança com múltiplos agentes e revisões, a identidade do handoff (`handoff_id`) deve ser derivada deterministicamente de repositório, ciclo, workflow, alvo lógico e revisão de origem, e nunca de timestamps voláteis ou UUIDs arbitrários. Reexecuções compatíveis devem ser reconciliadas sem duplicação documental.
