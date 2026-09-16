@@ -4,10 +4,10 @@
 > **Estado:** `Concluído`
 > **Plano:** `_project/executed/003_atualizacao_readme/003_plan.md`
 > **Data de encerramento:** 2026-09-16
-> **Pull Request:** PR de encerramento documental
-> **Commit de integração:** `37f3b2e`
+> **Pull Request:** [PR #7](https://github.com/EuThiagoAndrade/utility-belt/pull/7)
+> **Commit de integração:** `26f4fa1`
 > **handoff_schema_version:** `1`
-> **handoff_id:** EuThiagoAndrade/utility-belt+003+task_closure+atualizacao_readme+37f3b2e
+> **handoff_id:** EuThiagoAndrade/utility-belt+003+task_closure+atualizacao_readme+26f4fa1
 
 ## Resumo das entregas
 
