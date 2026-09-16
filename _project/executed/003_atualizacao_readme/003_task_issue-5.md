@@ -1,18 +1,18 @@
 # Task — Issue #5: Atualizar README.md com comandos reais, modo interativo, configuração e governança
 
 > **Ciclo:** `003`
-> **Estado:** `PR Aberta`
+> **Estado:** `Concluído`
 > **Tipo:** `chore`
 > **Issue:** `#5`
-> **Plano:** `_project/drafts/003_atualizacao_readme/003_plan.md`
+> **Plano:** `_project/executed/003_atualizacao_readme/003_plan.md`
 > **Branch:** `chore/issue-5`
 > **Worktree:** `C:\Programas\utility-belt`
 > **PR:** [#6](https://github.com/EuThiagoAndrade/utility-belt/pull/6)
-> **Integração:** `Pendente`
+> **Integração:** `Integrada em 37f3b2e (PR #6)`
 > **Início:** 2026-09-16
 > **Última atualização:** 2026-09-16
 > **handoff_schema_version:** `1`
-> **handoff_id:** utility-belt+003+implementar_issue+issue-5+b7f1547
+> **handoff_id:** utility-belt+003+implementar_issue+issue-5+37f3b2e
 
 ## Objetivo
 

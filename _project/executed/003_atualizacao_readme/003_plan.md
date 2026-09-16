@@ -1,7 +1,7 @@
 # Plano de Implementação — Atualização do README com a CLI Real
 
 > **Ciclo:** `003`
-> **Status:** `Aprovado`
+> **Status:** `Concluído`
 > **Versão:** `v1`
 > **Data de criação:** 2026-09-16
 > **Última atualização:** 2026-09-16
@@ -129,35 +129,35 @@ Reescrever o `README.md` na raiz do repositório incorporando a experiência TUI
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#5](https://github.com/EuThiagoAndrade/utility-belt/issues/5) |
-| PR(s) | — |
-| Branch(es) | `chore/cycle-003-plan`, `chore/issue-5` (prevista) |
+| PR(s) | [#6](https://github.com/EuThiagoAndrade/utility-belt/pull/6) |
+| Branch(es) | `chore/cycle-003-plan`, `chore/issue-5` |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `utility-belt+003+criar_issues+atualizacao_readme+4850576` |
+| `handoff_id` | `utility-belt+003+task_closure+atualizacao_readme+37f3b2e` |
 | Destino após conclusão | `_project/executed/003_atualizacao_readme/003_plan.md` |
 
 ## Handoff de saída
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `utility-belt+003+criar_issues+atualizacao_readme+4850576`
-- `identity_source`: `utility-belt + 003 + criar_issues + atualizacao_readme + 4850576`
-- `effect_class`: `remote_mutation`
-- `state_before`: `Plano Aprovado pelo responsável; nenhuma issue aberta no GitHub para o Ciclo 003.`
-- `state_after`: `Issue #5 criada no GitHub com rastreabilidade total ao Ciclo 003 e critérios do Issue Form chore.yml.`
-- `next_transition`: `issue -> implementação autorizada`
-- `preconditions`: `Plano aprovado, issue criada e verificada no GitHub, branch prevista identificada.`
-- `authority`: `Autorização explícita do responsável em 2026-09-16 para aprovar o plano e criar as issues.`
-- `evidence`: `https://github.com/EuThiagoAndrade/utility-belt/issues/5`
-- `acceptance`: `Issue #5 criada com labels ['chore'], checklist canônico e vínculo explícito ao plano aprovado.`
+- `handoff_id`: `utility-belt+003+task_closure+atualizacao_readme+37f3b2e`
+- `identity_source`: `utility-belt + 003 + task_closure + atualizacao_readme + 37f3b2e`
+- `effect_class`: `local_mutation -> remote_mutation`
+- `state_before`: `Plano Aprovado; entrega em andamento.`
+- `state_after`: `Ciclo 003 integralmente entregue e integrado via PR #6 (commit 37f3b2e); encerramento documentado.`
+- `next_transition`: `Ciclo 004`
+- `preconditions`: `Issue #5 fechada, PR #6 integrada na main, gates validados.`
+- `authority`: `Thiago Andrade`
+- `evidence`: `https://github.com/EuThiagoAndrade/utility-belt/pull/6`
+- `acceptance`: `README.md atualizado na main; integridade documental verificada.`
 - `blockers`: `nenhum`
 - `result`: `executed`
-- `next_workflow_recommended`: `implementar_issue (.agent/workflows/implementar_issue.md)`
-- `next_workflow_authorized`: `nenhum (aguarda autorização explícita para iniciar a implementação)`
-- `actions_prohibited`: `implementar alterações em README.md, abrir PR ou integrar PR sem autorização prévia de execução.`
-- `rejection_rule`: `o receptor recusa handoff ausente, incompatível, sem issue canônica verificável no GitHub ou sem autorização expressa.`
-- `logical_key`: `utility-belt+003+criar_issues+atualizacao_readme(chore+issue-5)+4850576`
-- `check_before_mutation`: `consultado repositório remoto via list_issues/gh; confirmado 0 issues prévias.`
-- `reconcile_existing`: `criada issue canônica #5 e atualizada a rastreabilidade documental local.`
-- `ambiguous_state`: `interromper caso houvesse duplicidade ou issue concorrente com o mesmo objetivo.`
+- `next_workflow_recommended`: `Ciclo 004`
+- `next_workflow_authorized`: `nenhum`
+- `actions_prohibited`: `nenhuma`
+- `rejection_rule`: `recusar handoff se encerramento não estiver documentado.`
+- `logical_key`: `utility-belt+003+task_closure+atualizacao_readme+37f3b2e`
+- `check_before_mutation`: `verificado commit de integração na branch main.`
+- `reconcile_existing`: `consolidado encerramento do ciclo.`
+- `ambiguous_state`: `nenhum`
 
 ## Revisão crítica
 
@@ -174,6 +174,6 @@ Reescrever o `README.md` na raiz do repositório incorporando a experiência TUI
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-09-16
+- **Desvios:** Nenhum desvio de escopo. A entrega ocorreu em issue única (#5) e PR (#6) com 100% de conformidade com os requisitos planejados.
+- **Lições comprovadas:** O alinhamento contínuo entre documentação do produto e as implementações reais de CLI/TUI evita sobrecarga futura e assegura clareza para usuários e contribuidores.

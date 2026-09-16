@@ -8,7 +8,7 @@
 | `000` | Fundação CLI e Distribuição | `Concluído` | — (bootstrap do projeto) | `_project/executed/000_fundacao_cli_distribuicao/000_plan.md` | — | Commit `8d8a028` |
 | `001` | Menus Interativos com Questionary | `Concluído` | — | `_project/executed/001_menus_interativos/001_plan.md` | — | [PR #3](https://github.com/EuThiagoAndrade/utility-belt/pull/3) — integrada em `f613ae8` |
 | `002` | Bootstrap da Governança Canônica | `Concluído` | — | `_project/executed/002_bootstrap_governanca_canonica/002_plan.md` | — | [PR #4](https://github.com/EuThiagoAndrade/utility-belt/pull/4) — integrada em `2e201e3` |
-| `003` | Atualização do README com a CLI Real | `Planejamento` | — | `_project/drafts/003_atualizacao_readme/003_plan.md` | [#5](https://github.com/EuThiagoAndrade/utility-belt/issues/5) | — |
+| `003` | Atualização do README com a CLI Real | `Concluído` | — | `_project/executed/003_atualizacao_readme/003_plan.md` | [#5](https://github.com/EuThiagoAndrade/utility-belt/issues/5) | PR de encerramento documental |
 
 O ciclo `000` não possui ideação separada, correspondendo ao bootstrap e fundação técnica do Utility Belt.
 O ciclo `001` originou-se do refinamento interativo de experiência de usuário e foi concluído na PR #3.
