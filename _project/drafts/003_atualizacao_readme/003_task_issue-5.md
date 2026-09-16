@@ -1,18 +1,18 @@
 # Task — Issue #5: Atualizar README.md com comandos reais, modo interativo, configuração e governança
 
 > **Ciclo:** `003`
-> **Estado:** `Em andamento`
+> **Estado:** `PR Aberta`
 > **Tipo:** `chore`
 > **Issue:** `#5`
 > **Plano:** `_project/drafts/003_atualizacao_readme/003_plan.md`
 > **Branch:** `chore/issue-5`
 > **Worktree:** `C:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#6](https://github.com/EuThiagoAndrade/utility-belt/pull/6)
 > **Integração:** `Pendente`
 > **Início:** 2026-09-16
 > **Última atualização:** 2026-09-16
 > **handoff_schema_version:** `1`
-> **handoff_id:** utility-belt+003+implementar_issue+issue-5+4850576
+> **handoff_id:** utility-belt+003+implementar_issue+issue-5+b7f1547
 
 ## Objetivo
 
@@ -34,8 +34,8 @@ Reestruturar e enriquecer o `README.md` da raiz do repositório para refletir as
 - [x] Instanciar a task persistente em `_project/drafts/003_atualizacao_readme/003_task_issue-5.md`.
 - [x] Atualizar o `README.md` com a nova estrutura completa e precisa.
 - [x] Executar os gates locais: `python scripts/validate_governance.py`, `pytest`, `ruff check`, `git diff --check`.
-- [ ] Criar commit intencional com prefixo `chore(issue-5):`.
-- [ ] Publicar a branch `chore/issue-5` e abrir Pull Request para a Issue #5.
+- [x] Criar commit intencional com prefixo `chore(issue-5):` (`b7f1547`).
+- [x] Publicar a branch `chore/issue-5` e abrir Pull Request para a Issue #5 ([PR #6](https://github.com/EuThiagoAndrade/utility-belt/pull/6)).
 
 ## Evidências
 
@@ -45,7 +45,7 @@ Reestruturar e enriquecer o `README.md` da raiz do repositório para refletir as
 | Validação | `validate_governance.py` (25 verificações OK, 0 falhas) |
 | Estilo/Lint | `ruff check` (100% limpo) |
 | `git diff --check` | Limpo (sem problemas de formatação ou whitespace) |
-| Checks remotos | Pendente de publicação da PR |
+| Checks remotos | Sem checks de CI configurados no repositório |
 
 ## Decisões incidentais e desvios
 
@@ -56,16 +56,16 @@ Reestruturar e enriquecer o `README.md` da raiz do repositório para refletir as
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `utility-belt+003+implementar_issue+issue-5+4850576`
-- `identity_source`: `utility-belt + 003 + implementar_issue + issue-5 + 4850576`
-- `effect_class`: `local_mutation`
+- `handoff_id`: `utility-belt+003+implementar_issue+issue-5+b7f1547`
+- `identity_source`: `utility-belt + 003 + implementar_issue + issue-5 + b7f1547`
+- `effect_class`: `local_mutation -> remote_mutation`
 - `state_before`: `README.md desatualizado; issue #5 aberta no GitHub; branch chore/issue-5 criada.`
-- `state_after`: `Task persistente criada; implementação em andamento.`
-- `next_transition`: `implementação e testes -> publicação de PR`
-- `preconditions`: `Issue #5 aberta e autorizada pelo responsável.`
-- `authority`: `Autorização explícita do responsável em 2026-09-16.`
-- `evidence`: `_project/drafts/003_atualizacao_readme/003_task_issue-5.md`
-- `acceptance`: `Task persistente em conformidade com .agent/templates/task.md.`
+- `state_after`: `README.md atualizado; gates validados; commit b7f1547 publicado; PR #6 aberta e aguardando revisão.`
+- `next_transition`: `PR -> revisão humana -> merge/integração autorizada`
+- `preconditions`: `PR #6 aberta no GitHub, vinculada à Issue #5 e com gates 100% satisfeitos.`
+- `authority`: `Autorização explícita do responsável em 2026-09-16 para implementar a issue #5.`
+- `evidence`: `https://github.com/EuThiagoAndrade/utility-belt/pull/6`
+- `acceptance`: `README.md cobre todos os critérios de aceite da issue #5; gates locais executados com 100% de aprovação.`
 - `blockers`: `nenhum`
 - `result`: `executed`
 - `next_workflow_recommended`: `concluir implementação e abrir PR`
