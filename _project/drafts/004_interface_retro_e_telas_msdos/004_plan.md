@@ -143,12 +143,12 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
    - Escopo: Implementação de `src/utility_belt/ui/screen.py`, banner híbrido retrô com canivete ASCII e tipografia 3D, cabeçalhos com breadcrumbs, helper de tela dedicada, configuração `show_banner` e testes em `tests/test_screen.py`.
    - Issue: [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8)
    - Branch: `feature/issue-8`
-   - PR: 1 PR focada na infraestrutura de telas e testes unitários.
+   - PR: [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10)
 2. **Issue 2 — Adoção de Telas Dedicadas nos Menus Interativos:**
    - Escopo: Integração do módulo de telas no menu principal (`menu.py`), submenus (`docker_menu.py`, `restic_menu.py`), atalhos numéricos, telas de execução de ações e atualização de `tests/test_interactive_menus.py`.
    - Issue: [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9)
    - Branch: `feature/issue-9`
-   - PR: 1 PR focada na experiência do usuário e validação dos fluxos de menu.
+   - PR: Pendente
 
 ## Dependências e blockers
 
@@ -186,7 +186,7 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8), [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9) |
-| PR(s) | — |
+| PR(s) | [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10) |
 | Branch(es) | `feature/issue-8`, `feature/issue-9` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `utility-belt/cycle-004/criar_issues/004_plan/53dd891` |

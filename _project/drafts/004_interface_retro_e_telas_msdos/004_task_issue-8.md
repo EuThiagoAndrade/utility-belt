@@ -7,12 +7,12 @@
 > **Plano:** `_project/drafts/004_interface_retro_e_telas_msdos/004_plan.md`
 > **Branch:** `feature/issue-8`
 > **Worktree:** `c:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10)
 > **Integração:** `Pendente`
 > **Início:** 2026-09-17
 > **Última atualização:** 2026-09-17
 > **handoff_schema_version:** `1`
-> **handoff_id:** `utility-belt/cycle-004/implementar_issue/issue-8/e0c8fc9`
+> **handoff_id:** `utility-belt/cycle-004/implementar_issue/issue-8/5195480`
 
 ## Objetivo
 
@@ -35,7 +35,7 @@ Implementar o módulo centralizado de interface e telas `src/utility_belt/ui/scr
 - [x] Atualizar `src/utility_belt/config.py` com a chave `show_banner`.
 - [x] Criar testes unitários em `tests/test_screen.py`.
 - [x] Executar gates locais: `validate_governance`, `ruff check`, `pytest` e `git diff --check`.
-- [ ] Publicar branch e abrir PR rastreável vinculada à Issue #8.
+- [x] Publicar branch e abrir PR rastreável vinculada à Issue #8.
 
 ## Evidências
 
@@ -44,7 +44,7 @@ Implementar o módulo centralizado de interface e telas `src/utility_belt/ui/scr
 | Testes | Passou (67/67 testes pytest com 100% sucesso) |
 | Validação | Passou (27/27 verificações validate_governance) |
 | `git diff --check` | Limpo (0 problemas de sintaxe ou espaços) |
-| Checks remotos | Pendente (aguardando publicação da PR) |
+| Checks remotos | Passou (PR #10 aberta com sucesso no GitHub) |
 
 ## Decisões incidentais e desvios
 
