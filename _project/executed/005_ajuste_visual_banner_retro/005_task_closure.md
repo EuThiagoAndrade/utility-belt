@@ -4,7 +4,7 @@
 > **Estado:** `Concluído`
 > **Plano:** `_project/executed/005_ajuste_visual_banner_retro/005_plan.md`
 > **Data de encerramento:** 2026-09-17
-> **Pull Request de Encerramento:** Pendente
+> **Pull Request:** [PR #15](https://github.com/EuThiagoAndrade/utility-belt/pull/15)
 > **PRs de implementação:** [PR #14](https://github.com/EuThiagoAndrade/utility-belt/pull/14) (Issue #13)
 > **Commits de integração:** `ccf07b4` (PR #14)
 > **handoff_schema_version:** `1`
