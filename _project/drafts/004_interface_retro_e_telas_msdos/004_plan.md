@@ -1,14 +1,14 @@
 # Plano de Implementação — Interface Retrô MS-DOS e Identidade Visual
 
 > **Ciclo:** `004`
-> **Status:** `Rascunho`
+> **Status:** `Em Revisão`
 > **Versão:** `v1`
 > **Data de criação:** 2026-09-17
 > **Última atualização:** 2026-09-17
 > **Tipo:** `feature`
 > **Prioridade:** `P1`
-> **Revisão formal:** `Pendente`
-> **Veredito da revisão:** `Pendente`
+> **Revisão formal:** `Concluída`
+> **Veredito da revisão:** `APTO COM RESSALVAS`
 > **Aprovação humana pós-revisão:** `Pendente`
 
 ## Objetivo
@@ -187,42 +187,44 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 | PR(s) | — |
 | Branch(es) | `chore/cycle-004-plan` |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `utility-belt/cycle-004/rascunhar_plano/004_plan/b51503a` |
+| `handoff_id` | `utility-belt/cycle-004/revisar_plano/004_plan/c554376` |
 | Destino após conclusão | `_project/executed/004_interface_retro_e_telas_msdos/004_plan.md` |
 
 ## Handoff de saída
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `utility-belt/cycle-004/rascunhar_plano/004_plan/b51503a`
-- `identity_source`: `utility-belt + cycle-004 + rascunhar_plano + 004_plan + b51503a`
+- `handoff_id`: `utility-belt/cycle-004/revisar_plano/004_plan/c554376`
+- `identity_source`: `utility-belt + cycle-004 + revisar_plano + 004_plan + c554376`
 - `effect_class`: `local_mutation`
-- `state_before`: `Ideação 004 registrada; plano inexistente.`
-- `state_after`: `Plano rastreável em estado Rascunho instanciando integralmente o template canônico em _project/drafts/004_interface_retro_e_telas_msdos/004_plan.md.`
-- `next_transition`: `rascunho -> revisão formal (via revisar_plano)`
-- `preconditions`: `Ciclo 004 identificado, objetivo delimitado e autoridade para rascunhar concedida pelo usuário.`
-- `authority`: `Solicitação explícita do usuário para rascunhar o plano.`
-- `evidence`: `_project/drafts/004_interface_retro_e_telas_msdos/004_plan.md e branch chore/cycle-004-plan.`
-- `acceptance`: `Plano completo em estado Rascunho, decomposição em 2 issues, gates de qualidade e não-objetivos explícitos.`
+- `state_before`: `Plano em Rascunho aguardando auditoria crítica.`
+- `state_after`: `Plano em Em Revisão, parecer formal APTO COM RESSALVAS registrado e aprovação humana pós-revisão pendente.`
+- `next_transition`: `parecer -> aprovação humana pós-revisão`
+- `preconditions`: `Plano completo em Rascunho e autorização explícita para revisar.`
+- `authority`: `Solicitação explícita do usuário para auditar formalmente o plano.`
+- `evidence`: `_project/drafts/004_interface_retro_e_telas_msdos/004_plan.md e commit c554376.`
+- `acceptance`: `Parecer emitido, critérios de aceite verificados, ressalvas classificadas e ausência de promoção automática para Aprovado.`
 - `blockers`: `nenhum`
 - `result`: `executed`
-- `next_workflow_recommended`: `revisar_plano`
+- `next_workflow_recommended`: `aprovar_plano (manifestação humana) seguido de criar_issues`
 - `next_workflow_authorized`: `nenhum`
-- `actions_prohibited`: `Escrever Aprovado, criar issues, implementar código-fonte ou abrir PRs de implementação sem revisão e aprovação humana subsequente.`
-- `rejection_rule`: `O receptor recusa handoff ausente, incompatível, sem revisão formal ou com status promovido indevidamente.`
-- `logical_key`: `utility-belt/cycle-004/rascunhar_plano/004_plan/b51503a`
-- `check_before_mutation`: `Confirmado que não existia plano prévio para o ciclo 004.`
-- `reconcile_existing`: `Criado novo plano canônico na pasta drafts conforme a governança.`
-- `ambiguous_state`: `Parar em caso de conflito de status, ciclo ou divergência de revisão.`
+- `actions_prohibited`: `Marcar Aprovado, criar issues, implementar código-fonte ou abrir PRs sem aprovação humana formal pós-revisão.`
+- `rejection_rule`: `O receptor recusa handoff ausente, incompatível, sem parecer formal ou que confunda aptidão com aprovação.`
+- `logical_key`: `utility-belt/cycle-004/revisar_plano/004_plan/c554376`
+- `check_before_mutation`: `Confirmado que o plano estava em Rascunho e não possuía parecer anterior para esta revisão.`
+- `reconcile_existing`: `Registrado o parecer crítico diretamente na seção de revisão crítica do plano.`
+- `ambiguous_state`: `Parar em caso de divergência de revisão ou modificações concorrentes no plano.`
 
 ## Revisão crítica
 
-- **Data:** —
-- **Versão revisada:** —
-- **Veredito:** `Pendente`
-- **Bloqueios remanescentes:** —
+- **Data:** 2026-09-17
+- **Versão revisada:** v1 (commit `c554376`)
+- **Veredito:** `APTO COM RESSALVAS`
+- **Bloqueios remanescentes:** Nenhum
 - **Aprovação humana pós-revisão:** `Pendente`
-- **Correções materiais:** —
-- **Ressalvas:** —
+- **Correções materiais:** Nenhuma correção estrutural necessária no plano; todas as seções canônicas foram atendidas com precisão.
+- **Ressalvas:**
+  1. No módulo `src/utility_belt/ui/screen.py`, a verificação de largura do terminal deve usar `shutil.get_terminal_size(fallback=(80, 24))` de forma estritamente defensiva, assegurando que pipes e ambientes de teste não-interativos operem sem erros.
+  2. O helper de tela dedicada (`run_dedicated_screen`) deve conter parâmetro ou ponto de injeção para suprimir a pausa `press_any_key_to_continue` durante testes automatizados, evitando bloqueios na execução do pytest.
 
 ## Pós-mortem
 
