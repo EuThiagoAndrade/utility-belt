@@ -1,7 +1,7 @@
 # Plano de Implementação — Interface Retrô MS-DOS e Identidade Visual
 
 > **Ciclo:** `004`
-> **Status:** `Aprovado`
+> **Status:** `Concluído`
 > **Versão:** `v1`
 > **Data de criação:** 2026-09-17
 > **Última atualização:** 2026-09-17
@@ -93,11 +93,11 @@ Necessidade de uma base reutilizável para gerenciar limpeza de terminal, arte g
 - Criar suíte de testes unitários em `tests/test_screen.py`.
 
 **Critérios de aceite:**
-- [ ] `clear_screen` executa a limpeza sem lançar exceções mesmo em ambientes não-TTY.
-- [ ] O banner híbrido possui largura máxima de 78 colunas e não ultrapassa os limites do terminal.
-- [ ] Terminais com largura inferior a 80 colunas recebem cabeçalho compacto sem distorção gráfica.
-- [ ] A configuração `show_banner: false` suprime a arte ASCII e renderiza cabeçalho simplificado.
-- [ ] Testes unitários cobrindo o módulo `ui/screen.py` implementados e passando.
+- [x] `clear_screen` executa a limpeza sem lançar exceções mesmo em ambientes não-TTY.
+- [x] O banner híbrido possui largura máxima de 78 colunas e não ultrapassa os limites do terminal.
+- [x] Terminais com largura inferior a 80 colunas recebem cabeçalho compacto sem distorção gráfica.
+- [x] A configuração `show_banner: false` suprime a arte ASCII e renderiza cabeçalho simplificado.
+- [x] Testes unitários cobrindo o módulo `ui/screen.py` implementados e passando.
 
 ### Item 2 — Refatoração e Padronização do Menu Principal e Submenus
 
@@ -120,11 +120,11 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 - Atualizar `tests/test_interactive_menus.py` para refletir os novos textos de opções e chamadas de tela.
 
 **Critérios de aceite:**
-- [ ] Navegar no menu principal limpa a tela a cada transição sem empilhamento de menus anteriores.
-- [ ] Entrar e sair dos submenus do Docker e Restic limpa a tela mantendo cabeçalho contextual visível.
-- [ ] Execução de rotinas do Docker, Restic e Doctor exibe cabeçalho dedicado e solicita confirmação antes de voltar ao menu.
-- [ ] Atalhos numéricos e navegação por setas funcionam harmoniosamente em todos os menus.
-- [ ] Todos os testes em `tests/test_interactive_menus.py` passam com sucesso.
+- [x] Navegar no menu principal limpa a tela a cada transição sem empilhamento de menus anteriores.
+- [x] Entrar e sair dos submenus do Docker e Restic limpa a tela mantendo cabeçalho contextual visível.
+- [x] Execução de rotinas do Docker, Restic e Doctor exibe cabeçalho dedicado e solicita confirmação antes de voltar ao menu.
+- [x] Atalhos numéricos e navegação por setas funcionam harmoniosamente em todos os menus.
+- [x] Todos os testes em `tests/test_interactive_menus.py` passam com sucesso.
 
 ## Arquivos afetados
 
@@ -135,7 +135,7 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 - `src/utility_belt/ui/restic_menu.py`: Adoção de cabeçalhos compactos, tela dedicada e atalhos.
 - `tests/test_screen.py` (novo): Testes unitários para o módulo de telas e banner.
 - `tests/test_interactive_menus.py`: Atualização dos testes de menus interativos.
-- `_project/cycles.md`: Atualização do estado do ciclo 004 para `Planejamento`.
+- `_project/cycles.md`: Atualização do estado do ciclo 004 para `Concluído`.
 
 ## Decomposição em issues e PRs
 
@@ -143,12 +143,12 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
    - Escopo: Implementação de `src/utility_belt/ui/screen.py`, banner híbrido retrô com canivete ASCII e tipografia 3D, cabeçalhos com breadcrumbs, helper de tela dedicada, configuração `show_banner` e testes em `tests/test_screen.py`.
    - Issue: [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8)
    - Branch: `feature/issue-8`
-   - PR: [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10)
+   - PR: [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10) (Merged `76a8367`)
 2. **Issue 2 — Adoção de Telas Dedicadas nos Menus Interativos:**
    - Escopo: Integração do módulo de telas no menu principal (`menu.py`), submenus (`docker_menu.py`, `restic_menu.py`), atalhos numéricos, telas de execução de ações e atualização de `tests/test_interactive_menus.py`.
    - Issue: [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9)
    - Branch: `feature/issue-9`
-   - PR: Pendente
+   - PR: [#11](https://github.com/EuThiagoAndrade/utility-belt/pull/11) (Merged `0db69dc`)
 
 ## Dependências e blockers
 
