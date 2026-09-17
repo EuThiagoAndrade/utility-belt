@@ -238,6 +238,75 @@ class TestMainMenu:
                 show_menu()
             assert exc_info.value.code == 2
 
+    def test_main_menu_renders_banner_and_exits(self) -> None:
+        """Testa que o menu principal limpa a tela, renderiza banner e sai com sair."""
+        from utility_belt.menu import show_menu
+
+        with patch("sys.stdin") as mock_stdin, \
+             patch("utility_belt.menu.clear_screen") as mock_clear, \
+             patch("utility_belt.menu.render_banner") as mock_banner, \
+             patch("questionary.select") as mock_select:
+            mock_stdin.isatty.return_value = True
+            mock_select.return_value.ask.return_value = "sair"
+            show_menu()
+            assert mock_clear.called
+            mock_banner.assert_called_once()
+            mock_select.assert_called_once()
+
+    def test_main_menu_handles_keyboard_interrupt(self) -> None:
+        """Testa que KeyboardInterrupt encerra o menu principal sem erro."""
+        from utility_belt.menu import show_menu
+
+        with patch("sys.stdin") as mock_stdin, \
+             patch("utility_belt.menu.clear_screen"), \
+             patch("questionary.select", side_effect=KeyboardInterrupt):
+            mock_stdin.isatty.return_value = True
+            show_menu()
+
+
+class TestSubmenusNavigation:
+    """Verifica comportamento de tela dos submenus."""
+
+    def test_docker_menu_renders_header_and_exits(self) -> None:
+        """Menu Docker deve limpar a tela, exibir cabeçalho e sair graciosamente."""
+        from utility_belt.ui.docker_menu import show_docker_menu
+
+        with patch("utility_belt.ui.docker_menu.clear_screen") as mock_clear, \
+             patch("utility_belt.ui.docker_menu.render_header") as mock_header, \
+             patch("questionary.select") as mock_select:
+            mock_select.return_value.ask.return_value = "exit"
+            show_docker_menu()
+            mock_clear.assert_called_once()
+            mock_header.assert_called_once_with(["UTILITY BELT", "DOCKER"])
+
+    def test_docker_menu_handles_keyboard_interrupt(self) -> None:
+        """Menu Docker deve tratar KeyboardInterrupt graciosamente."""
+        from utility_belt.ui.docker_menu import show_docker_menu
+
+        with patch("utility_belt.ui.docker_menu.clear_screen"), \
+             patch("questionary.select", side_effect=KeyboardInterrupt):
+            show_docker_menu()
+
+    def test_restic_menu_renders_header_and_exits(self) -> None:
+        """Menu Restic deve limpar a tela, exibir cabeçalho e sair graciosamente."""
+        from utility_belt.ui.restic_menu import show_restic_menu
+
+        with patch("utility_belt.ui.restic_menu.clear_screen") as mock_clear, \
+             patch("utility_belt.ui.restic_menu.render_header") as mock_header, \
+             patch("questionary.select") as mock_select:
+            mock_select.return_value.ask.return_value = "exit"
+            show_restic_menu()
+            mock_clear.assert_called_once()
+            mock_header.assert_called_once_with(["UTILITY BELT", "RESTIC"])
+
+    def test_restic_menu_handles_keyboard_interrupt(self) -> None:
+        """Menu Restic deve tratar KeyboardInterrupt graciosamente."""
+        from utility_belt.ui.restic_menu import show_restic_menu
+
+        with patch("utility_belt.ui.restic_menu.clear_screen"), \
+             patch("questionary.select", side_effect=KeyboardInterrupt):
+            show_restic_menu()
+
 
 # ─── Testes dos comandos explícitos de menu ───────────────────────────────────
 

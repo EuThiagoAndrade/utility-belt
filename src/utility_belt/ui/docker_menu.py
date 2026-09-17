@@ -11,6 +11,7 @@ import questionary
 import typer
 
 from utility_belt.config import load_config, save_config
+from utility_belt.ui.screen import clear_screen, render_header, run_dedicated_screen
 
 
 def get_docker_images() -> list[str]:
@@ -199,29 +200,32 @@ def import_images() -> None:
 
 
 def show_docker_menu() -> None:
-    """Main entry point for the interactive Docker menu."""
+    """Ponto de entrada principal para o menu interativo do Docker."""
     while True:
+        clear_screen()
+        render_header(["UTILITY BELT", "DOCKER"])
+        typer.echo()
         try:
             choice = questionary.select(
-                "Menu Docker - O que você deseja fazer?",
+                "Menu Docker — Escolha uma opção:",
                 choices=[
-                    questionary.Choice("Exportar imagens para .tar", "export"),
-                    questionary.Choice("Importar imagens de um .tar", "import"),
-                    questionary.Choice("Voltar / Sair", "exit")
-                ]
+                    questionary.Choice("[1] 📤 Exportar imagens para .tar", "export"),
+                    questionary.Choice("[2] 📥 Importar imagens de um .tar", "import"),
+                    questionary.Separator(),
+                    questionary.Choice("[0] ↩️  Voltar ao menu principal", "exit"),
+                ],
+                use_shortcuts=False,
+                instruction="(Use ↑↓ para navegar, Enter para selecionar)",
             ).ask()
 
             if not choice or choice == "exit":
-                typer.secho("Saindo do menu Docker...", fg=typer.colors.BLUE)
                 break
             elif choice == "export":
-                export_images()
+                run_dedicated_screen(["UTILITY BELT", "DOCKER", "EXPORTAR"], export_images)
             elif choice == "import":
-                import_images()
+                run_dedicated_screen(["UTILITY BELT", "DOCKER", "IMPORTAR"], import_images)
 
-            print() # Print empty line for better readability between actions
         except KeyboardInterrupt:
-            typer.secho("\nOperação interrompida pelo usuário.", fg=typer.colors.YELLOW)
             break
         except Exception as e:
             typer.secho(f"\nErro inesperado no menu: {e}", fg=typer.colors.RED)
