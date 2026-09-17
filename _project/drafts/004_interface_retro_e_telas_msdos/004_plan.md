@@ -1,7 +1,7 @@
 # Plano de Implementação — Interface Retrô MS-DOS e Identidade Visual
 
 > **Ciclo:** `004`
-> **Status:** `Em Revisão`
+> **Status:** `Aprovado`
 > **Versão:** `v1`
 > **Data de criação:** 2026-09-17
 > **Última atualização:** 2026-09-17
@@ -9,7 +9,7 @@
 > **Prioridade:** `P1`
 > **Revisão formal:** `Concluída`
 > **Veredito da revisão:** `APTO COM RESSALVAS`
-> **Aprovação humana pós-revisão:** `Pendente`
+> **Aprovação humana pós-revisão:** `Aprovada em 2026-09-17`
 
 ## Objetivo
 
@@ -141,11 +141,13 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 
 1. **Issue 1 — Fundação Visual e Módulo de Telas Retrô:**
    - Escopo: Implementação de `src/utility_belt/ui/screen.py`, banner híbrido retrô com canivete ASCII e tipografia 3D, cabeçalhos com breadcrumbs, helper de tela dedicada, configuração `show_banner` e testes em `tests/test_screen.py`.
-   - Branch: `feature/issue-X` (a ser numerada na criação da issue).
+   - Issue: [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8)
+   - Branch: `feature/issue-8`
    - PR: 1 PR focada na infraestrutura de telas e testes unitários.
 2. **Issue 2 — Adoção de Telas Dedicadas nos Menus Interativos:**
    - Escopo: Integração do módulo de telas no menu principal (`menu.py`), submenus (`docker_menu.py`, `restic_menu.py`), atalhos numéricos, telas de execução de ações e atualização de `tests/test_interactive_menus.py`.
-   - Branch: `feature/issue-Y` (a ser numerada na criação da issue).
+   - Issue: [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9)
+   - Branch: `feature/issue-9`
    - PR: 1 PR focada na experiência do usuário e validação dos fluxos de menu.
 
 ## Dependências e blockers
@@ -183,36 +185,36 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 
 | Campo | Valor |
 | :-- | :-- |
-| Issue(s) | — |
+| Issue(s) | [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8), [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9) |
 | PR(s) | — |
-| Branch(es) | `chore/cycle-004-plan` |
+| Branch(es) | `feature/issue-8`, `feature/issue-9` |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `utility-belt/cycle-004/revisar_plano/004_plan/c554376` |
+| `handoff_id` | `utility-belt/cycle-004/criar_issues/004_plan/53dd891` |
 | Destino após conclusão | `_project/executed/004_interface_retro_e_telas_msdos/004_plan.md` |
 
 ## Handoff de saída
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `utility-belt/cycle-004/revisar_plano/004_plan/c554376`
-- `identity_source`: `utility-belt + cycle-004 + revisar_plano + 004_plan + c554376`
-- `effect_class`: `local_mutation`
-- `state_before`: `Plano em Rascunho aguardando auditoria crítica.`
-- `state_after`: `Plano em Em Revisão, parecer formal APTO COM RESSALVAS registrado e aprovação humana pós-revisão pendente.`
-- `next_transition`: `parecer -> aprovação humana pós-revisão`
-- `preconditions`: `Plano completo em Rascunho e autorização explícita para revisar.`
-- `authority`: `Solicitação explícita do usuário para auditar formalmente o plano.`
-- `evidence`: `_project/drafts/004_interface_retro_e_telas_msdos/004_plan.md e commit c554376.`
-- `acceptance`: `Parecer emitido, critérios de aceite verificados, ressalvas classificadas e ausência de promoção automática para Aprovado.`
+- `handoff_id`: `utility-belt/cycle-004/criar_issues/004_plan/53dd891`
+- `identity_source`: `utility-belt + cycle-004 + criar_issues + 004_plan + 53dd891`
+- `effect_class`: `remote_mutation`
+- `state_before`: `Plano aprovado e issues remotas ainda ausentes no GitHub.`
+- `state_after`: `Issues #8 e #9 criadas no GitHub e registradas no plano com rastreabilidade completa.`
+- `next_transition`: `issue -> implementação autorizada`
+- `preconditions`: `Plano aprovado pelo usuário, decomposição válida e acesso remoto confirmado.`
+- `authority`: `Autorização explícita do usuário para criar as issues do plano.`
+- `evidence`: `https://github.com/EuThiagoAndrade/utility-belt/issues/8 e https://github.com/EuThiagoAndrade/utility-belt/issues/9.`
+- `acceptance`: `Issues #8 e #9 criadas com sucesso, títulos, labels e corpos estritamente rastreáveis ao plano.`
 - `blockers`: `nenhum`
 - `result`: `executed`
-- `next_workflow_recommended`: `aprovar_plano (manifestação humana) seguido de criar_issues`
+- `next_workflow_recommended`: `implementar_issue`
 - `next_workflow_authorized`: `nenhum`
-- `actions_prohibited`: `Marcar Aprovado, criar issues, implementar código-fonte ou abrir PRs sem aprovação humana formal pós-revisão.`
-- `rejection_rule`: `O receptor recusa handoff ausente, incompatível, sem parecer formal ou que confunda aptidão com aprovação.`
-- `logical_key`: `utility-belt/cycle-004/revisar_plano/004_plan/c554376`
-- `check_before_mutation`: `Confirmado que o plano estava em Rascunho e não possuía parecer anterior para esta revisão.`
-- `reconcile_existing`: `Registrado o parecer crítico diretamente na seção de revisão crítica do plano.`
-- `ambiguous_state`: `Parar em caso de divergência de revisão ou modificações concorrentes no plano.`
+- `actions_prohibited`: `Implementar, alterar código, abrir PR de implementação ou integrar PR sem autorização explícita subsequente.`
+- `rejection_rule`: `O receptor recusa handoff ausente, incompatível, sem aprovação, sem issue canônica ou sem evidência remota.`
+- `logical_key`: `utility-belt/cycle-004/criar_issues/004_plan/53dd891`
+- `check_before_mutation`: `Confirmado que não existiam issues abertas para o ciclo 004 no repositório.`
+- `reconcile_existing`: `Issues criadas e vinculadas aos itens do plano.`
+- `ambiguous_state`: `Parar em caso de divergência de numeração ou falha de conectividade remota.`
 
 ## Revisão crítica
 
@@ -220,7 +222,7 @@ Eliminar a rolagem contínua nos menus e submenus, adotando o módulo de telas e
 - **Versão revisada:** v1 (commit `c554376`)
 - **Veredito:** `APTO COM RESSALVAS`
 - **Bloqueios remanescentes:** Nenhum
-- **Aprovação humana pós-revisão:** `Pendente`
+- **Aprovação humana pós-revisão:** Aprovada em 2026-09-17
 - **Correções materiais:** Nenhuma correção estrutural necessária no plano; todas as seções canônicas foram atendidas com precisão.
 - **Ressalvas:**
   1. No módulo `src/utility_belt/ui/screen.py`, a verificação de largura do terminal deve usar `shutil.get_terminal_size(fallback=(80, 24))` de forma estritamente defensiva, assegurando que pipes e ambientes de teste não-interativos operem sem erros.
