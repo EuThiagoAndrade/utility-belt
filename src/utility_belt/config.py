@@ -55,6 +55,7 @@ def get_default_config() -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "default_profile": "padrao",
+        "show_banner": True,
         "profiles": {
             "padrao": {
                 "restic": {
@@ -67,6 +68,12 @@ def get_default_config() -> dict[str, Any]:
             }
         },
     }
+
+
+def is_banner_enabled() -> bool:
+    """Verifica se a exibição do banner de abertura está habilitada na configuração."""
+    config = load_config()
+    return bool(config.get("show_banner", True))
 
 
 def load_config() -> dict[str, Any]:
