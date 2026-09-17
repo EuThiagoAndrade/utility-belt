@@ -49,9 +49,10 @@ def test_render_banner_standard(capsys) -> None:
         render_banner(compact=False)
         captured = capsys.readouterr()
         assert "╔" in captured.out
-        assert "CANIVETE" in captured.out
-        assert "SUÍÇO" in captured.out
-        assert "v0.1.0" in captured.out
+        assert "|==[■]==[■]==[■]==[████]==[■]==[■]==[■]==|" in captured.out
+        assert "v0.1.0 • O Canivete Suíço de Terminal" in captured.out
+        assert "Sistema de ferramentas para simplificar sua vida" in captured.out
+        assert "CANIVETE" not in captured.out
 
 
 def test_render_banner_auto_compact_on_narrow_terminal(capsys) -> None:
@@ -60,8 +61,8 @@ def test_render_banner_auto_compact_on_narrow_terminal(capsys) -> None:
         render_banner(compact=False)
         captured = capsys.readouterr()
         assert "UTILITY BELT" in captured.out
-        # No modo compacto não deve exibir os blocos grandes
-        assert "CANIVETE" not in captured.out
+        # No modo compacto não deve exibir o cinto utilitário
+        assert "[████]" not in captured.out
 
 
 def test_render_banner_explicit_compact(capsys) -> None:
@@ -70,7 +71,7 @@ def test_render_banner_explicit_compact(capsys) -> None:
         render_banner(compact=True)
         captured = capsys.readouterr()
         assert "UTILITY BELT" in captured.out
-        assert "CANIVETE" not in captured.out
+        assert "[████]" not in captured.out
 
 
 def test_render_compact_banner_structure(capsys) -> None:

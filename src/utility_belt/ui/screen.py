@@ -55,7 +55,7 @@ def get_terminal_width(fallback: int = 80) -> int:
 
 
 def render_banner(compact: bool = False) -> None:
-    """Renderiza o banner de abertura com arte híbrida (canivete + tipografia 3D)."""
+    """Renderiza o banner de abertura retrô centralizado (cinto utilitário + tipografia sólida)."""
     ensure_utf8_encoding()
     width = get_terminal_width()
 
@@ -64,54 +64,49 @@ def render_banner(compact: bool = False) -> None:
         render_compact_banner()
         return
 
-    knife_lines = [
-        r"      /|     _      ",
-        r"     / |    / \     ",
-        r"    |  |   /   \    ",
-        r"    |  |  /  /\ \   ",
-        r"   /   |_/  /  \ \  ",
-        r"  |   [+]  /____\ | ",
-        r"  |  CANIVETE     | ",
-        r"  |  SUÍÇO        | ",
-        r"  |_______________| ",
-        r"  \_______________/ ",
+    belt_raw = "|==[■]==[■]==[■]==[████]==[■]==[■]==[■]==|"
+
+    title_raw_lines = [
+        "█   █ █████ ███ █    ███ █████ █   █      ████  ████ █    █████",
+        "█   █   █    █  █     █    █    █ █       █   █ █    █      █  ",
+        "█   █   █    █  █     █    █     █   ████ ████  ████ █      █  ",
+        "█   █   █    █  █     █    █     █        █   █ █    █      █  ",
+        " ███    █   ███ ████ ███   █     █        ████  ████ ████   █  ",
     ]
 
-    title_lines = [
-        (f"{ORANGE}{BOLD}█ █ ▀█▀ ▀█▀ █   ▀█▀ ▀█▀ █ █{RESET}", 27),
-        (f"{ORANGE}{BOLD}█ █  █   █  █    █   █  ▀█▀{RESET}", 27),
-        (f"{ORANGE}{BOLD}▀▄▀  ▀   ▀  ▀▀▀ ▀▀▀  ▀   ▀{RESET}", 26),
-        ("", 0),
-        (f"{AMBER}{BOLD}█▀▄ █▀▀ █   ▀█▀{RESET}", 15),
-        (f"{AMBER}{BOLD}█▀▄ █▀▀ █    █{RESET}", 14),
-        (f"{AMBER}{BOLD}▀▀  ▀▀▀ ▀▀▀  ▀{RESET}", 14),
-        (f"{WHITE}v0.1.0 • O Canivete Suíço de Terminal{RESET}", 37),
-        (f"{GRAY}Sistema de Ferramentas para Desenvolvedores{RESET}", 43),
-        ("", 0),
-    ]
+    sub1 = "v0.1.0 • O Canivete Suíço de Terminal"
+    sub2 = "Sistema de ferramentas para simplificar sua vida"
 
     box_w = 76
     inner_w = box_w - 2  # 74
 
     try:
         typer.echo(f"{CYAN}╔{'═' * inner_w}╗{RESET}")
-        for i in range(len(knife_lines)):
-            k_raw = knife_lines[i]
-            # Colorização do canivete: corpo vermelho com cruz branca, lâminas em branco brilhante
-            if i < 5:
-                k_colored = f"{WHITE}{k_raw}{RESET}"
-            elif i == 5:
-                k_colored = f"{RED}  |   {WHITE}[+]{RED}  /____\\ | {RESET}"
-            elif i in (6, 7, 8):
-                k_colored = f"{RED}{k_raw}{RESET}"
-            else:
-                k_colored = f"{RED}{k_raw}{RESET}"
 
-            t_colored, t_vis_len = title_lines[i]
-            padding_len = 47 - t_vis_len
-            t_padded = t_colored + (" " * max(0, padding_len))
+        # Cinto utilitário centralizado
+        b_pad_l = (inner_w - len(belt_raw)) // 2
+        b_pad_r = inner_w - len(belt_raw) - b_pad_l
+        belt_colored = f"{AMBER}{BOLD}{belt_raw}{RESET}"
+        typer.echo(f"{CYAN}║{RESET}{' ' * b_pad_l}{belt_colored}{' ' * b_pad_r}{CYAN}║{RESET}")
+        typer.echo(f"{CYAN}║{' ' * inner_w}║{RESET}")
 
-            typer.echo(f"{CYAN}║{RESET}  {k_colored} {CYAN}│{RESET}  {t_padded} {CYAN}║{RESET}")
+        # Tipografia de grande porte em blocos sólidos (UTILITY-BELT)
+        for line in title_raw_lines:
+            t_pad_l = (inner_w - len(line)) // 2
+            t_pad_r = inner_w - len(line) - t_pad_l
+            t_colored = f"{ORANGE}{BOLD}{line}{RESET}"
+            typer.echo(f"{CYAN}║{RESET}{' ' * t_pad_l}{t_colored}{' ' * t_pad_r}{CYAN}║{RESET}")
+
+        typer.echo(f"{CYAN}║{' ' * inner_w}║{RESET}")
+
+        # Subtítulo 1 e 2 centralizados
+        s1_pad_l = (inner_w - len(sub1)) // 2
+        s1_pad_r = inner_w - len(sub1) - s1_pad_l
+        typer.echo(f"{CYAN}║{RESET}{' ' * s1_pad_l}{WHITE}{sub1}{RESET}{' ' * s1_pad_r}{CYAN}║{RESET}")
+
+        s2_pad_l = (inner_w - len(sub2)) // 2
+        s2_pad_r = inner_w - len(sub2) - s2_pad_l
+        typer.echo(f"{CYAN}║{RESET}{' ' * s2_pad_l}{GRAY}{sub2}{RESET}{' ' * s2_pad_r}{CYAN}║{RESET}")
 
         typer.echo(f"{CYAN}╚{'═' * inner_w}╝{RESET}")
     except (UnicodeEncodeError, Exception):
