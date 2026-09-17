@@ -1,14 +1,14 @@
 # Task — Issue #13: Ajustar banner ASCII retrô com cinto utilitário e tipografia sólida
 
 > **Ciclo:** `005`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `feature`
 > **Issue:** [#13](https://github.com/EuThiagoAndrade/utility-belt/issues/13)
-> **Plano:** `_project/drafts/005_ajuste_visual_banner_retro/005_plan.md`
+> **Plano:** `_project/executed/005_ajuste_visual_banner_retro/005_plan.md`
 > **Branch:** `feature/issue-13`
 > **Worktree:** `c:\Programas\utility-belt`
 > **PR:** [#14](https://github.com/EuThiagoAndrade/utility-belt/pull/14)
-> **Integração:** `Pendente`
+> **Integração:** `Integrada em ccf07b4 via PR #14`
 > **Início:** 2026-09-17
 > **Última atualização:** 2026-09-17
 > **handoff_schema_version:** `1`
@@ -43,7 +43,7 @@ Substituir a ilustração lateral do canivete suíço e a tipografia distorcida 
 | Linting (`uv run ruff check`) | All checks passed (zero violações) |
 | Governança (`python scripts/validate_governance.py`) | 29 verificações OK, 0 avisos, 0 falhas |
 | `git diff --check` | Limpo (sem trailing whitespace ou erros de quebra) |
-| Checks remotos | [PR #14 aberta](https://github.com/EuThiagoAndrade/utility-belt/pull/14) |
+| Checks remotos | [PR #14 Merged](https://github.com/EuThiagoAndrade/utility-belt/pull/14) (commit `ccf07b4`) |
 
 ## Decisões incidentais e desvios
 
