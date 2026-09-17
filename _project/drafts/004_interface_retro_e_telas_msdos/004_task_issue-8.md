@@ -1,14 +1,14 @@
 # Task — Issue #8: Módulo de Telas Retrô e Identidade Visual com Banner Híbrido
 
 > **Ciclo:** `004`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `feature`
 > **Issue:** `#8`
 > **Plano:** `_project/drafts/004_interface_retro_e_telas_msdos/004_plan.md`
 > **Branch:** `feature/issue-8`
 > **Worktree:** `c:\Programas\utility-belt`
 > **PR:** [#10](https://github.com/EuThiagoAndrade/utility-belt/pull/10)
-> **Integração:** `Pendente`
+> **Integração:** Integrada em `76a8367` (PR #10)
 > **Início:** 2026-09-17
 > **Última atualização:** 2026-09-17
 > **handoff_schema_version:** `1`

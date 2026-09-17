@@ -11,6 +11,7 @@ import questionary
 import typer
 
 from utility_belt.config import get_profile, load_config, set_profile
+from utility_belt.ui.screen import clear_screen, render_header, run_dedicated_screen
 
 # Global password for the session
 _session_password: str | None = None
@@ -310,43 +311,48 @@ def edit_config() -> None:
 def show_restic_menu() -> None:
     """Ponto de entrada principal para o menu interativo Restic."""
     while True:
+        clear_screen()
+        render_header(["UTILITY BELT", "RESTIC"])
+        typer.echo()
         try:
             choice = questionary.select(
-                "=== Utility Belt: Menu Restic ===",
+                "Menu Restic — Escolha uma opção:",
                 choices=[
-                    questionary.Choice("1. Assistente Inicial (Novo Usuário)", "wizard"),
-                    questionary.Choice("2. Fazer Backup", "backup"),
-                    questionary.Choice("3. Restaurar Snapshot", "restore"),
-                    questionary.Choice("4. Verificar Repositório", "check"),
-                    questionary.Choice("5. Listar Arquivos (ls)", "ls"),
-                    questionary.Choice("6. Configurar Caminhos", "config"),
-                    questionary.Choice("7. Sair", "exit")
-                ]
+                    questionary.Choice("[1] 🧙 Assistente Inicial (Novo Usuário)", "wizard"),
+                    questionary.Choice("[2] 💾 Fazer Backup", "backup"),
+                    questionary.Choice("[3] 📦 Restaurar Snapshot", "restore"),
+                    questionary.Choice("[4] 🔍 Verificar Repositório (check)", "check"),
+                    questionary.Choice("[5] 📄 Listar Arquivos (ls)", "ls"),
+                    questionary.Choice("[6] ⚙️  Configurar Caminhos", "config"),
+                    questionary.Separator(),
+                    questionary.Choice("[0] ↩️  Voltar ao menu principal", "exit"),
+                ],
+                use_shortcuts=False,
+                instruction="(Use ↑↓ para navegar, Enter para selecionar)",
             ).ask()
 
             if not choice or choice == "exit":
                 break
 
             if choice == "wizard":
-                show_wizard()
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "ASSISTENTE"], show_wizard)
             elif choice == "backup":
-                do_backup()
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "BACKUP"], do_backup)
             elif choice == "restore":
-                do_restore()
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "RESTAURAÇÃO"], do_restore)
             elif choice == "check":
-                do_check()
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "VERIFICAÇÃO"], do_check)
             elif choice == "ls":
-                do_ls()
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "LISTAR ARQUIVOS"], do_ls)
             elif choice == "config":
-                edit_config()
-
-            print("\n")
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "CONFIGURAÇÃO"], edit_config)
 
         except KeyboardInterrupt:
-            typer.secho("\nRetornando ao menu principal...", fg=typer.colors.YELLOW)
             break
         except Exception as e:
             typer.secho(f"\nOcorreu um erro: {e}", fg=typer.colors.RED)
+            break
+
 
 if __name__ == "__main__":
     show_restic_menu()

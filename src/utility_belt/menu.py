@@ -1,4 +1,4 @@
-"""Menu interativo principal do Utility Belt com navegação por setas (questionary)."""
+"""Menu interativo principal do Utility Belt com navegação por telas estilo MS-DOS (questionary)."""
 
 from __future__ import annotations
 
@@ -7,39 +7,51 @@ import sys
 import questionary
 import typer
 
+from utility_belt.config import is_banner_enabled
 from utility_belt.doctor import run_diagnostics
+from utility_belt.ui.screen import (
+    clear_screen,
+    render_banner,
+    render_compact_banner,
+    run_dedicated_screen,
+)
 
 
 def show_menu() -> None:
-    """Exibe o menu principal interativo do Utility Belt com questionary."""
+    """Exibe o menu principal interativo do Utility Belt com telas dedicadas."""
     if not sys.stdin.isatty():
         print("Erro: O comando 'belt menu' requer um terminal interativo (TTY).", file=sys.stderr)
         sys.exit(2)
 
     while True:
-        typer.echo()
-        typer.secho("  UTILITY BELT - CANIVETE SUÍÇO", bold=True)
+        clear_screen()
+        if is_banner_enabled():
+            render_banner()
+        else:
+            render_compact_banner()
         typer.echo()
 
         try:
             escolha = questionary.select(
-                "Escolha uma opção:",
+                "Menu Principal — Escolha uma opção:",
                 choices=[
-                    questionary.Choice("🛡️  Restic (Backups, Restauração e Integridade)", value="restic"),
-                    questionary.Choice("🐳  Docker (Exportar e Importar Imagens)", value="docker"),
-                    questionary.Choice("🩺  Diagnóstico e Saúde (Doctor)", value="doctor"),
-                    questionary.Choice("ℹ️   Informações do Sistema (system.info)", value="sysinfo"),
+                    questionary.Choice("[1] 🛡️  Restic (Backups, Restauração e Integridade)", value="restic"),
+                    questionary.Choice("[2] 🐳  Docker (Exportar e Importar Imagens)", value="docker"),
+                    questionary.Choice("[3] 🩺  Diagnóstico e Saúde (Doctor)", value="doctor"),
+                    questionary.Choice("[4] ℹ️   Informações do Sistema (system.info)", value="sysinfo"),
                     questionary.Separator(),
-                    questionary.Choice("🚪  Sair", value="sair"),
+                    questionary.Choice("[0] 🚪  Sair", value="sair"),
                 ],
                 use_shortcuts=False,
                 instruction="(Use ↑↓ para navegar, Enter para selecionar)",
             ).ask()
         except KeyboardInterrupt:
-            typer.echo("\nEncerrando menu.")
+            clear_screen()
+            typer.echo("Encerrando menu.")
             break
 
         if escolha is None or escolha == "sair":
+            clear_screen()
             typer.echo("Até logo!")
             break
 
@@ -60,10 +72,10 @@ def show_menu() -> None:
                 typer.secho("Módulo do menu Docker não disponível.", fg=typer.colors.RED, err=True)
 
         elif escolha == "doctor":
-            _show_diagnostics()
+            run_dedicated_screen(["UTILITY BELT", "DIAGNÓSTICO"], _show_diagnostics)
 
         elif escolha == "sysinfo":
-            _run_system_info()
+            run_dedicated_screen(["UTILITY BELT", "INFORMAÇÕES DO SISTEMA"], _run_system_info)
 
 
 def _show_diagnostics() -> None:
@@ -83,12 +95,6 @@ def _show_diagnostics() -> None:
             details = info.get("details") or "Não encontrado no PATH"
         typer.echo(f"  {tag} {name:<12} : {details}")
 
-    typer.echo()
-    try:
-        questionary.press_any_key_to_continue("Pressione qualquer tecla para continuar...").ask()
-    except (KeyboardInterrupt, EOFError):
-        pass
-
 
 def _run_system_info() -> None:
     """Executa a ferramenta system.info se disponível no catálogo."""
@@ -100,9 +106,5 @@ def _run_system_info() -> None:
         typer.echo()
         run_tool(tool, args=[])
         typer.echo()
-        try:
-            questionary.press_any_key_to_continue("Pressione qualquer tecla para continuar...").ask()
-        except (KeyboardInterrupt, EOFError):
-            pass
     else:
         typer.secho("Ferramenta 'system.info' não encontrada no catálogo.", fg=typer.colors.YELLOW)
