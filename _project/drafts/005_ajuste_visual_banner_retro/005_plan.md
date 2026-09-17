@@ -83,7 +83,7 @@ Substituir o banner anterior pelo layout centralizado contendo o cinto utilitár
 ## Decomposição em issues e PRs
 
 - **Issue 1:** [#13](https://github.com/EuThiagoAndrade/utility-belt/issues/13) — `feat(cycle-005): ajustar banner ascii retro com cinto utilitario e tipografia solida`
-- **PR 1:** Pull Request correspondente contendo a implementação e testes.
+- **PR 1:** [#14](https://github.com/EuThiagoAndrade/utility-belt/pull/14) — Pull Request correspondente contendo a implementação e testes.
 
 ## Dependências e blockers
 
@@ -116,7 +116,7 @@ Substituir o banner anterior pelo layout centralizado contendo o cinto utilitár
 | Campo | Valor |
 | :-- | :-- |
 | [#13](https://github.com/EuThiagoAndrade/utility-belt/issues/13) |
-| PR(s) | Pendente de criação |
+| [#14](https://github.com/EuThiagoAndrade/utility-belt/pull/14) |
 | Branch(es) | `feature/issue-13` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `utility-belt+005+rascunhar_plano+banner_retro+093da76` |

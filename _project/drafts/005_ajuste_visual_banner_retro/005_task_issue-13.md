@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/005_ajuste_visual_banner_retro/005_plan.md`
 > **Branch:** `feature/issue-13`
 > **Worktree:** `c:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#14](https://github.com/EuThiagoAndrade/utility-belt/pull/14)
 > **Integração:** `Pendente`
 > **Início:** 2026-09-17
 > **Última atualização:** 2026-09-17
@@ -32,8 +32,8 @@ Substituir a ilustração lateral do canivete suíço e a tipografia distorcida 
 - [x] Implementação do novo banner em `screen.py`.
 - [x] Atualização dos testes em `test_screen.py`.
 - [x] Execução e validação dos gates locais.
-- [ ] Commit semântico e publicação da branch.
-- [ ] Abertura da Pull Request vinculada à Issue #13.
+- [x] Commit semântico e publicação da branch.
+- [x] Abertura da Pull Request vinculada à Issue #13.
 
 ## Evidências
 
@@ -43,7 +43,7 @@ Substituir a ilustração lateral do canivete suíço e a tipografia distorcida 
 | Linting (`uv run ruff check`) | All checks passed (zero violações) |
 | Governança (`python scripts/validate_governance.py`) | 29 verificações OK, 0 avisos, 0 falhas |
 | `git diff --check` | Limpo (sem trailing whitespace ou erros de quebra) |
-| Checks remotos | Pendente de publicação da PR |
+| Checks remotos | [PR #14 aberta](https://github.com/EuThiagoAndrade/utility-belt/pull/14) |
 
 ## Decisões incidentais e desvios
 
