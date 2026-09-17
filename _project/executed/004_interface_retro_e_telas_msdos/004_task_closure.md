@@ -4,6 +4,7 @@
 > **Estado:** `Concluído`
 > **Plano:** `_project/executed/004_interface_retro_e_telas_msdos/004_plan.md`
 > **Data de encerramento:** 2026-09-17
+> **Pull Request:** [PR #12](https://github.com/EuThiagoAndrade/utility-belt/pull/12)
 > **PRs de implementação:** [PR #10](https://github.com/EuThiagoAndrade/utility-belt/pull/10) (Issue #8), [PR #11](https://github.com/EuThiagoAndrade/utility-belt/pull/11) (Issue #9)
 > **Commits de integração:** `76a8367` (PR #10), `0db69dc` (PR #11)
 > **handoff_schema_version:** `1`
