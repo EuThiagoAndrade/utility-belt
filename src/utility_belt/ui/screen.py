@@ -88,7 +88,7 @@ def render_banner(compact: bool = False) -> None:
         b_pad_r = inner_w - len(belt_raw) - b_pad_l
         belt_colored = f"{AMBER}{BOLD}{belt_raw}{RESET}"
         typer.echo(f"{CYAN}║{RESET}{' ' * b_pad_l}{belt_colored}{' ' * b_pad_r}{CYAN}║{RESET}")
-        typer.echo(f"{CYAN}║{' ' * inner_w}║{RESET}")
+        typer.echo(f"{CYAN}║{RESET}{' ' * inner_w}{CYAN}║{RESET}")
 
         # Tipografia de grande porte em blocos sólidos (UTILITY-BELT)
         for line in title_raw_lines:
@@ -97,7 +97,7 @@ def render_banner(compact: bool = False) -> None:
             t_colored = f"{ORANGE}{BOLD}{line}{RESET}"
             typer.echo(f"{CYAN}║{RESET}{' ' * t_pad_l}{t_colored}{' ' * t_pad_r}{CYAN}║{RESET}")
 
-        typer.echo(f"{CYAN}║{' ' * inner_w}║{RESET}")
+        typer.echo(f"{CYAN}║{RESET}{' ' * inner_w}{CYAN}║{RESET}")
 
         # Subtítulo 1 e 2 centralizados
         s1_pad_l = (inner_w - len(sub1)) // 2
