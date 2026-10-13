@@ -1,14 +1,14 @@
 # Task — Issue #23: Interface CLI, mensagens e versão automática
 
 > **Ciclo:** `007`
-> **Estado:** `Aguardando revisão`
+> **Estado:** `Integrada`
 > **Tipo:** `feature`
 > **Issue:** [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23)
-> **Plano:** `_project/drafts/007_interface_cli_e_versionamento/007_plan.md`
+> **Plano:** `_project/executed/007_interface_cli_e_versionamento/007_plan.md`
 > **Branch:** `feature/issue-23`
 > **Worktree:** `C:/Programas/utility-belt`
 > **PR:** [#24](https://github.com/EuThiagoAndrade/utility-belt/pull/24)
-> **Integração:** `Pendente`
+> **Integração:** PR #24 merged em `328e5151d2efd1571e90b7e370c7f7994d1919e4`
 > **Início:** 2026-10-13
 > **Última atualização:** 2026-10-13
 > **handoff_schema_version:** `1`
@@ -46,7 +46,7 @@ Ambiente .venv preexistente apontava para intérprete ausente e uv recebeu acess
 
 ## Resultado
 
-Implementação e validação locais concluídas; PR #24 publicada. Commit de implementação `c002c85b43df9db6cb91a4afd2f817a59a51228c`. Integração e execução remota de release pendentes; ciclo permanece Em execução.
+Implementação e validação locais concluídas; PR #24 publicada. Commit de implementação `c002c85b43df9db6cb91a4afd2f817a59a51228c`. Integração autorizada pelo responsável em 2026-10-13 e verificada no GitHub; issue #23 fechada. Release v0.2.0 publicada pelo bot em 74e772f após CI Windows/Linux aprovado. Encerramento documental segue em task própria; efeito final do ciclo depende do merge da closure.
 
 ### Validação visual e de distribuição
 
@@ -82,3 +82,29 @@ Implementação e validação locais concluídas; PR #24 publicada. Commit de im
 - `check_before_mutation`: nenhuma issue/branch/PR equivalente antes da criação; issue 23 agora canônica.
 - `reconcile_existing`: retomar branch/task/issue canônicas, sem duplicata.
 - `ambiguous_state`: parar diante de conflito material.
+
+## Handoff de integração — fase posterior autorizada
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `EuThiagoAndrade/utility-belt+007+integrar+pr-24+ae4d584`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
+- `effect_class`: `remote_mutation`
+- `state_before`: PR #24 aberta, revisão ae4d584, checks Windows/Linux aprovados; issue #23 aberta.
+- `state_after`: PR #24 merged em 328e515; issue #23 closed; release v0.2.0 publicada em 74e772f; main local atualizada.
+- `next_transition`: reconciliação e encerramento documental.
+- `preconditions`: integração comprovada, release observada e documentação restrita ao ciclo.
+- `authority`: responsável: “Pode fazer o merge. E integração”, em 2026-10-13.
+- `evidence`: PR #24/issue #23, CI 38421153140 e Release 38422997891; tag v0.2.0 e fonte canônica 0.2.0.
+- `acceptance`: merge protegido por expected_head_sha, estados e versão consultados após o efeito.
+- `blockers`: nenhum para encerramento; closure precisa de checks e integração verificada.
+- `result`: `executed`
+- `next_workflow_recommended`: `atualizar_docs`
+- `next_workflow_authorized`: reconciliação da integração e encerramento documental normal do ciclo, dentro da integração solicitada.
+- `actions_prohibited`: ampliar produto, inventar evidência ou declarar closure integrada antecipadamente.
+- `rejection_rule`: recusar estado sem evidência remota ou incompatível com a revisão autorizada.
+- `logical_key`: `EuThiagoAndrade/utility-belt+007+integrar+pr-24+ae4d584`
+- `check_before_mutation`: PR aberta, head exato e checks SUCCESS confirmados; workspace limpo.
+- `reconcile_existing`: integração única; nunca repetir merge/release já comprovados.
+- `ambiguous_state`: parar diante de divergência de revisão, tag ou integração.
+
+O handoff de execução acima é histórico da fase até a PR. A autorização e o handoff desta fase posterior substituem suas proibições de merge e release.
