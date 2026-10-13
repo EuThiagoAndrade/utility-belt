@@ -4,7 +4,7 @@
 > **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17)
-> **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
+> **Plano:** `_project/executed/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-17`
 > **Worktree:** `C:/Programas/utility-belt`
 > **PR:** [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — integrada
@@ -73,6 +73,8 @@ Reutilizar ambiente `.venv-cycle-006` e aquisições isoladas do ciclo; preserva
 
 ## Resultado
 
+Registro atual do ciclo: [encerramento documental](006_task_closure.md), autorizado após A/B/C integradas. As autorizações e pendências dos handoffs abaixo descrevem suas transições históricas.
+
 A e B integradas. PR #20 integrada após autorização humana, merge `044605f6e7e44e4a2802aabdee2f163428a66406`; issue #17 fechada. C iniciada na task #18 sobre essa base. Encerramento continua pendente.
 
 ### Handoff histórico de publicação
@@ -99,7 +101,7 @@ A e B integradas. PR #20 integrada após autorização humana, merge `044605f6e7
 - `reconcile_existing`: retomar esta unidade canônica sem duplicar artefatos.
 - `ambiguous_state`: parar em concorrência/divergência de issue, task, branch, PR ou plano.
 
-### Handoff vigente de integração
+### Handoff histórico de integração
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/integrar_pr/pr-20/91bb031ff5d2af83e83e2bc996a8b1370c6e849d`

@@ -4,7 +4,7 @@
 > **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16)
-> **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
+> **Plano:** `_project/executed/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-16`
 > **Worktree:** `C:/Programas/utility-belt`
 > **PR:** [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — integrada
@@ -101,6 +101,8 @@ Plano e ideação aprovados, antes não versionados, serão incluídos integralm
 
 ## Resultado
 
+Registro atual do ciclo: [encerramento documental](006_task_closure.md), autorizado após A/B/C integradas. As autorizações e pendências dos handoffs abaixo descrevem suas transições históricas.
+
 Entrega A implementada, validada e integrada na PR #19 após autorização humana; issue #16 fechada pelo GitHub. B autorizada/iniciada na task #17, C ainda não iniciada. O ciclo permanece em execução. Handoff anterior ao merge preservado abaixo como histórico.
 
 ### Handoff de execução (histórico anterior à integração)
@@ -127,7 +129,7 @@ Entrega A implementada, validada e integrada na PR #19 após autorização human
 - `reconcile_existing`: retomar somente esta branch/task sem duplicações.
 - `ambiguous_state`: parar em divergência de issue, task, branch, PR ou plano aprovado.
 
-### Handoff vigente: integração autorizada
+### Handoff histórico: integração autorizada
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/integrar_pr/pr-19/e523fb0d2b73f4f833d3596c009de8c4d18947bc`
