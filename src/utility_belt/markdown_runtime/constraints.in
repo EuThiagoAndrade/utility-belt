@@ -1,0 +1,10 @@
+markitdown==0.1.8
+markitdown[pdf]==0.1.8
+markitdown[docx]==0.1.8
+markitdown[pptx]==0.1.8
+markitdown[xlsx]==0.1.8
+markitdown[xls]==0.1.8
+markitdown[outlook]==0.1.8
+markitdown[youtube-transcription]==0.1.8
+markitdown[audio-transcription]==0.1.8
+imageio-ffmpeg==0.6.0

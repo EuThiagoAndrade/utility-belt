@@ -1,0 +1,2 @@
+# PDFs de teste preservam offsets binários; não normalizar quebras de linha.
+tests/fixtures/markdown/*.pdf binary

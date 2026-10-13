@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import tempfile
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -103,6 +104,53 @@ def save_config(config: dict[str, Any]) -> None:
         tomli_w.dump(config, f)
 
     temp_file.replace(config_file)
+
+
+def load_markdown_output_dir() -> Path | None:
+    """Lê a preferência estritamente, sem ocultar TOML inválido."""
+    config_file = get_config_file()
+    if not config_file.exists():
+        return None
+    with config_file.open("rb") as stream:
+        document = tomllib.load(stream)
+    section = document.get("markdown", {})
+    if not isinstance(section, dict):
+        raise ValueError("[markdown] precisa ser uma tabela TOML")
+    value = section.get("output_dir")
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("[markdown].output_dir precisa ser um caminho não vazio")
+    return Path(value).expanduser().resolve()
+
+
+def save_markdown_output_dir(output_dir: str | Path) -> Path:
+    """Preserva o documento existente e publica a preferência atomicamente."""
+    output = Path(output_dir).expanduser().resolve()
+    if output.exists() and not output.is_dir():
+        raise ValueError(f"Destino não é uma pasta: {output}")
+    config_file = get_config_file()
+    if config_file.exists():
+        with config_file.open("rb") as stream:
+            document = tomllib.load(stream)
+    else:
+        document = get_default_config()
+    section = document.setdefault("markdown", {})
+    if not isinstance(section, dict):
+        raise ValueError("[markdown] precisa ser uma tabela TOML")
+    section["output_dir"] = str(output)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=config_file.parent, suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            tomli_w.dump(document, stream)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(config_file)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+    return output
 
 
 def get_profile(name: str | None = None) -> dict[str, Any]:
