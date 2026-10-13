@@ -35,7 +35,7 @@ Conjunto completo confirmado pelo responsável; workflow autoaprovado até a PR,
 
 | Gate | Resultado |
 | :-- | :-- |
-| Testes | Suíte completa: 204 passed, 36 skipped; 36 smokes reais opt-in não executados sem BELT_MARKDOWN_TEST_DATA. Após ajuste de diagnóstico/retry: 60 testes relevantes passaram. |
+| Testes | Suíte completa final: 205 passed, 36 skipped; 36 smokes reais opt-in não executados sem BELT_MARKDOWN_TEST_DATA. Testes Restic isolados: 7 passaram. |
 | Validação | 33 OK, 1 aviso explicado por reserva ativa 007, 0 falhas; ruff passou; actionlint 1.7.12 passou nos dois workflows. |
 | `git diff --check` | Limpo no working tree e no staging seletivo |
 | Checks remotos | CI Windows/Linux iniciado na PR #24; execução final será conferida no GitHub, autoridade global dos checks. |
@@ -57,6 +57,7 @@ Implementação e validação locais concluídas; PR #24 publicada. Commit de im
 - Revisão final corrigiu retry do workflow: snapshot de main atual -> CI Windows/Linux nessa mesma revisão -> release nessa mesma revisão; evita usar SHA antigo de evento ao repetir publicação parcial. Push atômico sem force rejeita avanço concorrente da main.
 - Cache local antigo recebeu acesso negado; suíte usa `-p no:cacheprovider` e RUFF_CACHE_DIR no ambiente isolado. CI mantém comandos normais em runners novos.
 - Primeira execução remota 38419751590 falhou em três testes Restic existentes: dependiam implicitamente de restic no PATH mesmo simulando subprocessos. Fixture de teste passou a simular também a presença do executável, com caso explícito para ausência; nenhuma alteração no comportamento Restic de produção. Correção necessária para o CI limpo previsto no plano.
+- Primeiro ajuste do harness não alcançava a CLI em processo filho; teste de ausência sinalizou isso. Correção final executa a ferramenta no processo do teste, preservando a passagem dos argumentos da CLI e tornando efetivos os mocks de senha/executável/subprocesso. Nova suíte completa passou com 205 testes; a revisão corrente da PR é a autoridade dos checks remotos finais.
 
 ### Handoff de execução
 

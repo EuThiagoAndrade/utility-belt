@@ -1,6 +1,7 @@
 """Testes para o adaptador e ferramentas Restic."""
 
 import json
+import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -18,6 +19,13 @@ runner = CliRunner()
 def simulated_restic(monkeypatch):
     """Estes testes simulam Restic; não dependem de instalação no host/CI."""
     monkeypatch.setattr("utility_belt.tools.restic_backup.main.shutil.which", lambda _: "restic-test")
+    # Executar a ferramenta no processo do teste permite que os mocks de
+    # presença do executável, senha e subprocesso alcancem o controller.
+    def run_in_process(manifest, args, **kwargs):
+        assert manifest.id == "restic.backup"
+        with patch.object(sys, "argv", ["restic_backup", *args]):
+            return restic_main()
+    monkeypatch.setattr("utility_belt.adapters.restic.run_tool", run_in_process)
 
 
 def test_restic_missing_binary_is_reported(tmp_path, monkeypatch):
