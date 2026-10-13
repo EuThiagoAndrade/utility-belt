@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-17`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — aberta em rascunho
 > **Integração:** `Pendente`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
@@ -30,7 +30,7 @@ Lote sequencial recursivo com pasta compartilhada/resumo; monitor em primeiro pl
 - [x] Atualizar main via fast-forward; base da #17 é o merge verificado. Branch/PR/task anteriores de #17 não encontradas; criar branch canônica.
 - [x] Implementar Item 2 e testes: lote compartilhado, enumeração finita, monitor/estabilidade/lifecycle, clipboard e consentimentos.
 - [x] Executar gates e smokes Windows/Linux.
-- [ ] Publicar PR após staging seletivo.
+- [x] Publicar PR #20 após staging seletivo; anexar ao chat e conferir estado remoto.
 
 ## Evidências
 
@@ -39,7 +39,9 @@ Lote sequencial recursivo com pasta compartilhada/resumo; monitor em primeiro pl
 | Testes | `uv run pytest`: código 0, 175 testes, 240,04 s; `BELT_MARKDOWN_TEST_DATA` aponta para aquisições reais e `PYTEST_ADDOPTS=-p no:cacheprovider`; sem envios externos |
 | Validação | `uv run python scripts/validate_governance.py`: código 0, 31 OK, aviso conhecido 006/007, nenhuma falha; `uv run ruff check`: código 0 |
 | `git diff --check` | Código 0; `git diff --cached --check` também limpo; staging com somente os dez arquivos de B/rastreabilidade |
-| Checks remotos | Pendente |
+| Checks remotos | Para commit `35c3e003d8bac4723ae75af1fa36f878f3b5022a`: zero statuses e zero workflow runs observados; ausência de CI não é aprovação de check |
+
+Commit de implementação validada: `35c3e003d8bac4723ae75af1fa36f878f3b5022a`. PR #20 aberta/draft, não integrada, base main no merge verificado de A. Ajuste documental posterior registra vínculos e estados, sem alterar código ou testes validados.
 
 ## Decisões incidentais e desvios
 
@@ -71,24 +73,24 @@ Reutilizar ambiente `.venv-cycle-006` e aquisições isoladas do ciclo; preserva
 
 ## Resultado
 
-A integrada; B implementada e validada, com publicação pendente e integração não autorizada. Sem mudanças de CLI/menu/catálogo ou encerramento do ciclo.
+A integrada; B implementada, validada e publicada na PR #20 em rascunho. Revisão e autorização de integração B pendentes; C não iniciada. Sem mudanças de CLI/menu/catálogo ou encerramento do ciclo.
 
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: A publicada na PR #19, não integrada; #17 aberta, v4 Em Execução e autorização humana para integrar A/implementar B.
-- `state_after`: PR #19 integrada/issue #16 fechada, main atualizada, B implementada na branch #17, 175 testes/gates locais e matriz passando; publicação pendente e nenhuma integração B.
-- `next_transition`: implementar B -> gates/smokes -> publicar PR -> revisão -> integração autorizada -> C.
+- `state_after`: PR #19 integrada/issue #16 fechada, B implementada na branch publicada #17 e PR #20 aberta/draft, 175 testes/gates locais e matriz passando; nenhuma integração B.
+- `next_transition`: revisar PR #20 -> integração autorizada de B -> implementar C (#18).
 - `preconditions`: critérios Item 2, gates reais e staging seletivo para publicar; autorização própria para integrar B; B integrada antes de C.
 - `authority`: responsável autorizou merge de A e execução de B; GitHub comprova merge/issue/PR; autoridades locais regem gates.
-- `evidence`: PR #19, merge `13b4719af643747b679e87602ac5ff414b35d716`, issue #16 fechada, issue #17 aberta, base atualizada e registros desta task.
+- `evidence`: PR #19 integrada, merge `13b4719af643747b679e87602ac5ff414b35d716`, issue #16 fechada, issue #17 aberta, PR #20, commit `35c3e003d8bac4723ae75af1fa36f878f3b5022a`, base atualizada e gates/smokes desta task; zero statuses/runs CI observados.
 - `acceptance`: escopo B completo, testes/smokes reais, consentimentos preservados e PR rastreável.
-- `blockers`: revisão e autorização de integração B pendentes; nenhum bloqueio local para publicar.
+- `blockers`: revisão e autorização de integração B pendentes; nenhum bloqueio local de testes/lint/governança e nenhum check remoto disponível na consulta.
 - `result`: `executed`
-- `next_workflow_recommended`: concluir implementar_issue para #17; revisão/integração posterior.
+- `next_workflow_recommended`: revisar PR #20 e integrar somente após autorização; depois implementar #18.
 - `next_workflow_authorized`: implementar_issue #17, incluindo publicação validada; #18 somente após B integrada.
 - `actions_prohibited`: integrar B sem autorização, iniciar C antes de B integrada, encerrar ciclo, descontinuar File2MD, reutilizar consentimento externo de A.
 - `rejection_rule`: recusar divergência ou ausência de evidência material/autorização.
