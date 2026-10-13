@@ -1,13 +1,14 @@
 # Encerramento documental — Ciclo 006: Conversão Markdown Nativa
 
 > **Ciclo:** `006`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído` (proposta documental, efetiva após integração)
 > **Tipo:** `chore`
 > **Issue:** — (encerramento sem issue recursiva)
 > **Plano:** `_project/executed/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `chore/cycle-006-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [#22](https://github.com/EuThiagoAndrade/utility-belt/pull/22)
+> **Efetivação:** conclusão canônica comprovada pelo estado merged desta PR no GitHub.
 > **Integração:** verificável no GitHub; não registrar o SHA do próprio merge nesta task.
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
@@ -29,7 +30,7 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 - [x] Nenhuma task/branch/PR concorrente de closure; reconciliação local anterior preservada.
 - [x] Consolidar plano/tasks, pós-mortem e lições comprovadas; movimentação para executed na branch, com conclusão canônica condicionada à integração.
 - [x] Validar documentação, links, governança e gates.
-- [ ] Publicar PR documental e concluir a transição após integração verificável.
+- [x] Publicar PR documental própria; a integração verificável efetiva os estados finais propostos nesta PR.
 
 ## Evidências
 
@@ -44,7 +45,7 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 | Produto integrado | 207 testes passando na entrega C; Windows/Linux x64 Python 3.11/3.13, wheel/sdist instalados fora do checkout, aquisições reais consentidas, reuso e TTY. Detalhes nas tasks A/B/C. |
 | Governança/links/diff do encerramento | 33 OK, zero avisos/falhas; 30 links locais resolvidos, cinco documentos presentes no destino; diff normal/staged limpos. |
 | Ruff/pytest do encerramento | Ruff passou; `uv run pytest`: 207 passed em 196,03 s, Windows x64 Python 3.13.7, runtime real pré-adquirido (`BELT_MARKDOWN_TEST_DATA`), sem skips. |
-| Checks remotos da closure | Pendente |
+| Checks remotos da closure | Consultar a PR #22; ausência de statuses/runs não significa aprovação CI. Integração governada pelo GitHub. |
 
 ## Decisões incidentais e desvios
 
@@ -56,22 +57,22 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 
 ## Resultado
 
-Encerramento documental preparado e validado, exclusivamente em sete documentos. Handoff de integração C aceito: identidade, autorização, merge e issue comprovados; autorização atual supre a pendência histórica de encerramento. Integração da closure deve ser comprovada no GitHub, sem circularidade documental. Plano/ciclo Concluído nesta branch são proposta, com efeito em main somente após integração verificável.
+Encerramento documental validado e publicado na PR #22, exclusivamente em sete documentos. Handoff de integração C aceito: identidade, autorização, merge e issue comprovados; autorização atual supre a pendência histórica de encerramento. Plano/ciclo/task Concluído nesta branch são a proposta documental final: a integração verificável da PR #22 confirma sua efetivação em main. O próprio merge não é registrado por SHA nesta task, evitando circularidade. File2MD e próximo ciclo 007 preservados.
 
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/atualizar_docs/closure/56e561f6d5b6ec44129663ab4e2eadd369323bba`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
-- `effect_class`: `local_mutation`.
+- `effect_class`: `remote_mutation`.
 - `state_before`: A/B/C integradas, ciclo Em execução em drafts; reconciliação C local pendente de publicação.
-- `state_after`: branch/task de encerramento únicas, documentos consolidados em executed e gates aprovados; publicação/integração pendentes.
+- `state_after`: documentos consolidados em executed, gates aprovados e PR #22 publicada; conclusão canônica condicionada à integração verificável dessa PR.
 - `next_transition`: documento validado -> PR documental -> integração verificada -> conclusão canônica.
 - `preconditions`: evidências A/B/C, gates aprovados, PR única e integração comprovada antes de afirmar conclusão em main.
 - `authority`: responsável autorizou encerramento; GitHub governa integrações; plano/README delimitam transição.
-- `evidence`: tabela de integrações e tasks A/B/C; 207 testes, governança 33 OK, lint/diff/links aprovados nesta task.
+- `evidence`: PR #22, tabela de integrações e tasks A/B/C; 207 testes, governança 33 OK, lint/diff/30 links aprovados nesta task.
 - `acceptance`: histórico preservado, links resolvíveis, estados coerentes e closure integrada.
-- `blockers`: nenhum local; publicação/integração pendentes para conclusão canônica.
+- `blockers`: nenhum local; conclusão canônica depende da integração verificável da PR #22.
 - `result`: `executed`.
 - `next_workflow_recommended`: concluir encerramento documental autorizado.
 - `next_workflow_authorized`: encerramento documental do ciclo 006; não descontinuar File2MD.

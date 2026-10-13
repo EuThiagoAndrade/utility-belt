@@ -460,15 +460,15 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/atualizar_docs/closure/56e561f6d5b6ec44129663ab4e2eadd369323bba`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
-- `effect_class`: `local_mutation`; publicação/integração da PR documental sob autorização de encerramento.
+- `effect_class`: `local_mutation`; branch/PR #22 publicadas sob autorização de encerramento.
 - `state_before`: A/B/C integradas, ciclo Em execução em drafts, reconciliação C local pendente.
 - `state_after`: documentos de encerramento preparados em executed nesta branch; estado Concluído é proposta até integração verificável em main.
 - `next_transition`: validação -> PR documental -> integração verificada -> conclusão canônica.
 - `preconditions`: gates e diff exclusivamente documental, PR canônica e confirmação remota da integração.
 - `authority`: responsável autorizou “Pode fazer o encerramento documental”; GitHub governa integração, README governa estados.
-- `evidence`: PRs #19/#20/#21 integradas, issues #16/#17/#18 fechadas; `006_task_closure.md` consolida gates e PR do encerramento.
+- `evidence`: PRs #19/#20/#21 integradas, issues #16/#17/#18 fechadas; [PR #22](https://github.com/EuThiagoAndrade/utility-belt/pull/22) e `006_task_closure.md` consolidam gates/encerramento.
 - `acceptance`: encerramento integrado, histórico íntegro, links válidos, próximo ciclo 007 preservado.
-- `blockers`: gates/publicação/integração pendentes nesta preparação; nenhum bloqueio de escopo.
+- `blockers`: gates aprovados e PR #22 publicada; efetivação canônica depende da integração verificável, sem bloqueio de escopo.
 - `result`: `executed`.
 - `next_workflow_recommended`: concluir encerramento documental autorizado.
 - `next_workflow_authorized`: encerramento documental do ciclo 006, incluindo sua PR; não descontinuar File2MD.
