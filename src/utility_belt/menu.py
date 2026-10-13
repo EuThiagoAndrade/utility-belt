@@ -7,13 +7,21 @@ import sys
 import questionary
 import typer
 
+from utility_belt import __version__
 from utility_belt.config import is_banner_enabled
 from utility_belt.doctor import run_diagnostics
 from utility_belt.ui.screen import (
     clear_screen,
+    menu_footer,
+    menu_options,
+    menu_separator,
+    message,
+    prompt,
     render_banner,
     render_compact_banner,
+    render_header,
     run_dedicated_screen,
+    tool_choice,
 )
 
 
@@ -32,20 +40,19 @@ def show_menu() -> None:
         typer.echo()
 
         try:
-            escolha = questionary.select(
-                "Menu Principal — Escolha uma opção:",
+            escolha = prompt(questionary.select,
+                "Escolha uma ferramenta",
                 choices=[
-                    questionary.Choice("[1] 🛡️  Restic (Backups, Restauração e Integridade)", value="restic"),
-                    questionary.Choice("[2] 🐳  Docker (Exportar e Importar Imagens)", value="docker"),
-                    questionary.Choice("[3] 🩺  Diagnóstico e Saúde (Doctor)", value="doctor"),
-                    questionary.Choice("[4] ℹ️   Informações do Sistema (system.info)", value="sysinfo"),
-                    questionary.Choice("[5] 📝  Conversão Markdown", value="markdown"),
-                    questionary.Separator(),
-                    questionary.Choice("[0] 🚪  Sair", value="sair"),
+                    tool_choice(1, "Restic", "Backup, restauração e integridade", "restic"),
+                    tool_choice(2, "Docker", "Exportar e importar imagens", "docker"),
+                    tool_choice(3, "Markdown", "Converter arquivos, URLs e pastas", "markdown"),
+                    tool_choice(4, "Sistema", "Diagnóstico e informações do computador", "system"),
+                    menu_separator(),
+                    questionary.Choice("[0] Sair", value="sair"),
+                    menu_footer(),
                 ],
-                use_shortcuts=False,
-                instruction="(Use ↑↓ para navegar, Enter para selecionar)",
-            ).ask()
+                **menu_options(),
+            )
         except KeyboardInterrupt:
             clear_screen()
             typer.echo("Encerrando menu.")
@@ -62,7 +69,7 @@ def show_menu() -> None:
 
                 show_restic_menu()
             except ImportError:
-                typer.secho("Módulo do menu Restic não disponível.", fg=typer.colors.RED, err=True)
+                run_dedicated_screen("Restic", lambda: message("ERRO", "Módulo do menu Restic não disponível."))
 
         elif escolha == "docker":
             try:
@@ -70,34 +77,62 @@ def show_menu() -> None:
 
                 show_docker_menu()
             except ImportError:
-                typer.secho("Módulo do menu Docker não disponível.", fg=typer.colors.RED, err=True)
+                run_dedicated_screen("Docker", lambda: message("ERRO", "Módulo do menu Docker não disponível."))
 
         elif escolha == "markdown":
             from utility_belt.ui.markdown_menu import show_markdown_menu
 
             show_markdown_menu()
 
-        elif escolha == "doctor":
-            run_dedicated_screen(["UTILITY BELT", "DIAGNÓSTICO"], _show_diagnostics)
+        elif escolha == "system":
+            show_system_menu()
 
-        elif escolha == "sysinfo":
-            run_dedicated_screen(["UTILITY BELT", "INFORMAÇÕES DO SISTEMA"], _run_system_info)
+
+def show_system_menu() -> None:
+    actions = {"doctor": ("Verificar ambiente", _show_diagnostics),
+               "sysinfo": ("Informações do computador", _run_system_info),
+               "about": ("Sobre o Utility Belt", _show_about)}
+    while True:
+        clear_screen()
+        render_header(["UTILITY BELT", "Sistema"])
+        typer.echo()
+        try:
+            choice = prompt(questionary.select, "Escolha uma opção", choices=[
+                questionary.Choice("[1] Verificar ambiente", value="doctor"),
+                questionary.Choice("[2] Informações do computador", value="sysinfo"),
+                questionary.Choice("[3] Sobre o Utility Belt", value="about"),
+                menu_separator(),
+                questionary.Choice("[0] Voltar ao menu principal", value="exit"),
+                menu_footer(),
+            ], **menu_options())
+        except KeyboardInterrupt:
+            return
+        if not choice or choice == "exit":
+            return
+        label, action = actions[choice]
+        run_dedicated_screen(["UTILITY BELT", "Sistema", label], action)
+
+
+def _show_about() -> None:
+    message("INFO", f"Utility Belt — versão {__version__}",
+            details="O Canivete Suíço de Terminal\nFerramentas para Windows e Linux.\n"
+                    "Para atualizar sua instalação: uv tool upgrade utility-belt")
 
 
 def _show_diagnostics() -> None:
     """Exibe o diagnóstico rápido do ambiente."""
     diag = run_diagnostics()
     typer.echo()
-    typer.secho("=== Diagnóstico Rápido ===", bold=True)
+    message("INFO", "Diagnóstico do ambiente.")
     typer.echo(f"  SO       : {diag['system']['os_name']} ({diag['system']['architecture']})")
     typer.echo(f"  Python   : {diag['python']['version']}")
 
     for name, info in diag["dependencies"].items():
         if info.get("installed"):
-            tag = typer.style("[OK]", fg=typer.colors.GREEN, bold=True)
+            tag = "[OK]"
             details = info.get("details") or info.get("path") or "Disponível"
         else:
-            tag = typer.style("[FALTA]", fg=typer.colors.YELLOW)
+            tag = "[FALTA]"
             details = info.get("details") or "Não encontrado no PATH"
         typer.echo(f"  {tag} {name:<12} : {details}")
 

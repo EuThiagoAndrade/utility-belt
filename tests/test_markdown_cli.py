@@ -174,7 +174,7 @@ def test_main_menu_routes_markdown_and_preserves_options(monkeypatch):
     choices = iter(["markdown", "sair"])
     def select(*args, **kwargs):
         values = [getattr(c, "value", None) for c in kwargs["choices"]]
-        assert all(value in values for value in ("restic", "docker", "doctor", "sysinfo", "markdown", "sair"))
+        assert all(value in values for value in ("restic", "docker", "system", "markdown", "sair"))
         return Mock(ask=lambda: next(choices))
     monkeypatch.setattr(main_menu.questionary, "select", select)
     selected = Mock()

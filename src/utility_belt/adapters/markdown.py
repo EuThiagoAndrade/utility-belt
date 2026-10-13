@@ -10,6 +10,7 @@ import typer
 from utility_belt import markdown as core
 from utility_belt.config import save_markdown_output_dir
 from utility_belt.markdown_watch import watch
+from utility_belt.ui.screen import message
 
 markdown_app = typer.Typer(name="markdown", help="Conversão Markdown de arquivos, URLs e pastas.",
                            no_args_is_help=False, add_completion=False)
@@ -17,19 +18,37 @@ markdown_app = typer.Typer(name="markdown", help="Conversão Markdown de arquivo
 
 def report(result: core.ConversionResult | core.OperationResult) -> None:
     """Mostra diagnósticos e destinos sem alterar o conteúdo do motor."""
-    if result.diagnostic:
-        typer.echo(result.diagnostic)
+    kind = "CANCELADO" if result.code == 130 else "SUCESSO" if result.code == 0 else "AVISO" if result.code == 2 else "ERRO"
     if isinstance(result, core.OperationResult):
-        typer.echo(f"Sucessos: {result.successes}; falhas: {result.failures}; ignorados: {result.ignored}")
-    elif result.output:
-        typer.echo(f"Resultado: {result.output}")
+        title = "Operação encerrada." if result.code == 130 else "Conversão em lote concluída."
+        if result.code != 130 and result.failures and result.successes:
+            kind, title = "AVISO", "Conversão concluída com pendências."
+        message(kind, title)
+        typer.echo(f"Convertidos: {result.successes} | Com erro: {result.failures} | Ignorados: {result.ignored}")
+    else:
+        titles = {"success": "Arquivo convertido para Markdown.", "partial": "Conversão parcial; verifique os detalhes.",
+                  "cancelled": "Operação cancelada.", "unsupported": "Formato não suportado.",
+                  "unavailable": "Um requisito está indisponível.", "missing": "Um requisito está ausente.",
+                  "changed": "Arquivo alterado durante a conversão; tente novamente.", "failed": "Não foi possível converter."}
+        if result.status == "partial":
+            kind = "AVISO"
+        message(kind, titles.get(result.status, "Operação concluída." if result.code == 0 else "Operação não concluída."))
+        if result.output:
+            typer.echo(f"Salvo em: {result.output}")
+    if result.diagnostic:
+        typer.echo(f"Detalhes: {result.diagnostic}")
     if result.operation:
         typer.echo(f"Pasta da operação: {result.operation}")
 
 
 def progress(path: Path, result: core.ConversionResult) -> None:
-    typer.echo(f"{path.name}: {result.status}")
+    typer.echo(f"\nArquivo: {path}")
     report(result)
+
+
+def announce(text: str) -> None:
+    if sys.stdin.isatty() and sys.stdout.isatty():
+        message("INFO", text)
 
 
 def automation(ctx: typer.Context, requested: bool) -> bool:
@@ -51,6 +70,7 @@ def callback(ctx: typer.Context, non_interactive: bool = typer.Option(False, "--
 def convert(ctx: typer.Context, source: str = typer.Argument(...),
             output_dir: Path | None = typer.Option(None, "--output-dir"),
             non_interactive: bool = typer.Option(False, "--non-interactive")) -> None:
+    announce("Preparando a conversão do arquivo ou URL...")
     result = core.convert(source, output_dir=output_dir, non_interactive=automation(ctx, non_interactive))
     report(result)
     raise typer.Exit(result.code)
@@ -60,6 +80,7 @@ def convert(ctx: typer.Context, source: str = typer.Argument(...),
 def batch(ctx: typer.Context, source: Path = typer.Argument(...),
           output_dir: Path | None = typer.Option(None, "--output-dir"),
           non_interactive: bool = typer.Option(False, "--non-interactive")) -> None:
+    announce("Preparando a conversão da pasta...")
     result = core.batch(source, output_dir=output_dir, non_interactive=automation(ctx, non_interactive),
                         on_result=progress)
     report(result)
@@ -70,6 +91,7 @@ def batch(ctx: typer.Context, source: Path = typer.Argument(...),
 def monitor(ctx: typer.Context, source: Path = typer.Argument(...),
             output_dir: Path | None = typer.Option(None, "--output-dir"),
             non_interactive: bool = typer.Option(False, "--non-interactive")) -> None:
+    announce("Preparando o monitor...")
     result = watch(source, output_dir=output_dir, non_interactive=automation(ctx, non_interactive),
                    on_result=progress, on_ready=lambda: typer.echo("Monitor ativo; Ctrl+C para encerrar."))
     report(result)
@@ -79,6 +101,7 @@ def monitor(ctx: typer.Context, source: Path = typer.Argument(...),
 @markdown_app.command("clipboard", help="Converte o arquivo ou URL textual do clipboard.")
 def clipboard(ctx: typer.Context, output_dir: Path | None = typer.Option(None, "--output-dir"),
               non_interactive: bool = typer.Option(False, "--non-interactive")) -> None:
+    announce("Lendo o caminho ou URL da área de transferência...")
     result = core.clipboard(output_dir=output_dir, non_interactive=automation(ctx, non_interactive))
     report(result)
     raise typer.Exit(result.code)

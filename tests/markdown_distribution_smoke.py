@@ -137,7 +137,7 @@ def main():
     terminal.until("markitdown[pdf]==0.1.8")
     terminal.send("s\r")
     acquired = terminal.finish(0)
-    assert "Resultado:" in acquired
+    assert "Salvo em:" in acquired
     assert "docx" not in acquired and "audio-transcription" not in acquired
     print("TTY: recusa=2; modo não interativo=2; aquisição base+PDF=0", flush=True)
     print(run(["markdown", "config", "--output-dir", "central"]), flush=True)
@@ -164,7 +164,7 @@ def main():
     terminal = Terminal(["markdown", "watch", "source", "--non-interactive"])
     terminal.until("Monitor ativo")
     (source / "new.txt").write_text("Utility Belt distributed monitor fixture", encoding="utf-8")
-    terminal.until("Resultado:")
+    terminal.until("Salvo em:")
     terminal.send("\x03")
     terminal.finish(130)
     assert any("distributed monitor" in p.read_text(encoding="utf-8") for p in (work / "central").rglob("*.md"))
@@ -185,7 +185,7 @@ def main():
     terminal.send("\x03")
     terminal.finish(0)
     if args.exercise_menu:
-        for value, marker in [("sample.pdf", "Resultado:"), ("missing.pdf", "Entrada"), ("", "Operação cancelada.")]:
+        for value, marker in [("sample.pdf", "Salvo em:"), ("missing.pdf", "Entrada"), ("", "Operação cancelada.")]:
             terminal = Terminal(["markdown"])
             terminal.until("Escolha uma opção")
             terminal.send("\r")

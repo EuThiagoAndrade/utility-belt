@@ -143,9 +143,13 @@ def run_tool(
             )
             if result.stdout:
                 sys.stdout.write(result.stdout)
+                if not result.stdout.endswith("\n"):
+                    sys.stdout.write("\n")
                 sys.stdout.flush()
             if result.stderr:
                 sys.stderr.write(result.stderr)
+                if not result.stderr.endswith("\n"):
+                    sys.stderr.write("\n")
                 sys.stderr.flush()
             return result.returncode
     except KeyboardInterrupt:

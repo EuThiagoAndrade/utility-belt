@@ -74,9 +74,56 @@ belt markdown menu    # Menu das cinco ações Markdown (ou apenas 'belt markdow
 
 > **Nota:** Em ambientes não interativos (como rotinas de CI ou cron jobs), chamar `belt` sem argumentos exibe a ajuda padrão em vez de aguardar entrada do usuário.
 
+O menu principal apresenta **Restic**, **Docker**, **Markdown** e **Sistema**, com
+descrições curtas e seleção destacada. **Sistema** reúne Verificar ambiente,
+Informações do computador e Sobre o Utility Belt. Navegue com ↑↓ e Enter;
+Ctrl+C volta do submenu ou encerra o menu principal. Os números identificam as
+opções; a seleção é por setas e Enter.
+
+As operações mostram informação, sucesso, aviso, erro ou cancelamento em blocos
+separados. Resultados permanecem visíveis até a confirmação de retorno. A
+conversão Markdown informa as etapas e a localização do arquivo gerado, com um
+resumo ao terminar um lote. `NO_COLOR=1` desativa as cores; saídas redirecionadas
+não recebem cores ou limpeza de tela. O cabeçalho se adapta à largura disponível.
+
 ---
 
 ## Referência da CLI (Modo Direto)
+
+### Versões e releases automáticos
+
+A fonte única de versão é `src/utility_belt/__init__.py`. Os metadados do pacote,
+o cabeçalho, Sobre e `belt --version` usam essa mesma versão.
+
+Após integrar mudanças na `main`, o workflow Release valida a revisão em
+Windows e Linux, calcula o incremento pelos commits convencionais e verifica o
+build. Ele publica um commit mecânico com versão, `uv.lock` e `CHANGELOG.md`, uma
+tag `vX.Y.Z` e uma GitHub Release. Os commits seguem a convenção do projeto:
+
+- `feat(issue-N): ...`: incrementa MINOR (`0.1.0` → `0.2.0`).
+- `fix(issue-N): ...`: incrementa PATCH (`0.2.0` → `0.2.1`).
+- `!` no cabeçalho ou `BREAKING CHANGE:` no corpo: MINOR em `0.x`; MAJOR a partir de `1.x`.
+- `docs`/`chore` isolados: não incrementam a versão.
+
+Vários commits pendentes usam o maior incremento uma vez. Se fizer squash,
+preserve a convenção no título/corpo do commit resultante. O primeiro release
+considera apenas mudanças posteriores ao baseline `e9f375f`; os seguintes usam
+a tag da versão atual. Não há renumeração retroativa dos ciclos anteriores.
+
+A automação utiliza `GITHUB_TOKEN` com `contents: write`, sem segredo adicional.
+Commit e tag são enviados atomicamente, sem force; concorrência ou proteção da
+branch podem impedir a publicação, e o workflow falha sem contornar regras. Uma
+reexecução reconcilia a release da tag existente sem duplicar versão. Commits do
+bot não disparam novamente o workflow de push. Não há publicação automática no
+PyPI nem instalação automática em computadores de usuários; atualize com
+`uv tool upgrade utility-belt`. A automação só começa após o merge da PR que a
+introduz; nenhuma release é criada ao abrir essa PR.
+
+Para conferir o cálculo localmente, sem alterar arquivos ou publicar:
+
+```bash
+uv run python scripts/release.py
+```
 
 ### Diagnóstico e Saúde do Ambiente (`belt doctor`)
 
