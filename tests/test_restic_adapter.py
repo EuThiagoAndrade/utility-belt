@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
 from typer.testing import CliRunner
 
 from utility_belt.cli import app
@@ -11,6 +12,22 @@ from utility_belt.tools.restic_backup.main import main as restic_main
 from utility_belt.tools.restic_backup.main import overlaps
 
 runner = CliRunner()
+
+
+@pytest.fixture(autouse=True)
+def simulated_restic(monkeypatch):
+    """Estes testes simulam Restic; não dependem de instalação no host/CI."""
+    monkeypatch.setattr("utility_belt.tools.restic_backup.main.shutil.which", lambda _: "restic-test")
+
+
+def test_restic_missing_binary_is_reported(tmp_path, monkeypatch):
+    source, repo = tmp_path / "source", tmp_path / "repo"
+    source.mkdir()
+    repo.mkdir()
+    monkeypatch.setattr("utility_belt.tools.restic_backup.main.shutil.which", lambda _: None)
+    result = runner.invoke(app, ["restic", "backup", "--source", str(source), "--repo", str(repo)])
+    assert result.exit_code == 2
+    assert "Executável 'restic' não encontrado" in result.output
 
 
 def test_overlaps_detection(tmp_path: Path) -> None:

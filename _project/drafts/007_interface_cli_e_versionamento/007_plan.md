@@ -87,6 +87,8 @@ Gates: `uv run python scripts/validate_governance.py`, `uv run ruff check`, `uv 
 
 `src/utility_belt/ui/*`, `menu.py`, `adapters/markdown.py`, `markdown.py` (apenas apresentação dos consentimentos/etapas), `runner.py` (limite de linha), `__init__.py`, `pyproject.toml`, testes correspondentes, `scripts/release.py`, `.github/workflows/*`, README, changelog e artefatos do ciclo. Lockfile somente se necessário ao build dinâmico.
 
+Validação em runners limpos requer também isolar a precondição de executável nos testes simulados de `tests/test_restic_adapter.py`, cuja dependência incidental de Restic instalado foi constatada no primeiro CI remoto. Correção limitada ao harness de testes.
+
 ## Decomposição em issues e PRs
 
 Uma feature issue com os três itens e uma PR de implementação contendo rastreabilidade documental. Release bot futuro produz apenas commit mecânico de versão/changelog após integração autorizada da feature.

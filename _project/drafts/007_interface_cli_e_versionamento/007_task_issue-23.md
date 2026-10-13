@@ -56,6 +56,7 @@ Implementação e validação locais concluídas; PR #24 publicada. Commit de im
 - Script de release testado em repositórios temporários: feat/fix/breaking, docs/chore, baseline, fonte/tag divergentes, checkout sujo, preservação de changelog e recuperação de release sem incrementar novamente.
 - Revisão final corrigiu retry do workflow: snapshot de main atual -> CI Windows/Linux nessa mesma revisão -> release nessa mesma revisão; evita usar SHA antigo de evento ao repetir publicação parcial. Push atômico sem force rejeita avanço concorrente da main.
 - Cache local antigo recebeu acesso negado; suíte usa `-p no:cacheprovider` e RUFF_CACHE_DIR no ambiente isolado. CI mantém comandos normais em runners novos.
+- Primeira execução remota 38419751590 falhou em três testes Restic existentes: dependiam implicitamente de restic no PATH mesmo simulando subprocessos. Fixture de teste passou a simular também a presença do executável, com caso explícito para ausência; nenhuma alteração no comportamento Restic de produção. Correção necessária para o CI limpo previsto no plano.
 
 ### Handoff de execução
 
