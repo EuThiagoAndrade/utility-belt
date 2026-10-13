@@ -38,7 +38,7 @@ Conjunto completo confirmado pelo responsável; workflow autoaprovado até a PR,
 | Testes | Suíte completa final: 205 passed, 36 skipped; 36 smokes reais opt-in não executados sem BELT_MARKDOWN_TEST_DATA. Testes Restic isolados: 7 passaram. |
 | Validação | 33 OK, 1 aviso explicado por reserva ativa 007, 0 falhas; ruff passou; actionlint 1.7.12 passou nos dois workflows. |
 | `git diff --check` | Limpo no working tree e no staging seletivo |
-| Checks remotos | CI Windows/Linux iniciado na PR #24; execução final será conferida no GitHub, autoridade global dos checks. |
+| Checks remotos | [CI 38420681131](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/38420681131) passou em Windows e Linux na revisão b2994ccb0e191ed8e0be71bc9c873af15f30ec07. Registro seguinte altera somente esta evidência documental; GitHub permanece autoridade dos checks da ponta atual. |
 
 ## Decisões incidentais e desvios
 
@@ -72,7 +72,7 @@ Implementação e validação locais concluídas; PR #24 publicada. Commit de im
 - `authority`: responsável, autorização explícita de workflow completo até a PR em 2026-10-13.
 - `evidence`: issue #23, PR #24, plano/revisão, handoffs, commit c002c85, gates e preview acima.
 - `acceptance`: três itens atendidos e evidências reais registradas.
-- `blockers`: checks remotos e aprovação/merge humanos pendentes; nenhum bloqueio local.
+- `blockers`: aprovação/merge humanos pendentes; CI da implementação aprovado em Windows/Linux, sem bloqueio local. Conferir checks da ponta atual no GitHub antes de integrar.
 - `result`: `executed`
 - `next_workflow_recommended`: revisão da PR ao terminar.
 - `next_workflow_authorized`: avaliação da PR; merge não autorizado.
