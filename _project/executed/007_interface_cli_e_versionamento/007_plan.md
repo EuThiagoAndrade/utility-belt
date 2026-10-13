@@ -1,7 +1,7 @@
 # Plano de Implementação — Interface CLI e versionamento automático
 
 > **Ciclo:** `007`
-> **Status:** `Em Execução`
+> **Status:** `Concluído` (proposta documental, efetiva após integração da closure)
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-13
 > **Última atualização:** 2026-10-13
@@ -9,7 +9,7 @@
 > **Prioridade:** `P2`
 > **Revisão formal:** `Concluída`
 > **Veredito da revisão:** `APTO COM RESSALVAS`
-> **Aprovação humana pós-revisão:** `Pendente`
+> **Aprovação humana pós-revisão:** `Aprovada em 2026-10-13` — autorização de integração da PR #24
 
 ## Objetivo
 
@@ -117,7 +117,7 @@ Ideação -> rascunho -> revisão formal e correções -> registrar exceção hu
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) |
-| PR(s) | [#24](https://github.com/EuThiagoAndrade/utility-belt/pull/24), integração pendente |
+| PR(s) | [#24](https://github.com/EuThiagoAndrade/utility-belt/pull/24), integrada em `328e5151d2efd1571e90b7e370c7f7994d1919e4` |
 | Branch(es) | `feature/issue-23` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | EuThiagoAndrade/utility-belt+007+rascunhar_plano+interface-cli-versionamento+e9f375f |
@@ -155,7 +155,7 @@ Histórico do rascunho, preservado para evidenciar a sequência. Handoffs de rev
 - **Versão revisada:** v1, depois de entrar em Em Revisão.
 - **Veredito:** `APTO COM RESSALVAS`
 - **Bloqueios remanescentes:** nenhum para entrega até a PR.
-- **Aprovação humana pós-revisão:** `Pendente`
+- **Aprovação humana pós-revisão:** aprovada em 2026-10-13 ao autorizar merge e integração; na fase inicial até a PR houve a exceção contextual registrada abaixo.
 - **Correções materiais:** decisões sobre baseline de release, push atômico, idempotência, CI e separação de consentimentos já explicitadas no plano antes da implementação.
 - **Ressalvas:** pixel fidelity depende do terminal; release remoto somente verificável após merge. Validador passou com 33 OK/0 falhas e um aviso: próximo ciclo 008 versus 007 derivado do último concluído; reserva ativa 007 explica o aviso. Proteção da main não consultável (API 403 por plano do GitHub); não assumir nem contornar proteção. Ambiente preexistente inválido substituído para checks por ambiente isolado.
 
@@ -169,6 +169,10 @@ Handoff de revisão: `EuThiagoAndrade/utility-belt+007+revisar_plano+interface-c
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-10-13, efetiva após merge da PR documental de encerramento.
+- **Desvios:** CI limpo revelou precondição Restic nos testes existentes; harness isolado, sem alteração do produto. Aprovação automática até a PR foi exceção humana pontual; integração explicitamente autorizada depois.
+- **Lições comprovadas:** mocks de precondições precisam alcançar o processo que executa a ferramenta; testes unitários não devem depender de binários incidentais no host.
+
+## Integração e encerramento
+
+Responsável autorizou: “Pode fazer o merge. E integração”, em 2026-10-13, após apresentação da PR validada. Essa autorização substitui a proibição de merge da fase anterior. PR #24 integrada em `328e5151d2efd1571e90b7e370c7f7994d1919e4`; issue #23 fechada. Release automático [38422997891](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/38422997891) passou em Windows/Linux e publicou [v0.2.0](https://github.com/EuThiagoAndrade/utility-belt/releases/tag/v0.2.0), commit `74e772f`. Fonte de versão e tag verificadas. Encerramento documental em branch própria conforme README, sem issue recursiva. Estado Concluído nesta branch é proposta; efeito canônico somente após integração verificável da PR de closure. Handoff operacional do encerramento em `007_task_closure.md`.
