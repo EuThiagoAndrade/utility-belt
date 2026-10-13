@@ -15,7 +15,7 @@
 
 | `007` | Interface CLI e Versionamento Automático | `Em execução` | `_project/ideations/007_interface_cli_e_versionamento.md` | `_project/drafts/007_interface_cli_e_versionamento/007_plan.md` | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) | Pendente — merge exige OK humano |
 
-O ciclo `007` reserva o conjunto completo autorizado em 2026-10-13, com workflow autoaprovado até a PR por exceção pontual registrada no plano, sem autorização de merge. Próximo ciclo 008 considera essa reserva ativa.
+O ciclo `007` entrega o conjunto completo autorizado em 2026-10-13 na [PR #24](https://github.com/EuThiagoAndrade/utility-belt/pull/24), com workflow autoaprovado até a PR por exceção pontual registrada no plano, sem autorização de merge. Integração e encerramento permanecem pendentes. Próximo ciclo 008 considera essa reserva ativa.
 
 O ciclo `000` não possui ideação separada, correspondendo ao bootstrap e fundação técnica do Utility Belt.
 O ciclo `001` originou-se do refinamento interativo de experiência de usuário e foi concluído na PR #3.

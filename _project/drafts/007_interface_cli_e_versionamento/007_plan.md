@@ -115,7 +115,7 @@ Ideação -> rascunho -> revisão formal e correções -> registrar exceção hu
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) |
-| PR(s) | Pendente |
+| PR(s) | [#24](https://github.com/EuThiagoAndrade/utility-belt/pull/24), integração pendente |
 | Branch(es) | `feature/issue-23` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | EuThiagoAndrade/utility-belt+007+rascunhar_plano+interface-cli-versionamento+e9f375f |

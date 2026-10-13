@@ -1,13 +1,13 @@
 # Task — Issue #23: Interface CLI, mensagens e versão automática
 
 > **Ciclo:** `007`
-> **Estado:** `Em andamento`
+> **Estado:** `Aguardando revisão`
 > **Tipo:** `feature`
 > **Issue:** [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23)
 > **Plano:** `_project/drafts/007_interface_cli_e_versionamento/007_plan.md`
 > **Branch:** `feature/issue-23`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** Pendente
+> **PR:** [#24](https://github.com/EuThiagoAndrade/utility-belt/pull/24)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-13
 > **Última atualização:** 2026-10-13
@@ -29,7 +29,7 @@ Conjunto completo confirmado pelo responsável; workflow autoaprovado até a PR,
 - [x] Interface, Sistema e mensagens.
 - [x] Fonte única, script de release e CI.
 - [x] Testes, smoke visual e build instalado.
-- [ ] Revisão de diff, staging seletivo e PR.
+- [x] Revisão de diff, staging seletivo e PR #24 publicada sem merge.
 
 ## Evidências
 
@@ -37,8 +37,8 @@ Conjunto completo confirmado pelo responsável; workflow autoaprovado até a PR,
 | :-- | :-- |
 | Testes | Suíte completa: 204 passed, 36 skipped; 36 smokes reais opt-in não executados sem BELT_MARKDOWN_TEST_DATA. Após ajuste de diagnóstico/retry: 60 testes relevantes passaram. |
 | Validação | 33 OK, 1 aviso explicado por reserva ativa 007, 0 falhas; ruff passou; actionlint 1.7.12 passou nos dois workflows. |
-| `git diff --check` | Limpo antes do staging; conferir novamente após stage |
-| Checks remotos | Pendente |
+| `git diff --check` | Limpo no working tree e no staging seletivo |
+| Checks remotos | CI Windows/Linux iniciado na PR #24; execução final será conferida no GitHub, autoridade global dos checks. |
 
 ## Decisões incidentais e desvios
 
@@ -46,7 +46,7 @@ Ambiente .venv preexistente apontava para intérprete ausente e uv recebeu acess
 
 ## Resultado
 
-Implementação e validação locais concluídas; PR em preparação. Integração e execução remota de release pendentes.
+Implementação e validação locais concluídas; PR #24 publicada. Commit de implementação `c002c85b43df9db6cb91a4afd2f817a59a51228c`. Integração e execução remota de release pendentes; ciclo permanece Em execução.
 
 ### Validação visual e de distribuição
 
@@ -62,18 +62,18 @@ Implementação e validação locais concluídas; PR em preparação. Integraç�
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+007+implementar_issue+issue-23+e9f375f`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: plano apto/autorizado por exceção humana; issue 23 aberta; base e Git verificados.
-- `state_after`: branch feature/issue-23 e task persistente; implementação em andamento.
-- `next_transition`: implementar -> validar -> PR.
-- `preconditions`: escopo/issue correspondentes; gates e staging seletivo antes de publicação.
+- `state_after`: branch feature/issue-23 publicada, escopo implementado e validado, PR #24 aberta sem merge.
+- `next_transition`: PR -> revisão/checks -> decisão humana sobre integração.
+- `preconditions`: checks críticos aprovados e OK humano explícito antes do merge.
 - `authority`: responsável, autorização explícita de workflow completo até a PR em 2026-10-13.
-- `evidence`: issue remota, plano/revisão, baseline e comandos de Git.
+- `evidence`: issue #23, PR #24, plano/revisão, handoffs, commit c002c85, gates e preview acima.
 - `acceptance`: três itens atendidos e evidências reais registradas.
-- `blockers`: nenhum para implementar; merge sem autorização própria.
+- `blockers`: checks remotos e aprovação/merge humanos pendentes; nenhum bloqueio local.
 - `result`: `executed`
 - `next_workflow_recommended`: revisão da PR ao terminar.
-- `next_workflow_authorized`: implementação e publicação da PR, sem merge.
+- `next_workflow_authorized`: avaliação da PR; merge não autorizado.
 - `actions_prohibited`: merge, ampliação de escopo e release remoto nesta sessão.
 - `rejection_rule`: recusar identidade, estado ou evidência insuficiente.
 - `logical_key`: `EuThiagoAndrade/utility-belt+007+implementar_issue+issue-23+e9f375f`
