@@ -232,7 +232,7 @@ Lista prevista para implementação futura; revisão e registro de aprovação a
 
 ## Decomposição em issues e PRs
 
-Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A entrega A foi implementada e publicada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), em rascunho, aguardando revisão/integração autorizada; B/C não iniciadas. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
+Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A entrega A foi integrada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), merge `13b4719af643747b679e87602ac5ff414b35d716`, após autorização humana. B (#17) está em implementação autorizada; C não iniciada. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
 
 | Entrega proposta | Escopo | Dependência | Evidência de saída |
 | :-- | :-- | :-- | :-- |
@@ -305,12 +305,12 @@ Rollback futuro: reverter as PRs específicas em ordem inversa de dependências,
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#16 — A: Núcleo de conversão Markdown e destino seguro](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17 — B: Lote, monitoramento e clipboard](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18 — C: CLI, menus, diagnóstico e distribuição](https://github.com/EuThiagoAndrade/utility-belt/issues/18) |
-| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — entrega A (#16), aberta/draft, não integrada. |
-| Branch(es) | `feature/issue-16` — entrega A autorizada; registro operacional em `006_task_issue-16.md`. |
+| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — entrega A (#16), integrada em `13b4719af643747b679e87602ac5ff414b35d716`; PR de B ainda não publicada. |
+| Branch(es) | `feature/issue-16` — A integrada; `feature/issue-17` — B em execução; tasks por issue neste diretório. |
 | Ideação | `_project/ideations/006_conversao_markdown_nativa.md` |
 | Revisão de origem | Registro de aprovação: conteúdo da `v4` revisada, hash Git `55d97a2ef9c959e65119775ac2532eab3dea148f`; baseline do repositório `b36d04396ca0bb7af3dab79e5781b092df06ef12`. |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12` (vigente; aprovação histórica preservada abaixo) |
+| `handoff_id` | `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716` (vigente; históricos preservados abaixo) |
 | Destino após conclusão | `_project/executed/006_conversao_markdown_nativa/006_plan.md` |
 
 ### Validação documental e histórico do rascunho
@@ -358,7 +358,7 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `reconcile_existing`: reexecução compatível preserva a mesma aprovação/data e plano canônico, sem duplicar registro, alterar escopo ou conceder efeitos adicionais. Nova revisão material não reutiliza esta aprovação.
 - `ambiguous_state`: parar em alteração concorrente/material da versão aprovada, divergência entre decisão humana e parecer/status ou evidência insuficiente; não sobrescrever registro conflitante nem inferir nova aprovação.
 
-### Handoff vigente: implementação da entrega A
+### Registro histórico: publicação da entrega A
 
 - `handoff_schema_version`: `1`.
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12`.
@@ -381,6 +381,30 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `check_before_mutation`: autoridades/templates lidos, v4 aprovada/issue/autorização confirmadas, main reconciliada; task/branch/PR duplicadas não encontradas.
 - `reconcile_existing`: retomar branch/task/PR canônicas compatíveis, sem duplicar artefatos ou alterar escopo técnico.
 - `ambiguous_state`: parar em concorrência ou divergência entre plano, issue, task, branch e PR.
+
+### Handoff vigente: implementação da entrega B
+
+- `handoff_schema_version`: `1`.
+- `handoff_id`: `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716`.
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `local_mutation`.
+- `state_before`: A publicada/não integrada e autorização humana para integrar PR #19 e continuar #17.
+- `state_after`: PR #19 integrada em `13b4719af643747b679e87602ac5ff414b35d716`, issue #16 fechada; B implementada na branch `feature/issue-17`, em validação; C não iniciada.
+- `next_transition`: gates/smokes B -> publicação de PR -> revisão -> integração autorizada -> C.
+- `preconditions`: Item 2 completo e gates/smokes reais para publicar; autorização própria para integrar B; B integrada antes de C.
+- `authority`: solicitação humana atual autorizou integração da PR #19 e implementação de #17; GitHub comprova merge/issue; autoridades locais regem próximos gates.
+- `evidence`: [task A](006_task_issue-16.md), [task B](006_task_issue-17.md), merge `13b4719`, issue #17 aberta e arquivos/testes/gates B registrados na task.
+- `acceptance`: receptor confere escopo B, evidências, PR canônica e dependência integrada, sem ampliar v4.
+- `blockers`: gates/publicação B em conclusão; integração de B sem autorização.
+- `result`: `executed`.
+- `next_workflow_recommended`: concluir implementar_issue #17 e encaminhar à revisão.
+- `next_workflow_authorized`: implementar_issue #17; #18 somente após B integrada; merge de B não autorizado.
+- `actions_prohibited`: integrar B automaticamente, iniciar C antes da dependência, encerrar ciclo/descontinuar File2MD ou reutilizar consentimento externo de A.
+- `rejection_rule`: recusar divergência de escopo, evidência, estado ou autorização.
+- `logical_key`: `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716`.
+- `check_before_mutation`: autoridades/templates/plano/issue/autorização lidos; merge de A/base confirmados; duplicações de task/branch/PR não encontradas.
+- `reconcile_existing`: retomar a unidade B compatível e preservar registros históricos.
+- `ambiguous_state`: parar em concorrência/divergência material.
 
 ## Revisão crítica
 
