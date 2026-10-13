@@ -25,8 +25,21 @@ RESOURCES = Path(__file__).parent
 RECIPES = tomllib.loads((RESOURCES / "recipes.toml").read_text(encoding="utf-8"))
 
 
+def recipe_revision():
+    """Receitas incompatíveis nunca alteram um ambiente adquirido anteriormente."""
+    digest = hashlib.sha256()
+    for resource in sorted([RESOURCES / "recipes.toml", *RESOURCES.glob("*.txt")]):
+        digest.update(resource.name.encode("utf-8"))
+        digest.update(resource.read_bytes())
+    return digest.hexdigest()[:16]
+
+
 class RequirementError(Exception):
     """Requisito indisponível, recusado ou incompatível (código 2)."""
+
+
+class AcquisitionError(RequirementError):
+    """Aquisição consentida que falhou (código 1)."""
 
 
 @contextlib.contextmanager
@@ -82,7 +95,7 @@ def run_process(args, **kwargs):
 class Runtime:
     def __init__(self, consent, data_dir=None):
         self.consent = consent
-        self.root = (Path(data_dir) if data_dir else get_data_dir()) / "markdown" / "engines" / "markitdown-0.1.8" / f"py{sys.version_info.major}.{sys.version_info.minor}"
+        self.root = (Path(data_dir) if data_dir else get_data_dir()) / "markdown" / "engines" / "markitdown-0.1.8" / f"py{sys.version_info.major}.{sys.version_info.minor}" / f"recipes-{recipe_revision()}"
 
     def python(self, environment="core"):
         return self.root / environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -128,15 +141,18 @@ class Runtime:
         if tuple(int(part) for part in observed.split(".")[:3]) < (0, 12, 13):
             raise RequirementError("Aquisição requer uv >=0.12.13")
         interpreter = self.python(environment)
-        with environment_lock(self.root):
-            if not interpreter.exists():
-                run_process([uv, "--no-config", "venv", "--python", sys.executable,
-                             "--no-python-downloads", str(self.root / environment)])
-            run_process([uv, "--no-config", "pip", "install", "--python", str(interpreter),
-                         "--constraints", str(RESOURCES / "constraints.txt"),
-                         "--require-hashes", "--requirements", str(RESOURCES / f"{group}.txt")])
+        try:
+            with environment_lock(self.root):
+                if not interpreter.exists():
+                    run_process([uv, "--no-config", "venv", "--python", sys.executable,
+                                 "--no-python-downloads", str(self.root / environment)])
+                run_process([uv, "--no-config", "pip", "install", "--python", str(interpreter),
+                             "--constraints", str(RESOURCES / "constraints.txt"),
+                             "--require-hashes", "--requirements", str(RESOURCES / f"{group}.txt")])
+        except (OSError, RequirementError, subprocess.TimeoutExpired) as err:
+            raise AcquisitionError(f"Aquisição de {group} falhou: {err}") from err
         if not self.available(group, environment):
-            raise RequirementError(f"Instalação de {group} não passou na validação de versão/imports; repita após corrigir")
+            raise AcquisitionError(f"Instalação de {group} não passou na validação de versão/imports; repita após corrigir")
 
     def worker(self, request, environment="core"):
         request = {**request, "environment": environment}

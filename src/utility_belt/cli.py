@@ -9,6 +9,7 @@ import typer
 
 from utility_belt import __version__
 from utility_belt.adapters.docker import docker_app
+from utility_belt.adapters.markdown import markdown_app
 from utility_belt.adapters.restic import restic_app
 from utility_belt.catalog import catalog
 from utility_belt.doctor import run_diagnostics
@@ -25,6 +26,7 @@ app = typer.Typer(
 # Adiciona os subcomandos adaptados de Docker e Restic
 app.add_typer(docker_app, name="docker")
 app.add_typer(restic_app, name="restic")
+app.add_typer(markdown_app, name="markdown")
 
 
 def version_callback(value: bool) -> None:

@@ -8,8 +8,68 @@ import subprocess
 import sys
 from typing import Any
 
+import platformdirs
+
 from utility_belt.catalog import CURRENT_PLATFORM
-from utility_belt.config import get_config_file, load_config
+from utility_belt.config import APP_AUTHOR, APP_NAME, get_config_file, load_config
+
+
+def check_markdown() -> dict[str, Any]:
+    """Somente lê o runtime: sem mkdir, lock, aquisição ou consentimento."""
+    from utility_belt.markdown_runtime.runtime import RECIPES, Runtime
+
+    data = platformdirs.user_data_path(appname=APP_NAME, appauthor=APP_AUTHOR)
+    runtime = Runtime(None, data_dir=data)
+    environments = {}
+    for environment in ("core", "audio"):
+        interpreter = runtime.python(environment)
+        groups = {}
+        if interpreter.is_file():
+            script = (
+                "import importlib,importlib.metadata,importlib.util,json;"
+                f"recipes={RECIPES['groups']!r};result={{}};"
+                "\nfor group,recipe in recipes.items():"
+                "\n try:"
+                "\n  assert importlib.metadata.version('markitdown')=='0.1.8'"
+                "\n  [importlib.import_module(name) for name in recipe['imports']]"
+                "\n  result[group]=True"
+                "\n except Exception: result[group]=False"
+                f"\nif {environment!r}=='core' and any(importlib.util.find_spec(n) for n in ('speech_recognition','pydub')): result['base']=False"
+                "\nprint(json.dumps(result))"
+            )
+            try:
+                import json
+                response = subprocess.run([str(interpreter), "-I", "-B", "-c", script],
+                                          capture_output=True, text=True, timeout=15)
+                if response.returncode == 0:
+                    groups = json.loads(response.stdout)
+            except (OSError, ValueError, subprocess.TimeoutExpired):
+                pass
+        environments[environment] = {"python": str(interpreter), "groups": groups}
+    installed = bool(environments["core"]["groups"].get("base"))
+    import os
+    exiftool = runtime.root / "exiftool-13.59" / ("exiftool.exe" if os.name == "nt" else "Image-ExifTool-13.59/exiftool")
+    return {"installed": installed, "path": str(runtime.root), "environments": environments,
+            "binaries": {"exiftool_portable": str(exiftool) if exiftool.is_file() else "",
+                         "exiftool_path": shutil.which("exiftool") or "",
+                         "ffmpeg_path": shutil.which("ffmpeg") or ""},
+            "compatible": (3, 11) <= sys.version_info[:2] <= (3, 14),
+            "details": "MarkItDown 0.1.8 disponível" if installed else
+                       "Motor não adquirido/indisponível; execute belt markdown convert em TTY para consentir. Python 3.11–3.14."}
+
+
+def check_clipboard() -> dict[str, Any]:
+    """Não lê nem altera o conteúdo; informa somente o backend da sessão."""
+    import os
+
+    if sys.platform == "win32":
+        available = True
+        detail = "Backend Windows; acesso depende da sessão e da disponibilidade do clipboard."
+    else:
+        available = bool((os.environ.get("WAYLAND_DISPLAY") and shutil.which("wl-paste") and shutil.which("wl-copy"))
+                         or (os.environ.get("DISPLAY") and (shutil.which("xclip") or shutil.which("xsel"))))
+        detail = "Linux requer sessão gráfica e backend xclip/xsel ou wl-copy/wl-paste; headless pode ser indisponível."
+    return {"installed": available, "details": detail}
 
 
 def check_executable(name: str) -> dict[str, Any]:
@@ -105,5 +165,7 @@ def run_diagnostics() -> dict[str, Any]:
             "restic": check_restic(),
             "powershell": check_executable("pwsh") if shutil.which("pwsh") else check_executable("powershell"),
             "bash": check_executable("bash"),
+            "markdown": check_markdown(),
+            "clipboard": check_clipboard(),
         },
     }
