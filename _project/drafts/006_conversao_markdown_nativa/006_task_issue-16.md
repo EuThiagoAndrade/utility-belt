@@ -1,18 +1,18 @@
 # Task — Issue #16: Núcleo de conversão Markdown e destino seguro
 
 > **Ciclo:** `006`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16)
 > **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-16`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — aberta em rascunho
-> **Integração:** `Pendente`
+> **PR:** [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — integrada
+> **Integração:** `13b4719af643747b679e87602ac5ff414b35d716`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
 > **handoff_schema_version:** `1`
-> **handoff_id:** utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12
+> **handoff_id:** utility-belt/006/integrar_pr/pr-19/e523fb0d2b73f4f833d3596c009de8c4d18947bc
 
 ## Objetivo
 
@@ -101,9 +101,9 @@ Plano e ideação aprovados, antes não versionados, serão incluídos integralm
 
 ## Resultado
 
-Entrega A implementada, validada e publicada na PR #19 em rascunho. Aguardando revisão e autorização de integração; início de B depende de A integrada. Nenhum código de B/C foi iniciado, nenhuma issue foi fechada e o ciclo permanece em execução.
+Entrega A implementada, validada e integrada na PR #19 após autorização humana; issue #16 fechada pelo GitHub. B autorizada/iniciada na task #17, C ainda não iniciada. O ciclo permanece em execução. Handoff anterior ao merge preservado abaixo como histórico.
 
-### Handoff de execução
+### Handoff de execução (histórico anterior à integração)
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12`
@@ -126,3 +126,27 @@ Entrega A implementada, validada e publicada na PR #19 em rascunho. Aguardando r
 - `check_before_mutation`: issues e PRs consultadas no conector; branches/status/base locais e remotos conferidos antes da criação.
 - `reconcile_existing`: retomar somente esta branch/task sem duplicações.
 - `ambiguous_state`: parar em divergência de issue, task, branch, PR ou plano aprovado.
+
+### Handoff vigente: integração autorizada
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/integrar_pr/pr-19/e523fb0d2b73f4f833d3596c009de8c4d18947bc`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
+- `effect_class`: `remote_mutation`
+- `state_before`: PR #19 aberta/draft, head `e523fb0d2b73f4f833d3596c009de8c4d18947bc`, gates locais aprovados, integração pendente.
+- `state_after`: PR marcada pronta e integrada em `13b4719af643747b679e87602ac5ff414b35d716`; GitHub confirmou issue #16 fechada/completed; main atualizada por fast-forward.
+- `next_transition`: implementar #17, com base na entrega A integrada.
+- `preconditions`: issue #17 aberta, v4 aprovada/Em Execução, autorização de implementação, task/branch únicas e gates de B.
+- `authority`: humano desta conversa declarou “Autorizo integrar a PR #19 para continuar com a #17”; GitHub confirmou efeitos remotos.
+- `evidence`: preflight remoto reconfirmou head/base, `mergeable=true`, nenhuma revisão impeditiva, zero statuses/runs CI (não inferir aprovação de CI); merge com SHA esperado e método merge; retorno GitHub `merged=true` e issue #16 closed/completed; Git local em `13b4719`.
+- `acceptance`: receptor verifica merge/issue/base e usa somente Item 2 da v4; evidências de A preservadas.
+- `blockers`: nenhum para iniciar #17; integração de B exige autorização posterior própria.
+- `result`: `executed`
+- `next_workflow_recommended`: implementar_issue #17.
+- `next_workflow_authorized`: implementar_issue #17, incluindo publicação validada; não inclui merge de B.
+- `actions_prohibited`: reexecutar merge de A, integrar B sem autorização, encerrar ciclo, descontinuar File2MD ou repetir envio de áudio com consentimento de A.
+- `rejection_rule`: recusar divergência de SHA/merge/issue ou autorização material ausente.
+- `logical_key`: `utility-belt/006/integrar_pr/pr-19/e523fb0d2b73f4f833d3596c009de8c4d18947bc`
+- `check_before_mutation`: head/base/status/revisões/checks e autorização reconfirmados; sem alteração de código entre gates registrados e merge.
+- `reconcile_existing`: merge já executado é reconciliado por SHA/estado; registro pós-merge acompanha task B, sem segunda integração.
+- `ambiguous_state`: parar em divergência do estado remoto ou base; nunca forçar branch ou fabricar integração.
