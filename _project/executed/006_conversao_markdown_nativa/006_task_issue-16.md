@@ -129,7 +129,7 @@ Entrega A implementada, validada e integrada na PR #19 após autorização human
 - `reconcile_existing`: retomar somente esta branch/task sem duplicações.
 - `ambiguous_state`: parar em divergência de issue, task, branch, PR ou plano aprovado.
 
-### Handoff vigente: integração autorizada
+### Handoff histórico: integração autorizada
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/integrar_pr/pr-19/e523fb0d2b73f4f833d3596c009de8c4d18947bc`

@@ -28,7 +28,7 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 - [x] GitHub confirmou PRs integradas e issues fechadas; HEAD/main remoto em `56e561f6d5b6ec44129663ab4e2eadd369323bba`.
 - [x] Nenhuma task/branch/PR concorrente de closure; reconciliação local anterior preservada.
 - [x] Consolidar plano/tasks, pós-mortem e lições comprovadas; movimentação para executed na branch, com conclusão canônica condicionada à integração.
-- [ ] Validar documentação, links, governança e gates.
+- [x] Validar documentação, links, governança e gates.
 - [ ] Publicar PR documental e concluir a transição após integração verificável.
 
 ## Evidências
@@ -42,8 +42,8 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 | Gate | Resultado |
 | :-- | :-- |
 | Produto integrado | 207 testes passando na entrega C; Windows/Linux x64 Python 3.11/3.13, wheel/sdist instalados fora do checkout, aquisições reais consentidas, reuso e TTY. Detalhes nas tasks A/B/C. |
-| Governança/links/diff do encerramento | Pendente |
-| Ruff/pytest do encerramento | Pendente |
+| Governança/links/diff do encerramento | 33 OK, zero avisos/falhas; 30 links locais resolvidos, cinco documentos presentes no destino; diff normal/staged limpos. |
+| Ruff/pytest do encerramento | Ruff passou; `uv run pytest`: 207 passed em 196,03 s, Windows x64 Python 3.13.7, runtime real pré-adquirido (`BELT_MARKDOWN_TEST_DATA`), sem skips. |
 | Checks remotos da closure | Pendente |
 
 ## Decisões incidentais e desvios
@@ -56,7 +56,7 @@ Responsável: “Pode fazer o encerramento documental”, após integração aut
 
 ## Resultado
 
-Encerramento em preparação. Handoff de integração C aceito: identidade, autorização, merge e issue comprovados; autorização atual supre a pendência histórica de encerramento. Integração da closure deve ser comprovada no GitHub, sem circularidade documental.
+Encerramento documental preparado e validado, exclusivamente em sete documentos. Handoff de integração C aceito: identidade, autorização, merge e issue comprovados; autorização atual supre a pendência histórica de encerramento. Integração da closure deve ser comprovada no GitHub, sem circularidade documental. Plano/ciclo Concluído nesta branch são proposta, com efeito em main somente após integração verificável.
 
 ### Handoff de execução
 
@@ -65,13 +65,13 @@ Encerramento em preparação. Handoff de integração C aceito: identidade, auto
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
 - `effect_class`: `local_mutation`.
 - `state_before`: A/B/C integradas, ciclo Em execução em drafts; reconciliação C local pendente de publicação.
-- `state_after`: branch/task de encerramento únicas, execução documental iniciada.
+- `state_after`: branch/task de encerramento únicas, documentos consolidados em executed e gates aprovados; publicação/integração pendentes.
 - `next_transition`: documento validado -> PR documental -> integração verificada -> conclusão canônica.
 - `preconditions`: evidências A/B/C, gates aprovados, PR única e integração comprovada antes de afirmar conclusão em main.
 - `authority`: responsável autorizou encerramento; GitHub governa integrações; plano/README delimitam transição.
-- `evidence`: tabela de integrações e tasks A/B/C; gates serão registrados aqui.
+- `evidence`: tabela de integrações e tasks A/B/C; 207 testes, governança 33 OK, lint/diff/links aprovados nesta task.
 - `acceptance`: histórico preservado, links resolvíveis, estados coerentes e closure integrada.
-- `blockers`: nenhum para preparar; validação/publicação/integração ainda pendentes.
+- `blockers`: nenhum local; publicação/integração pendentes para conclusão canônica.
 - `result`: `executed`.
 - `next_workflow_recommended`: concluir encerramento documental autorizado.
 - `next_workflow_authorized`: encerramento documental do ciclo 006; não descontinuar File2MD.

@@ -101,7 +101,7 @@ A e B integradas. PR #20 integrada após autorização humana, merge `044605f6e7
 - `reconcile_existing`: retomar esta unidade canônica sem duplicar artefatos.
 - `ambiguous_state`: parar em concorrência/divergência de issue, task, branch, PR ou plano.
 
-### Handoff vigente de integração
+### Handoff histórico de integração
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/integrar_pr/pr-20/91bb031ff5d2af83e83e2bc996a8b1370c6e849d`
