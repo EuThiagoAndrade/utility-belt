@@ -1,18 +1,18 @@
 # Task — Issue #18: CLI, menus, catálogo e distribuição Markdown
 
 > **Ciclo:** `006`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18)
-> **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
+> **Plano:** `_project/executed/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-18`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — aberta em rascunho
-> **Integração:** `Pendente`
+> **PR:** [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — integrada
+> **Integração:** `56e561f6d5b6ec44129663ab4e2eadd369323bba`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
 > **handoff_schema_version:** `1`
-> **handoff_id:** `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
+> **handoff_id:** `utility-belt/006/integrar_pr/pr-21/7178e20cc0a0b7be9562e542f87fff27f767c9a5`
 
 ## Objetivo
 
@@ -66,7 +66,9 @@ Artefatos finais locais: wheel SHA-256 `8fe5d6d17e36dba01060625b3b44815fe0db958f
 
 ## Resultado
 
-Implementação e matriz concluídas; commit `1a66fb24cd3013478f13bc3cdc4e10f857411855` publicado em `feature/issue-18`, PR #21 aberta/draft e anexada ao chat. Nenhum merge C, encerramento ou descontinuação do File2MD executados. Python 3.11.16 repetiu todos os 32 testes da interface final: 32 passed em 0,86 s.
+Registro atual do ciclo: [encerramento documental](006_task_closure.md), autorizado após A/B/C integradas. As autorizações e pendências dos handoffs abaixo descrevem suas transições históricas.
+
+Implementação e matriz concluídas; PR #21 integrada após “Pode integrar”, merge `56e561f6d5b6ec44129663ab4e2eadd369323bba`, issue #18 fechada/completed e main atualizada por fast-forward. A/B/C estão integradas. Encerramento e descontinuação do File2MD não executados. Python 3.11.16 repetiu todos os 32 testes da interface final: 32 passed em 0,86 s. Reconciliação pós-merge local, pendente de publicação documental futura.
 
 ### Cinco usos reais apresentados para aceite
 
@@ -80,9 +82,9 @@ Arquivos preservados no workspace (ignorados pelo Git) após copiar os resultado
 | Clipboard | Caminho textual lido de X11/xclip real, `0`, `2026-10-13_01-49-01/sample.txt.md`; clipboard Windows não alterado. |
 | Configuração central | CLI `config --output-dir central` retornou `0`; arquivo `final-config.toml` preservado; execuções seguintes sem `--output-dir` gravaram nessa central; override temporário manteve TOML idêntico. |
 
-`final-evidence.json` na mesma raiz registra Python/pacote/runtime/saídas e clipboard real. Destinos Windows adicionais estão nos `evidence.json` de cada work da matriz. Aceite humano desses usos e integração da PR C continuam pendentes; nenhuma evidência autoriza descontinuar File2MD.
+`final-evidence.json` na mesma raiz registra Python/pacote/runtime/saídas e clipboard real. Destinos Windows adicionais estão nos `evidence.json` de cada work da matriz. Após apresentação dessas evidências, o responsável autorizou a integração de C, executada na PR #21. Essa decisão não autoriza descontinuar File2MD.
 
-### Handoff de execução
+### Handoff histórico de publicação
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
@@ -105,3 +107,27 @@ Arquivos preservados no workspace (ignorados pelo Git) após copiar os resultado
 - `check_before_mutation`: branch/task/PR pesquisadas antes da criação; repetir antes de publicar.
 - `reconcile_existing`: retomar esta unidade sem duplicação.
 - `ambiguous_state`: parar se surgirem unidades concorrentes ou divergência de autorização/escopo/base.
+
+### Handoff histórico de integração
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/integrar_pr/pr-21/7178e20cc0a0b7be9562e542f87fff27f767c9a5`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `remote_mutation`; reconciliação documental local após o merge.
+- `state_before`: PR #21 aberta/draft, head `7178e20cc0a0b7be9562e542f87fff27f767c9a5`, base `044605f`, mergeable; 207 testes/gates aprovados, sem revisões/statuses/runs CI disponíveis.
+- `state_after`: PR #21 pronta/integrada em `56e561f6d5b6ec44129663ab4e2eadd369323bba`; #18 fechada/completed; main atualizada por fast-forward. Entregas A/B/C integradas, ciclo em drafts/Em execução.
+- `next_transition`: encerramento documental em task/PR própria após autorização; integração dessa PR precede Concluído.
+- `preconditions`: autorização específica para encerramento, consolidação das evidências e gates da PR documental.
+- `authority`: responsável declarou “Pode integrar” após apresentação da PR #21/resultados; GitHub comprova merge e fechamento. Encerramento/File2MD exigem decisões próprias.
+- `evidence`: PR #21, merge `56e561f6d5b6ec44129663ab4e2eadd369323bba` protegido por expected_head_sha `7178e20cc0a0b7be9562e542f87fff27f767c9a5`, issue #18 closed/completed e HEAD local igual ao merge.
+- `acceptance`: revisão validada integrada e estado remoto/local reconciliado; não presume encerramento ou descontinuação.
+- `blockers`: nenhum para a integração realizada; encerramento documental ainda sem autorização.
+- `result`: `executed`.
+- `next_workflow_recommended`: encerramento documental conforme plano/governança, depois de autorizado.
+- `next_workflow_authorized`: integração #21 e registro local do resultado; encerramento não autorizado nesta manifestação.
+- `actions_prohibited`: declarar ciclo Concluído, mover para executed ou descontinuar File2MD sem autorização própria.
+- `rejection_rule`: recusar handoff sem identidade/autorização ou evidência material, ou contraditório.
+- `logical_key`: `utility-belt/006/integrar_pr/pr-21/7178e20cc0a0b7be9562e542f87fff27f767c9a5`.
+- `check_before_mutation`: árvore limpa, head/base, revisões/statuses/runs, mergeable e autorização verificados antes da transição.
+- `reconcile_existing`: merge e issue fechada confirmados; registro local atualizado sem repetir merge nem criar issue/PR recursiva.
+- `ambiguous_state`: parar se houver divergência de head/merge/issue/base ou documentação concorrente.

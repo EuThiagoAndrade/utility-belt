@@ -1,7 +1,8 @@
 # Plano de Implementação — Conversão Markdown Nativa no Utility Belt
 
 > **Ciclo:** `006`
-> **Status:** `Em Execução`
+> **Status:** `Concluído`
+> **Efetivação:** proposta na PR documental; conclusão canônica somente após integração verificada em main.
 > **Versão:** `v4`
 > **Data de criação:** 2026-10-12
 > **Última atualização:** 2026-10-12
@@ -155,15 +156,15 @@ Para este rascunho local, a validação é documental: auditoria de governança,
 
 **Critérios de aceite:**
 
-- [ ] Todos os conversores/formatos nativos inventariados em `P04` têm evidência de integração e dependências identificadas; não há allowlist restritiva do Belt e entradas vazias não retornam sucesso. Limites do motor ou requisitos externos são explicitados e resolvidos antes do aceite, sem redução silenciosa do escopo.
-- [ ] Duas operações no mesmo segundo, inclusive concorrentes, reservam diretórios distintos sem alterar arquivos existentes.
-- [ ] Arquivos locais resultam em `<nome-com-extensão>.md`; URL resulta no nome aprovado; paths não escapam do diretório reservado.
-- [ ] Configuração existente mantém perfis e preferências; destino ausente/inválido e falhas de escrita produzem diagnóstico e código definidos.
-- [ ] Falha de motor/rede/interrupção não deixa Markdown incompleto anunciado como concluído; dependência de formato ausente não quebra comandos alheios.
-- [ ] Requisito ausente produz explicação e confirmação antes de qualquer download/instalação; recusa/cancelamento ou modo não interativo não chama o instalador nem modifica o ambiente.
-- [ ] Confirmação instala somente receita necessária no ambiente próprio e valida versões/imports antes de repetir a conversão; falhas/cancelamento não provocam loop, sobrescrita ou disponibilidade falsa; aquisições são reutilizadas.
-- [ ] Com bibliotecas de transcrição previamente instaladas, nenhuma modalidade envia áudio sem consentimento específico da operação; recusa/não-TTY mantém somente extração local de metadados e informa a limitação.
-- [ ] ZIP com erro em membro produz diagnóstico/código de parcialidade em vez de ocultar a falha; aquisição necessária a um membro passa pelo mesmo consentimento.
+- [x] Todos os conversores/formatos nativos inventariados em `P04` têm evidência de integração e dependências identificadas; não há allowlist restritiva do Belt e entradas vazias não retornam sucesso. Limites do motor ou requisitos externos são explicitados e resolvidos antes do aceite, sem redução silenciosa do escopo.
+- [x] Duas operações no mesmo segundo, inclusive concorrentes, reservam diretórios distintos sem alterar arquivos existentes.
+- [x] Arquivos locais resultam em `<nome-com-extensão>.md`; URL resulta no nome aprovado; paths não escapam do diretório reservado.
+- [x] Configuração existente mantém perfis e preferências; destino ausente/inválido e falhas de escrita produzem diagnóstico e código definidos.
+- [x] Falha de motor/rede/interrupção não deixa Markdown incompleto anunciado como concluído; dependência de formato ausente não quebra comandos alheios.
+- [x] Requisito ausente produz explicação e confirmação antes de qualquer download/instalação; recusa/cancelamento ou modo não interativo não chama o instalador nem modifica o ambiente.
+- [x] Confirmação instala somente receita necessária no ambiente próprio e valida versões/imports antes de repetir a conversão; falhas/cancelamento não provocam loop, sobrescrita ou disponibilidade falsa; aquisições são reutilizadas.
+- [x] Com bibliotecas de transcrição previamente instaladas, nenhuma modalidade envia áudio sem consentimento específico da operação; recusa/não-TTY mantém somente extração local de metadados e informa a limitação.
+- [x] ZIP com erro em membro produz diagnóstico/código de parcialidade em vez de ocultar a falha; aquisição necessária a um membro passa pelo mesmo consentimento.
 
 ### Item 2 — Lote, monitoramento e clipboard
 
@@ -179,13 +180,13 @@ Para este rascunho local, a validação é documental: auditoria de governança,
 
 **Critérios de aceite:**
 
-- [ ] Um lote inteiro compartilha uma pasta; arquivos com extensões ou caminhos relativos distintos têm resultados separados.
-- [ ] Falha de uma entrada não elimina sucessos nem interrompe as demais; resumo e códigos cobrem falha parcial, ignorados e ausência de candidatos.
-- [ ] Lote e monitor percorrem subpastas sem flag adicional, inclusive múltiplos níveis; monitor alcança subpastas criadas depois do início, mantendo os caminhos relativos.
-- [ ] Cada arquivo novo estável gera uma pasta; eventos duplicados não geram conversões repetidas e a política de edição/estoque inicial é comprovada.
-- [ ] Cópia lenta, falha de leitura, timeout e Ctrl+C são exercitados; encerramento libera o observador e informa resultados já concluídos.
-- [ ] Saída interna à origem não é enumerada nem observada; links/ciclos não permitem recursão indevida.
-- [ ] Clipboard de arquivo/URL segue o mesmo contrato individual; vazio, inválido e indisponível geram erro útil sem traceback como única explicação.
+- [x] Um lote inteiro compartilha uma pasta; arquivos com extensões ou caminhos relativos distintos têm resultados separados.
+- [x] Falha de uma entrada não elimina sucessos nem interrompe as demais; resumo e códigos cobrem falha parcial, ignorados e ausência de candidatos.
+- [x] Lote e monitor percorrem subpastas sem flag adicional, inclusive múltiplos níveis; monitor alcança subpastas criadas depois do início, mantendo os caminhos relativos.
+- [x] Cada arquivo novo estável gera uma pasta; eventos duplicados não geram conversões repetidas e a política de edição/estoque inicial é comprovada.
+- [x] Cópia lenta, falha de leitura, timeout e Ctrl+C são exercitados; encerramento libera o observador e informa resultados já concluídos.
+- [x] Saída interna à origem não é enumerada nem observada; links/ciclos não permitem recursão indevida.
+- [x] Clipboard de arquivo/URL segue o mesmo contrato individual; vazio, inválido e indisponível geram erro útil sem traceback como única explicação.
 
 ### Item 3 — CLI, catálogo, menus, diagnóstico e distribuição
 
@@ -202,13 +203,13 @@ Para este rascunho local, a validação é documental: auditoria de governança,
 
 **Critérios de aceite:**
 
-- [ ] As cinco capacidades podem ser usadas no menu e CLI; `belt markdown` abre menu somente em TTY e exibe ajuda fora dele.
-- [ ] Execuções diretas e via catálogo mantêm `cwd`, configuração, resultados e códigos equivalentes; não-TTY/`--non-interactive` não pergunta nem instala, e ofertas em TTY obedecem ao consentimento específico.
-- [ ] O menu retorna corretamente após sucesso, erro ou cancelamento, preservando as telas e opções existentes.
-- [ ] Wheel/sdist incluem ferramenta e manifesto; instalação mínima fora do checkout funciona e aquisição de dependência após consentimento torna o formato utilizável, sem downloads antecipados de extras não necessários.
-- [ ] Conversões e monitoramento têm evidência real em Windows/Linux e versões Python da matriz; fixtures não dependem de File2MD, documentos privados ou serviços de IA.
-- [ ] Gates canônicos passam; README corresponde ao comportamento instalado e distingue formatos validados de conteúdo não atendido.
-- [ ] Responsável recebe destinos e resultados dos cinco usos reais para aceite da adaptação; essa evidência não autoriza descontinuar o File2MD.
+- [x] As cinco capacidades podem ser usadas no menu e CLI; `belt markdown` abre menu somente em TTY e exibe ajuda fora dele.
+- [x] Execuções diretas e via catálogo mantêm `cwd`, configuração, resultados e códigos equivalentes; não-TTY/`--non-interactive` não pergunta nem instala, e ofertas em TTY obedecem ao consentimento específico.
+- [x] O menu retorna corretamente após sucesso, erro ou cancelamento, preservando as telas e opções existentes.
+- [x] Wheel/sdist incluem ferramenta e manifesto; instalação mínima fora do checkout funciona e aquisição de dependência após consentimento torna o formato utilizável, sem downloads antecipados de extras não necessários.
+- [x] Conversões e monitoramento têm evidência real em Windows/Linux e versões Python da matriz; fixtures não dependem de File2MD, documentos privados ou serviços de IA.
+- [x] Gates canônicos passam; README corresponde ao comportamento instalado e distingue formatos validados de conteúdo não atendido.
+- [x] Responsável recebe destinos e resultados dos cinco usos reais para aceite da adaptação; essa evidência não autoriza descontinuar o File2MD.
 
 ## Arquivos afetados
 
@@ -232,7 +233,7 @@ Lista prevista para implementação futura; revisão e registro de aprovação a
 
 ## Decomposição em issues e PRs
 
-Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A foi integrada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), merge `13b4719af643747b679e87602ac5ff414b35d716`; B na [PR #20](https://github.com/EuThiagoAndrade/utility-belt/pull/20), merge `044605f6e7e44e4a2802aabdee2f163428a66406`, ambas após autorização humana. C está em execução autorizada na branch `feature/issue-18` e [task C](006_task_issue-18.md). A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
+Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A foi integrada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), merge `13b4719af643747b679e87602ac5ff414b35d716`; B na [PR #20](https://github.com/EuThiagoAndrade/utility-belt/pull/20), merge `044605f6e7e44e4a2802aabdee2f163428a66406`, ambas após autorização humana. C foi integrada na [PR #21](https://github.com/EuThiagoAndrade/utility-belt/pull/21), merge `56e561f6d5b6ec44129663ab4e2eadd369323bba`, após autorização humana; [task C](006_task_issue-18.md) reconciliada localmente. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
 
 | Entrega proposta | Escopo | Dependência | Evidência de saída |
 | :-- | :-- | :-- | :-- |
@@ -305,7 +306,7 @@ Rollback futuro: reverter as PRs específicas em ordem inversa de dependências,
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#16 — A: Núcleo de conversão Markdown e destino seguro](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17 — B: Lote, monitoramento e clipboard](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18 — C: CLI, menus, diagnóstico e distribuição](https://github.com/EuThiagoAndrade/utility-belt/issues/18) |
-| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — A integrada em `13b4719`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B integrada em `044605f`; [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — C aberta/draft, não integrada. |
+| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — A integrada em `13b4719`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B integrada em `044605f`; [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — C integrada em `56e561f`. |
 | Branch(es) | `feature/issue-16` — A integrada; `feature/issue-17` — B em execução; tasks por issue neste diretório. |
 | Ideação | `_project/ideations/006_conversao_markdown_nativa.md` |
 | Revisão de origem | Registro de aprovação: conteúdo da `v4` revisada, hash Git `55d97a2ef9c959e65119775ac2532eab3dea148f`; baseline do repositório `b36d04396ca0bb7af3dab79e5781b092df06ef12`. |
@@ -406,7 +407,7 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `reconcile_existing`: retomar a unidade B compatível e preservar registros históricos.
 - `ambiguous_state`: parar em concorrência/divergência material.
 
-### Handoff vigente: implementação da entrega C
+### Handoff histórico: implementação da entrega C
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
@@ -429,6 +430,54 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `check_before_mutation`: issue, branch, task e PR verificadas; B integrada antes de iniciar C.
 - `reconcile_existing`: usar a mesma unidade C e preservar os handoffs históricos.
 - `ambiguous_state`: parar se houver divergência de plano/issue/PR/revisão ou múltiplas unidades concorrentes.
+
+### Handoff histórico de integração
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/integrar_pr/pr-21/7178e20cc0a0b7be9562e542f87fff27f767c9a5`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `remote_mutation`; reconciliação documental local após o merge.
+- `state_before`: PR #21 aberta/draft, head `7178e20cc0a0b7be9562e542f87fff27f767c9a5`, base `044605f`, mergeable; 207 testes/gates aprovados, sem revisões/statuses/runs CI disponíveis.
+- `state_after`: PR #21 pronta/integrada em `56e561f6d5b6ec44129663ab4e2eadd369323bba`; #18 fechada/completed; main atualizada por fast-forward. Entregas A/B/C integradas, ciclo em drafts/Em execução.
+- `next_transition`: encerramento documental em task/PR própria após autorização; integração dessa PR precede Concluído.
+- `preconditions`: autorização específica para encerramento, consolidação das evidências e gates da PR documental.
+- `authority`: responsável declarou “Pode integrar” após apresentação da PR #21/resultados; GitHub comprova merge e fechamento. Encerramento/File2MD exigem decisões próprias.
+- `evidence`: PR #21, merge `56e561f6d5b6ec44129663ab4e2eadd369323bba` protegido por expected_head_sha `7178e20cc0a0b7be9562e542f87fff27f767c9a5`, issue #18 closed/completed e HEAD local igual ao merge.
+- `acceptance`: revisão validada integrada e estado remoto/local reconciliado; não presume encerramento ou descontinuação.
+- `blockers`: nenhum para a integração realizada; encerramento documental ainda sem autorização.
+- `result`: `executed`.
+- `next_workflow_recommended`: encerramento documental conforme plano/governança, depois de autorizado.
+- `next_workflow_authorized`: integração #21 e registro local do resultado; encerramento não autorizado nesta manifestação.
+- `actions_prohibited`: declarar ciclo Concluído, mover para executed ou descontinuar File2MD sem autorização própria.
+- `rejection_rule`: recusar handoff sem identidade/autorização ou evidência material, ou contraditório.
+- `logical_key`: `utility-belt/006/integrar_pr/pr-21/7178e20cc0a0b7be9562e542f87fff27f767c9a5`.
+- `check_before_mutation`: árvore limpa, head/base, revisões/statuses/runs, mergeable e autorização verificados antes da transição.
+- `reconcile_existing`: merge e issue fechada confirmados; registro local atualizado sem repetir merge nem criar issue/PR recursiva.
+- `ambiguous_state`: parar se houver divergência de head/merge/issue/base ou documentação concorrente.
+
+### Handoff vigente de encerramento documental
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/atualizar_docs/closure/56e561f6d5b6ec44129663ab4e2eadd369323bba`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `local_mutation`; publicação/integração da PR documental sob autorização de encerramento.
+- `state_before`: A/B/C integradas, ciclo Em execução em drafts, reconciliação C local pendente.
+- `state_after`: documentos de encerramento preparados em executed nesta branch; estado Concluído é proposta até integração verificável em main.
+- `next_transition`: validação -> PR documental -> integração verificada -> conclusão canônica.
+- `preconditions`: gates e diff exclusivamente documental, PR canônica e confirmação remota da integração.
+- `authority`: responsável autorizou “Pode fazer o encerramento documental”; GitHub governa integração, README governa estados.
+- `evidence`: PRs #19/#20/#21 integradas, issues #16/#17/#18 fechadas; `006_task_closure.md` consolida gates e PR do encerramento.
+- `acceptance`: encerramento integrado, histórico íntegro, links válidos, próximo ciclo 007 preservado.
+- `blockers`: gates/publicação/integração pendentes nesta preparação; nenhum bloqueio de escopo.
+- `result`: `executed`.
+- `next_workflow_recommended`: concluir encerramento documental autorizado.
+- `next_workflow_authorized`: encerramento documental do ciclo 006, incluindo sua PR; não descontinuar File2MD.
+- `actions_prohibited`: declarar integração antes de verificá-la, alterar produto, criar issue recursiva ou descontinuar File2MD.
+- `rejection_rule`: recusar handoff sem identidade, autorização ou evidência material/coerente.
+- `logical_key`: `utility-belt/006/atualizar_docs/closure/56e561f6d5b6ec44129663ab4e2eadd369323bba`.
+- `check_before_mutation`: duplicações pesquisadas, integrações/autorizações/base verificadas; templates lidos.
+- `reconcile_existing`: consolidar a unidade de closure e preservar handoffs históricos.
+- `ambiguous_state`: parar em divergência entre integração/documentos ou PRs concorrentes.
 
 ## Revisão crítica
 
@@ -469,6 +518,10 @@ As ressalvas são critérios de verificação das entregas, não bloqueios abert
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data do encerramento documental:** 2026-10-12; efetivação canônica verificável na PR documental de closure.
+- **Entregas:** A/B/C integradas nas PRs #19/#20/#21; issues #16/#17/#18 fechadas. Critérios acima reconciliados com as evidências das tasks, sem prometer qualidade universal do motor.
+- **Validação:** 207 testes na entrega final; matriz Windows/Linux x64 Python 3.11/3.13 com aquisições reais consentidas, wheel/sdist instalados fora do checkout e cinco usos apresentados. Gates da closure em `006_task_closure.md`.
+- **Desvios:** identificação de receitas acrescentada ao runtime para isolamento em mudanças; falha de aquisição Python consentida diferenciada de ausência; seleção gráfica de clipboard corrigida para containers WSL. Sem ampliação de funcionalidades ou versões do motor.
+- **Limites preservados:** único áudio externo autorizado teve transcrição incorreta em português; imagens/áudio sem consentimento dependem de metadados locais; estabilidade é aproximação; clipboard depende da sessão; bind Windows/Linux não emitiu eventos no harness, validado em filesystem Linux nativo; reinstalação do mesmo artefato demonstra reuso sem alegar nova release.
+- **Lições comprovadas:** sessão gráfica local deve preceder heurística de kernel para clipboard; symlink do Python não deve ser resolvido ao selecionar uma venv; suítes simultâneas com runtime comum disputam seu lock. Registro reutilizável em `.agent/lessons_learned.md`.
+- **Resultado de governança:** encerramento autorizado após integrações verificadas, sem issue recursiva; próximos efeitos fora deste ciclo exigem autorização própria. File2MD preservado.

@@ -4,7 +4,7 @@
 > **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17)
-> **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
+> **Plano:** `_project/executed/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-17`
 > **Worktree:** `C:/Programas/utility-belt`
 > **PR:** [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — integrada
@@ -72,6 +72,8 @@ Smoke adicional com resultados persistidos em dados de desenvolvimento próprios
 Reutilizar ambiente `.venv-cycle-006` e aquisições isoladas do ciclo; preservar `.venv` e cache alheios. Não há autorização para repetir o envio externo de áudio da entrega A. Mocks de serviço externo podem validar consentimento sem enviar dados. Reconciliação documental de A acompanha B, sem alterar seu código fora das adaptações necessárias ao Item 2.
 
 ## Resultado
+
+Registro atual do ciclo: [encerramento documental](006_task_closure.md), autorizado após A/B/C integradas. As autorizações e pendências dos handoffs abaixo descrevem suas transições históricas.
 
 A e B integradas. PR #20 integrada após autorização humana, merge `044605f6e7e44e4a2802aabdee2f163428a66406`; issue #17 fechada. C iniciada na task #18 sobre essa base. Encerramento continua pendente.
 
