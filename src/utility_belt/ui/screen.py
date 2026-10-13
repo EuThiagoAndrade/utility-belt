@@ -1,188 +1,188 @@
-"""Módulo de interface de tela e identidade visual retrô estilo MS-DOS do Utility Belt."""
+"""Apresentação compacta de terminal, compartilhada por menus e resultados."""
 
 from __future__ import annotations
 
 import os
 import shutil
 import sys
+import textwrap
 from typing import Any, Callable
 
+import questionary
 import typer
+from prompt_toolkit.styles import Style
+
+from utility_belt import __version__
 
 
 def ensure_utf8_encoding() -> None:
-    """Garante que sys.stdout esteja reconfigurado para UTF-8 quando suportado."""
     if hasattr(sys.stdout, "reconfigure"):
         try:
             sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-        except Exception:
+        except (OSError, ValueError):
             pass
 
 
-# Reconfigura na importação do módulo para terminais Windows
 ensure_utf8_encoding()
 
-# Códigos de cores ANSI para estética retrô
-ORANGE = "\033[38;5;208m"
-AMBER = "\033[38;5;214m"
-CYAN = "\033[1;36m"
-WHITE = "\033[1;37m"
-RED = "\033[1;31m"
-GRAY = "\033[90m"
-RESET = "\033[0m"
-BOLD = "\033[1m"
+
+def color_enabled() -> bool:
+    return sys.stdout.isatty() and "NO_COLOR" not in os.environ and os.environ.get("TERM") != "dumb"
 
 
 def clear_screen() -> None:
-    """Limpa a tela do terminal de forma segura e multiplataforma."""
+    """Limpa somente um terminal real, na transição entre telas."""
+    if not sys.stdout.isatty():
+        return
     try:
         os.system("cls" if os.name == "nt" else "clear")
-    except Exception:
-        try:
-            sys.stdout.write("\033[H\033[2J\033[3J")
-            sys.stdout.flush()
-        except Exception:
-            pass
+    except OSError:
+        typer.echo("\033[H\033[2J", nl=False)
 
 
 def get_terminal_width(fallback: int = 80) -> int:
-    """Obtém a largura atual do terminal com fallback defensivo."""
     try:
-        columns = shutil.get_terminal_size(fallback=(fallback, 24)).columns
-        return columns if columns > 0 else fallback
-    except Exception:
+        return max(1, shutil.get_terminal_size(fallback=(fallback, 24)).columns)
+    except (OSError, ValueError):
         return fallback
 
 
-def render_banner(compact: bool = False) -> None:
-    """Renderiza o banner de abertura retrô centralizado (cinto utilitário + tipografia sólida)."""
-    ensure_utf8_encoding()
-    width = get_terminal_width()
+def _line(text: str, *, fg: str | None = None, bold: bool = False) -> None:
+    width = min(get_terminal_width(), 96)
+    for paragraph in text.split("\n"):
+        for line in textwrap.wrap(paragraph, width=width, replace_whitespace=False) or [""]:
+            typer.secho(line, fg=fg, bold=bold, color=color_enabled())
 
-    # Se largura for muito estreita ou solicitado modo compacto, exibe banner de 1 linha
-    if compact or width < 78:
+
+def _rule() -> None:
+    _line("─" * min(get_terminal_width(), 96), fg=typer.colors.CYAN)
+
+
+def render_banner(compact: bool = False) -> None:
+    """Cabeçalho principal com cinto textual e versão canônica."""
+    if compact:
         render_compact_banner()
         return
-
-    belt_raw = "|==[■]==[■]==[■]==[████]==[■]==[■]==[■]==|"
-
-    title_raw_lines = [
-        "█   █ █████ ███ █    ███ █████ █   █      ████  ████ █    █████",
-        "█   █   █    █  █     █    █    █ █       █   █ █    █      █  ",
-        "█   █   █    █  █     █    █     █   ████ ████  ████ █      █  ",
-        "█   █   █    █  █     █    █     █        █   █ █    █      █  ",
-        " ███    █   ███ ████ ███   █     █        ████  ████ ████   █  ",
-    ]
-
-    sub1 = "v0.1.0 • O Canivete Suíço de Terminal"
-    sub2 = "Sistema de ferramentas para simplificar sua vida"
-
-    box_w = 76
-    inner_w = box_w - 2  # 74
-
-    try:
-        typer.echo(f"{CYAN}╔{'═' * inner_w}╗{RESET}")
-
-        # Cinto utilitário centralizado
-        b_pad_l = (inner_w - len(belt_raw)) // 2
-        b_pad_r = inner_w - len(belt_raw) - b_pad_l
-        belt_colored = f"{AMBER}{BOLD}{belt_raw}{RESET}"
-        typer.echo(f"{CYAN}║{RESET}{' ' * b_pad_l}{belt_colored}{' ' * b_pad_r}{CYAN}║{RESET}")
-        typer.echo(f"{CYAN}║{RESET}{' ' * inner_w}{CYAN}║{RESET}")
-
-        # Tipografia de grande porte em blocos sólidos (UTILITY-BELT)
-        for line in title_raw_lines:
-            t_pad_l = (inner_w - len(line)) // 2
-            t_pad_r = inner_w - len(line) - t_pad_l
-            t_colored = f"{ORANGE}{BOLD}{line}{RESET}"
-            typer.echo(f"{CYAN}║{RESET}{' ' * t_pad_l}{t_colored}{' ' * t_pad_r}{CYAN}║{RESET}")
-
-        typer.echo(f"{CYAN}║{RESET}{' ' * inner_w}{CYAN}║{RESET}")
-
-        # Subtítulo 1 e 2 centralizados
-        s1_pad_l = (inner_w - len(sub1)) // 2
-        s1_pad_r = inner_w - len(sub1) - s1_pad_l
-        typer.echo(f"{CYAN}║{RESET}{' ' * s1_pad_l}{WHITE}{sub1}{RESET}{' ' * s1_pad_r}{CYAN}║{RESET}")
-
-        s2_pad_l = (inner_w - len(sub2)) // 2
-        s2_pad_r = inner_w - len(sub2) - s2_pad_l
-        typer.echo(f"{CYAN}║{RESET}{' ' * s2_pad_l}{GRAY}{sub2}{RESET}{' ' * s2_pad_r}{CYAN}║{RESET}")
-
-        typer.echo(f"{CYAN}╚{'═' * inner_w}╝{RESET}")
-    except (UnicodeEncodeError, Exception):
-        # Fallback de máxima compatibilidade ASCII puro se o terminal falhar com UTF-8/cores
-        render_ascii_fallback_banner()
+    width = min(get_terminal_width(), 96)
+    title, version = "[==[]==]  UTILITY BELT", f"v{__version__}"
+    if width >= len(title) + len(version) + 2:
+        typer.secho("[==[]==]  ", fg=typer.colors.YELLOW, nl=False, color=color_enabled())
+        _line("UTILITY BELT" + " " * (width - len(title) - len(version)) + version,
+              fg=typer.colors.CYAN, bold=True)
+    else:
+        _line(f"UTILITY BELT  {version}", fg=typer.colors.CYAN, bold=True)
+    _line("O Canivete Suíço de Terminal", fg=typer.colors.BRIGHT_BLACK)
+    _rule()
+    _line("Início", fg=typer.colors.CYAN)
 
 
 def render_compact_banner() -> None:
-    """Renderiza um cabeçalho compacto para telas estreitas ou modo minimalista."""
-    width = min(get_terminal_width(), 76)
-    inner_w = max(10, width - 2)
-    title = " [+] UTILITY BELT v0.1.0 — Canivete Suíço de Terminal "
-    padded_title = title.center(inner_w)
-    typer.echo(f"{CYAN}╔{'═' * inner_w}╗{RESET}")
-    typer.echo(f"{CYAN}║{WHITE}{BOLD}{padded_title}{RESET}{CYAN}║{RESET}")
-    typer.echo(f"{CYAN}╚{'═' * inner_w}╝{RESET}")
+    _line(f"UTILITY BELT  v{__version__}", fg=typer.colors.CYAN, bold=True)
+    _rule()
+    _line("Início", fg=typer.colors.CYAN)
 
 
 def render_ascii_fallback_banner() -> None:
-    """Fallback simples em caso de falha de codificação."""
-    print("+--------------------------------------------------------------------------+")
-    print("| [+] UTILITY BELT v0.1.0 -- O Canivete Suico de Terminal                  |")
-    print("+--------------------------------------------------------------------------+")
+    _line(f"[==[]==] UTILITY BELT v{__version__}")
+    _line("O Canivete Suico de Terminal")
+    _line("-" * min(get_terminal_width(), 96))
 
 
 def render_header(breadcrumbs: list[str] | str) -> None:
-    """Renderiza uma barra de navegação/breadcrumbs em moldura retrô estilo MS-DOS."""
-    ensure_utf8_encoding()
-    if isinstance(breadcrumbs, str):
-        trail = breadcrumbs
+    _line(f"UTILITY BELT  v{__version__}", fg=typer.colors.CYAN, bold=True)
+    _rule()
+    parts = [breadcrumbs] if isinstance(breadcrumbs, str) else breadcrumbs
+    trail = " > ".join(part.strip() for part in parts if part.strip() and part != "UTILITY BELT")
+    _line(trail, fg=typer.colors.CYAN)
+
+
+def menu_style() -> Style:
+    if not color_enabled():
+        return Style.from_dict({key: "" for key in (
+            "qmark", "question", "answer", "pointer", "highlighted", "selected", "instruction", "description", "separator", "text",
+        )})
+    return Style.from_dict({
+        "qmark": "", "question": "bold #e6edf3", "answer": "#51d4e8",
+        "pointer": "bold bg:#123239 #51d4e8", "highlighted": "bold bg:#123239 #51d4e8",
+        "selected": "#51d4e8", "instruction": "#9299a5", "description": "#9299a5", "separator": "#9299a5",
+    })
+
+
+def menu_options() -> dict[str, Any]:
+    return {"qmark": "", "pointer": ">", "style": menu_style(), "use_shortcuts": False,
+            "instruction": " "}
+
+
+def menu_separator() -> questionary.Separator:
+    return questionary.Separator("─" * max(1, min(get_terminal_width(), 96) - 4))
+
+
+def menu_footer() -> questionary.Separator:
+    width = max(1, min(get_terminal_width(), 96) - 4)
+    navigation = "\n".join(textwrap.wrap("↑↓ Navegar · Enter Selecionar · Ctrl+C Voltar/Sair", width=width))
+    return questionary.Separator("\n" + "─" * width + "\n" + navigation)
+
+
+def tool_choice(number: int, label: str, description: str, value: str) -> questionary.Choice:
+    width = min(get_terminal_width(), 96)
+    label_lines = textwrap.wrap(f"[{number}] {label}", width=max(1, width - 3))
+    title = "\n".join(line.ljust(max(1, width - 3)) for line in label_lines)
+    detail = "\n".join(("    " + line).ljust(width) for line in textwrap.wrap(description, width=max(1, width - 4)))
+    return questionary.Choice(f"{title}\n{detail}\n", value=value)
+
+
+def message(kind: str, text: str, *, details: str | None = None) -> None:
+    """Começa um bloco novo mesmo após um subprocesso sem newline final."""
+    colors = {"SUCESSO": typer.colors.GREEN, "AVISO": typer.colors.YELLOW,
+              "ERRO": typer.colors.RED, "INFO": typer.colors.CYAN,
+              "CANCELADO": typer.colors.BRIGHT_BLACK}
+    typer.echo()
+    _line(f"[{kind}] {text}", fg=colors.get(kind), bold=True)
+    if details:
+        _line(details)
+    typer.echo()
+
+
+def status_message(text: str, *, fg: str | None = None, bold: bool = False) -> None:
+    """Adapta mensagens dos assistentes existentes ao mesmo formato."""
+    if "cancelad" in text.lower():
+        kind = "CANCELADO"
     else:
-        trail = " > ".join(b.strip() for b in breadcrumbs if b.strip())
+        kind = {typer.colors.RED: "ERRO", typer.colors.YELLOW: "AVISO",
+                typer.colors.GREEN: "SUCESSO"}.get(fg, "INFO")
+    message(kind, text.strip())
 
-    box_w = min(get_terminal_width(), 76)
-    inner_w = max(10, box_w - 2)
 
-    label = f" {trail} "
-    if len(label) > inner_w:
-        label = label[: inner_w - 3] + "... "
-
-    padding = inner_w - len(label)
-    try:
-        typer.echo(f"{CYAN}╔{'═' * inner_w}╗{RESET}")
-        typer.echo(f"{CYAN}║{WHITE}{BOLD}{label}{RESET}{' ' * max(0, padding)}{CYAN}║{RESET}")
-        typer.echo(f"{CYAN}╚{'═' * inner_w}╝{RESET}")
-    except Exception:
-        print(f"=== {trail} ===")
+def prompt(factory: Callable[..., Any], text: str, **kwargs: Any) -> Any:
+    """Toda pergunta começa em linha própria, após saída de ferramentas."""
+    typer.echo()
+    kwargs.setdefault("style", menu_style())
+    return factory(text, **kwargs).ask()
 
 
 def run_dedicated_screen(
-    title: str | list[str],
-    func: Callable[..., Any],
-    *args: Any,
-    wait_for_key: bool = True,
-    **kwargs: Any,
+    title: str | list[str], func: Callable[..., Any], *args: Any,
+    wait_for_key: bool = True, **kwargs: Any,
 ) -> Any:
-    """Executa uma ação em tela dedicada com limpeza prévia, cabeçalho e confirmação de retorno."""
+    """Preserva perguntas e resultado na tela até confirmação de retorno."""
     clear_screen()
-    breadcrumbs = [title] if isinstance(title, str) else list(title)
-    render_header(breadcrumbs)
+    render_header([title] if isinstance(title, str) else list(title))
     typer.echo()
-
     try:
         result = func(*args, **kwargs)
-    except Exception as e:
-        typer.secho(f"\nErro durante a execução: {e}", fg=typer.colors.RED)
+    except KeyboardInterrupt:
+        message("CANCELADO", "Operação cancelada pelo usuário.")
         result = None
-
+    except Exception as exc:
+        message("ERRO", "Não foi possível concluir a operação.", details=str(exc))
+        result = None
     if wait_for_key and sys.stdin.isatty():
         typer.echo()
         try:
-            import questionary
-
-            questionary.press_any_key_to_continue("Pressione qualquer tecla para voltar ao menu...").ask()
-        except (KeyboardInterrupt, EOFError, Exception):
+            questionary.press_any_key_to_continue(
+                "Pressione qualquer tecla para voltar ao menu...", style=menu_style(),
+            ).ask()
+        except (KeyboardInterrupt, EOFError):
             pass
-
-    clear_screen()
+    # A tela receptora limpa ao renderizar; nunca apagar um resultado sem espera.
     return result

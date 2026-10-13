@@ -51,7 +51,9 @@ class Consent:
 
     @staticmethod
     def _ask(message):
-        return input(f"{message} [s/N] ").strip().lower() in ("s", "sim")
+        # Separar a explicação da pergunta, inclusive após saída sem newline.
+        print(f"\n[CONFIRMAÇÃO]\n{message}\n", flush=True)
+        return input("Deseja autorizar esta ação? [s/N] ").strip().lower() in ("s", "sim")
 
     def install(self, group, recipe):
         if group in self.decisions:
@@ -59,10 +61,16 @@ class Consent:
             # confirmação já consumida não autoriza repetir aquisição falha.
             return False
         if group not in self.decisions:
-            message = f"Baixar e instalar {', '.join(recipe['requirements'])} e dependências necessárias para {recipe['purpose']} no diretório de dados do usuário?"
+            message = (f"Esta operação precisa de componentes adicionais.\n"
+                       f"Componentes: {', '.join(recipe['requirements'])}\n"
+                       f"Finalidade e destino: {recipe['purpose']}\n"
+                       "Eles serão baixados e instalados no diretório de dados do usuário.\n"
+                       "É necessário acesso à internet.")
             if recipe.get("url"):
-                message += f" Fonte: {recipe['url']}; SHA-256: {recipe['sha256']}."
+                message += f"\nFonte: {recipe['url']}\nSHA-256: {recipe['sha256']}"
             self.decisions[group] = self.interactive and bool(self.confirm(message))
+            if self.decisions[group] and sys.stdout.isatty():
+                print("\n[INFO] Preparando os componentes de conversão...\n", flush=True)
         return self.decisions[group]
 
     def audio(self, entries):
@@ -178,6 +186,8 @@ def convert(source: str | Path, *, output_dir=None, non_interactive=False, conse
             if path.stat().st_size == 0:
                 raise ValueError("Entrada vazia não produz conversão")
             request = {"action": "probe", "source": str(path), "stream_info": info, "label": value}
+            if not non_interactive and getattr(consent, "interactive", False) and sys.stdout.isatty():
+                print("\n[INFO] Analisando o arquivo e seus requisitos...\n", flush=True)
             probe = _probe if _probe is not None else runtime.worker(request)
             if probe["status"] != "ready":
                 return ConversionResult(1, "failed", probe.get("diagnostic", "Preflight do motor falhou"))
@@ -206,6 +216,8 @@ def convert(source: str | Path, *, output_dir=None, non_interactive=False, conse
             if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
                 raise ValueError("Entrada mudou após preflight; repita a operação")
             operation = _reserve(destination) if _reserve else reserve_operation(destination)
+            if not non_interactive and getattr(consent, "interactive", False) and sys.stdout.isatty():
+                print("\n[INFO] Convertendo para Markdown...\n", flush=True)
             result = runtime.worker({**request, "action": "convert", "expected_digest": expected,
                                      "authorized_audio": authorized, "exiftool": exiftool, "ffmpeg": ffmpeg}, environment)
             # Detecção tardia de requisito conhecido permite uma única retomada, em processo novo.

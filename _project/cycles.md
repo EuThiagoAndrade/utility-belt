@@ -1,7 +1,7 @@
 # Registro de ciclos
 
-> **Próximo ciclo:** `007`
-> **Última atualização:** 2026-10-12
+> **Próximo ciclo:** `008`
+> **Última atualização:** 2026-10-13
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
 | :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
@@ -12,6 +12,10 @@
 | `004` | Interface Retrô MS-DOS e Identidade Visual | `Concluído` | `_project/ideations/004_interface_retro_e_telas_msdos.md` | `_project/executed/004_interface_retro_e_telas_msdos/004_plan.md` | [#8](https://github.com/EuThiagoAndrade/utility-belt/issues/8), [#9](https://github.com/EuThiagoAndrade/utility-belt/issues/9) | [PR #12](https://github.com/EuThiagoAndrade/utility-belt/pull/12) |
 | `005` | Ajuste Visual do Banner Retrô e Cinto Utilitário | `Concluído` | `_project/ideations/005_ajuste_visual_banner_retro.md` | `_project/executed/005_ajuste_visual_banner_retro/005_plan.md` | [#13](https://github.com/EuThiagoAndrade/utility-belt/issues/13) | [PR #14](https://github.com/EuThiagoAndrade/utility-belt/pull/14) — integrada em `ccf07b4` |
 | `006` | Conversão Markdown Nativa no Utility Belt | `Concluído` | `_project/ideations/006_conversao_markdown_nativa.md` | `_project/executed/006_conversao_markdown_nativa/006_plan.md` | [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) | [PR #22](https://github.com/EuThiagoAndrade/utility-belt/pull/22) — conclusão efetiva após integração verificável |
+
+| `007` | Interface CLI e Versionamento Automático | `Em execução` | `_project/ideations/007_interface_cli_e_versionamento.md` | `_project/drafts/007_interface_cli_e_versionamento/007_plan.md` | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) | Pendente — merge exige OK humano |
+
+O ciclo `007` reserva o conjunto completo autorizado em 2026-10-13, com workflow autoaprovado até a PR por exceção pontual registrada no plano, sem autorização de merge. Próximo ciclo 008 considera essa reserva ativa.
 
 O ciclo `000` não possui ideação separada, correspondendo ao bootstrap e fundação técnica do Utility Belt.
 O ciclo `001` originou-se do refinamento interativo de experiência de usuário e foi concluído na PR #3.

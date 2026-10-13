@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
+from utility_belt import __version__
 from utility_belt.config import get_default_config, is_banner_enabled
 from utility_belt.ui.screen import (
     clear_screen,
@@ -18,14 +19,14 @@ from utility_belt.ui.screen import (
 
 def test_clear_screen_calls_os_system() -> None:
     """Verifica se clear_screen executa o comando de limpeza de tela."""
-    with patch("os.system") as mock_system:
+    with patch("sys.stdout.isatty", return_value=True), patch("os.system") as mock_system:
         clear_screen()
         mock_system.assert_called_once()
 
 
 def test_clear_screen_catches_exceptions() -> None:
     """Garante que clear_screen não propaga exceções caso o os.system falhe."""
-    with patch("os.system", side_effect=RuntimeError("Terminal não suportado")):
+    with patch("sys.stdout.isatty", return_value=True), patch("os.system", side_effect=OSError("Terminal não suportado")):
         # Não deve levantar exceção
         clear_screen()
 
@@ -48,10 +49,10 @@ def test_render_banner_standard(capsys) -> None:
     with patch("utility_belt.ui.screen.get_terminal_width", return_value=80):
         render_banner(compact=False)
         captured = capsys.readouterr()
-        assert "╔" in captured.out
-        assert "|==[■]==[■]==[■]==[████]==[■]==[■]==[■]==|" in captured.out
-        assert "v0.1.0 • O Canivete Suíço de Terminal" in captured.out
-        assert "Sistema de ferramentas para simplificar sua vida" in captured.out
+        assert f"v{__version__}" in captured.out
+        assert "[==[]==]" in captured.out
+        assert "O Canivete Suíço de Terminal" in captured.out
+        assert "╔" not in captured.out
         assert "CANIVETE" not in captured.out
 
 
@@ -79,16 +80,16 @@ def test_render_compact_banner_structure(capsys) -> None:
     with patch("utility_belt.ui.screen.get_terminal_width", return_value=80):
         render_compact_banner()
         captured = capsys.readouterr()
-        assert "╔" in captured.out
+        assert f"v{__version__}" in captured.out
         assert "UTILITY BELT" in captured.out
-        assert "╚" in captured.out
+        assert "Início" in captured.out
 
 
 def test_render_ascii_fallback_banner(capsys) -> None:
     """Testa banner de fallback puramente ASCII."""
     render_ascii_fallback_banner()
     captured = capsys.readouterr()
-    assert "+--------------------------------------------------------------------------+" in captured.out
+    assert captured.out.isascii()
     assert "UTILITY BELT" in captured.out
 
 
@@ -97,7 +98,7 @@ def test_render_header_with_list(capsys) -> None:
     with patch("utility_belt.ui.screen.get_terminal_width", return_value=80):
         render_header(["UTILITY BELT", "DOCKER", "EXPORTAR"])
         captured = capsys.readouterr()
-        assert "UTILITY BELT > DOCKER > EXPORTAR" in captured.out
+        assert "DOCKER > EXPORTAR" in captured.out
 
 
 def test_render_header_with_string(capsys) -> None:
@@ -123,7 +124,7 @@ def test_run_dedicated_screen_executes_and_returns() -> None:
         )
         assert res == "resultado_ok"
         mock_action.assert_called_once_with(arg1="val1", custom_kw="kw1")
-        assert mock_clear.call_count == 2
+        assert mock_clear.call_count == 1
         mock_header.assert_called_once_with(["TESTE"])
 
 
@@ -136,7 +137,8 @@ def test_run_dedicated_screen_handles_exception(capsys) -> None:
         res = run_dedicated_screen("TESTE FALHA", failing_func, wait_for_key=False)
         assert res is None
         captured = capsys.readouterr()
-        assert "Erro durante a execução: Falha simulada na ação" in captured.out
+        assert "[ERRO]" in captured.out
+        assert "Falha simulada na ação" in captured.out
 
 
 def test_is_banner_enabled_default(tmp_path) -> None:

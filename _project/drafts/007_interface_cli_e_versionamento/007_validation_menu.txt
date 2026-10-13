@@ -1,0 +1,24 @@
+[==[]==]  UTILITY BELT                                                                    v0.1.0
+O Canivete Suíço de Terminal
+────────────────────────────────────────────────────────────────────────────────────────────────
+Início
+
+
+ Escolha uma ferramenta
+   [1] Restic
+    Backup, restauração e integridade
+
+   [2] Docker
+    Exportar e importar imagens
+
+ > [3] Markdown
+    Converter arquivos, URLs e pastas
+
+   [4] Sistema
+    Diagnóstico e informações do computador
+
+   ────────────────────────────────────────────────────────────────────────────────────────────
+   [0] Sair
+
+────────────────────────────────────────────────────────────────────────────────────────────
+↑↓ Navegar · Enter Selecionar · Ctrl+C Voltar/Sair
