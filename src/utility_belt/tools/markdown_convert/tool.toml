@@ -1,0 +1,11 @@
+schema_version = 1
+id = "markdown.convert"
+name = "Conversão Markdown"
+description = "Arquivo/URL, lote recursivo, monitor, clipboard e pasta central de saída."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux"]
+interactive = false
+risk = "write"
+supports_dry_run = false
+external_dependencies = ["uv (aquisição consentida)"]

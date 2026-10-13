@@ -1,18 +1,18 @@
 # Task — Issue #17: Lote, monitoramento e clipboard
 
 > **Ciclo:** `006`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluída`
 > **Tipo:** `feature`
 > **Issue:** [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17)
 > **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-17`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — aberta em rascunho
-> **Integração:** `Pendente`
+> **PR:** [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — integrada
+> **Integração:** `044605f6e7e44e4a2802aabdee2f163428a66406`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
 > **handoff_schema_version:** `1`
-> **handoff_id:** utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716
+> **handoff_id:** utility-belt/006/integrar_pr/pr-20/91bb031ff5d2af83e83e2bc996a8b1370c6e849d
 
 ## Objetivo
 
@@ -73,9 +73,9 @@ Reutilizar ambiente `.venv-cycle-006` e aquisições isoladas do ciclo; preserva
 
 ## Resultado
 
-A integrada; B implementada, validada e publicada na PR #20 em rascunho. Revisão e autorização de integração B pendentes; C não iniciada. Sem mudanças de CLI/menu/catálogo ou encerramento do ciclo.
+A e B integradas. PR #20 integrada após autorização humana, merge `044605f6e7e44e4a2802aabdee2f163428a66406`; issue #17 fechada. C iniciada na task #18 sobre essa base. Encerramento continua pendente.
 
-### Handoff de execução
+### Handoff histórico de publicação
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716`
@@ -98,3 +98,27 @@ A integrada; B implementada, validada e publicada na PR #20 em rascunho. Revisã
 - `check_before_mutation`: autoridades/templates/plano e issue lidos; branch/task/PR duplicadas não encontradas; merge de A verificado antes de criar branch B.
 - `reconcile_existing`: retomar esta unidade canônica sem duplicar artefatos.
 - `ambiguous_state`: parar em concorrência/divergência de issue, task, branch, PR ou plano.
+
+### Handoff vigente de integração
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/integrar_pr/pr-20/91bb031ff5d2af83e83e2bc996a8b1370c6e849d`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `remote_mutation`.
+- `state_before`: PR #20 draft aberta, head `91bb031`, mergeable, sem revisões/checks remotos disponíveis; gates locais aprovados.
+- `state_after`: PR pronta/integrada, merge `044605f6e7e44e4a2802aabdee2f163428a66406`, issue #17 closed/completed; main atualizada por fast-forward.
+- `next_transition`: implementar/publicar #18 -> revisão/checks -> integração autorizada.
+- `preconditions`: B integrada, issue C aberta e escopo v4; gates antes da publicação C.
+- `authority`: responsável: “Autorizado integrar a PR #20 para continuar com a #18”; GitHub comprova integração.
+- `evidence`: merge remoto com expected_head_sha `91bb031ff5d2af83e83e2bc996a8b1370c6e849d`; issue #17 fechada e task #18 criada na base integrada.
+- `acceptance`: integração real e unidade C canônica sem duplicação.
+- `blockers`: nenhum para C; integração C/encerramento exigem autorização posterior.
+- `result`: `executed`.
+- `next_workflow_recommended`: implementar_issue #18.
+- `next_workflow_authorized`: implementar/publicar #18.
+- `actions_prohibited`: integrar C, encerrar ciclo ou descontinuar File2MD sem autorização própria.
+- `rejection_rule`: recusar handoff contraditório, sem autorização ou evidência material.
+- `logical_key`: `utility-belt/006/integrar_pr/pr-20/91bb031ff5d2af83e83e2bc996a8b1370c6e849d`.
+- `check_before_mutation`: PR/head/base/revisões/statuses/runs e árvore limpa conferidos.
+- `reconcile_existing`: integração GitHub verificada e reconciliada nesta task; não repetir merge.
+- `ambiguous_state`: parar em divergência entre head, merge e issue.

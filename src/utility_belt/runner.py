@@ -84,6 +84,8 @@ def run_tool(
         return EXIT_PRECONDITION_FAILED
 
     # 3. Preparação dos Argumentos
+    if manifest.id == "markdown.convert" and non_interactive:
+        args = ["--non-interactive", *args]
     try:
         cmd = resolve_runtime_command(manifest, args)
     except RunnerError as err:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import shutil
 import stat
 import subprocess
 import sys
@@ -17,7 +18,7 @@ from urllib.parse import unquote, urljoin, urlsplit
 import requests
 
 from utility_belt.config import load_markdown_output_dir
-from utility_belt.markdown_runtime.runtime import RequirementError, Runtime
+from utility_belt.markdown_runtime.runtime import AcquisitionError, RequirementError, Runtime
 
 
 @dataclass(frozen=True)
@@ -227,6 +228,8 @@ def convert(source: str | Path, *, output_dir=None, non_interactive=False, conse
                                     result["status"], result.get("diagnostic", "Conversão falhou"), operation=operation)
     except (KeyboardInterrupt, EOFError):
         return ConversionResult(130, "cancelled", "Operação cancelada; resultados anteriores preservados", operation=operation)
+    except AcquisitionError as exc:
+        return ConversionResult(1, "failed", str(exc), operation=operation)
     except (ValueError, tomllib.TOMLDecodeError, RequirementError) as exc:
         return ConversionResult(2, "unavailable", str(exc), operation=operation)
     except (OSError, requests.RequestException, subprocess.TimeoutExpired) as exc:
@@ -335,6 +338,8 @@ def batch(source, *, output_dir=None, non_interactive=False, consent=None, runti
         return operation_summary(results, ignored, operation)
     except (KeyboardInterrupt, EOFError):
         return operation_summary(results, ignored, operation, cancelled=True)
+    except AcquisitionError as exc:
+        return OperationResult(1, 0, 1, ignored, tuple(results), str(exc), operation)
     except (ValueError, OSError, RequirementError, subprocess.TimeoutExpired) as exc:
         return OperationResult(2, 0, 1, ignored, tuple(results), str(exc), operation)
 
@@ -352,11 +357,30 @@ def operation_summary(results, ignored=0, operation=None, *, cancelled=False):
                            f"Sucessos: {successes}; falhas: {failures}; ignorados: {ignored}", operation)
 
 
+def clipboard_text():
+    """Prioriza a sessão gráfica local, inclusive em containers sobre kernel WSL."""
+    import pyperclip
+
+    backend = None
+    if sys.platform == "linux":
+        if os.environ.get("WAYLAND_DISPLAY") and shutil.which("wl-copy") and shutil.which("wl-paste"):
+            backend = "wl-clipboard"
+        elif os.environ.get("DISPLAY"):
+            backend = "xclip" if shutil.which("xclip") else ("xsel" if shutil.which("xsel") else None)
+    if backend is None:
+        return pyperclip.paste()
+    original = pyperclip.copy, pyperclip.paste
+    try:
+        pyperclip.set_clipboard(backend)
+        return pyperclip.paste()
+    finally:
+        pyperclip.copy, pyperclip.paste = original
+
+
 def clipboard(*, output_dir=None, non_interactive=False, consent=None, runtime=None, reader=None):
     try:
         if reader is None:
-            import pyperclip
-            reader = pyperclip.paste
+            reader = clipboard_text
         value = reader()
         if not isinstance(value, str) or not value.strip():
             raise ValueError("Clipboard vazio ou sem entrada textual")

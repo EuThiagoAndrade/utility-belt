@@ -39,6 +39,7 @@ def show_menu() -> None:
                     questionary.Choice("[2] 🐳  Docker (Exportar e Importar Imagens)", value="docker"),
                     questionary.Choice("[3] 🩺  Diagnóstico e Saúde (Doctor)", value="doctor"),
                     questionary.Choice("[4] ℹ️   Informações do Sistema (system.info)", value="sysinfo"),
+                    questionary.Choice("[5] 📝  Conversão Markdown", value="markdown"),
                     questionary.Separator(),
                     questionary.Choice("[0] 🚪  Sair", value="sair"),
                 ],
@@ -70,6 +71,11 @@ def show_menu() -> None:
                 show_docker_menu()
             except ImportError:
                 typer.secho("Módulo do menu Docker não disponível.", fg=typer.colors.RED, err=True)
+
+        elif escolha == "markdown":
+            from utility_belt.ui.markdown_menu import show_markdown_menu
+
+            show_markdown_menu()
 
         elif escolha == "doctor":
             run_dedicated_screen(["UTILITY BELT", "DIAGNÓSTICO"], _show_diagnostics)

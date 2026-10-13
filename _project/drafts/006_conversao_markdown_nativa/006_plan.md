@@ -232,7 +232,7 @@ Lista prevista para implementação futura; revisão e registro de aprovação a
 
 ## Decomposição em issues e PRs
 
-Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A entrega A foi integrada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), merge `13b4719af643747b679e87602ac5ff414b35d716`, após autorização humana. B (#17) foi implementada e publicada na [PR #20](https://github.com/EuThiagoAndrade/utility-belt/pull/20), em rascunho e não integrada; C não iniciada. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
+Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A foi integrada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), merge `13b4719af643747b679e87602ac5ff414b35d716`; B na [PR #20](https://github.com/EuThiagoAndrade/utility-belt/pull/20), merge `044605f6e7e44e4a2802aabdee2f163428a66406`, ambas após autorização humana. C está em execução autorizada na branch `feature/issue-18` e [task C](006_task_issue-18.md). A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
 
 | Entrega proposta | Escopo | Dependência | Evidência de saída |
 | :-- | :-- | :-- | :-- |
@@ -305,7 +305,7 @@ Rollback futuro: reverter as PRs específicas em ordem inversa de dependências,
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#16 — A: Núcleo de conversão Markdown e destino seguro](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17 — B: Lote, monitoramento e clipboard](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18 — C: CLI, menus, diagnóstico e distribuição](https://github.com/EuThiagoAndrade/utility-belt/issues/18) |
-| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — entrega A (#16), integrada em `13b4719af643747b679e87602ac5ff414b35d716`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B (#17), aberta/draft, não integrada. |
+| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — A integrada em `13b4719`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B integrada em `044605f`; C em execução. |
 | Branch(es) | `feature/issue-16` — A integrada; `feature/issue-17` — B em execução; tasks por issue neste diretório. |
 | Ideação | `_project/ideations/006_conversao_markdown_nativa.md` |
 | Revisão de origem | Registro de aprovação: conteúdo da `v4` revisada, hash Git `55d97a2ef9c959e65119775ac2532eab3dea148f`; baseline do repositório `b36d04396ca0bb7af3dab79e5781b092df06ef12`. |
@@ -382,7 +382,7 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `reconcile_existing`: retomar branch/task/PR canônicas compatíveis, sem duplicar artefatos ou alterar escopo técnico.
 - `ambiguous_state`: parar em concorrência ou divergência entre plano, issue, task, branch e PR.
 
-### Handoff vigente: implementação da entrega B
+### Handoff histórico: implementação da entrega B
 
 - `handoff_schema_version`: `1`.
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-17/13b4719af643747b679e87602ac5ff414b35d716`.
@@ -405,6 +405,30 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `check_before_mutation`: autoridades/templates/plano/issue/autorização lidos; merge de A/base confirmados; duplicações de task/branch/PR não encontradas.
 - `reconcile_existing`: retomar a unidade B compatível e preservar registros históricos.
 - `ambiguous_state`: parar em concorrência/divergência material.
+
+### Handoff vigente: implementação da entrega C
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
+- `effect_class`: `local_mutation`; publicação autorizada após gates.
+- `state_before`: B publicada/não integrada, autorização humana para integrar PR #20 e continuar #18.
+- `state_after`: B integrada em `044605f6e7e44e4a2802aabdee2f163428a66406`, #17 fechada; C implementada/validada na branch/task #18, publicação em andamento.
+- `next_transition`: publicar C -> revisão/checks e aceite dos cinco usos -> integração autorizada -> encerramento documental autorizado.
+- `preconditions`: gates locais, PR canônica, aceite e autorização própria para integração C/closure.
+- `authority`: responsável autorizou merge B e execução/publicação C; plano/issue delimitam aceite; GitHub governa estado remoto.
+- `evidence`: [task B](006_task_issue-17.md), [task C](006_task_issue-18.md), merge #20/#17 fechada, matriz Windows/Linux x64 Python 3.11/3.13 com pacote instalado/TTY e cinco usos reais preservados na task.
+- `acceptance`: CLI, catálogo, menus e diagnóstico completos; instalação mínima, consentimento, reuso e resultados reais revisáveis.
+- `blockers`: nenhum local; revisão/aceite e autorização de integração C pendentes.
+- `result`: `executed`.
+- `next_workflow_recommended`: revisar/integrar C após autorização; então encerramento documental.
+- `next_workflow_authorized`: implementar/publicar #18; integração/encerramento exigem decisões posteriores.
+- `actions_prohibited`: integrar C, mover ciclo para executed, encerrar ciclo ou descontinuar File2MD sem autorização própria.
+- `rejection_rule`: recusar handoff sem evidência material, identidade incompatível ou autorização.
+- `logical_key`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`.
+- `check_before_mutation`: issue, branch, task e PR verificadas; B integrada antes de iniciar C.
+- `reconcile_existing`: usar a mesma unidade C e preservar os handoffs históricos.
+- `ambiguous_state`: parar se houver divergência de plano/issue/PR/revisão ou múltiplas unidades concorrentes.
 
 ## Revisão crítica
 
