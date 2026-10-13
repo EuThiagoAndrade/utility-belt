@@ -1,0 +1,62 @@
+engine_version = "0.1.8"
+uv_minimum = "0.12.13"
+
+[groups.base]
+requirements = ["markitdown==0.1.8"]
+imports = ["markitdown"]
+purpose = "motor Markdown e formatos básicos"
+
+[groups.pdf]
+requirements = ["markitdown[pdf]==0.1.8"]
+imports = ["pdfminer", "pdfplumber"]
+purpose = "extração textual de PDF"
+
+[groups.docx]
+requirements = ["markitdown[docx]==0.1.8"]
+imports = ["mammoth", "lxml"]
+purpose = "documentos Word DOCX"
+
+[groups.pptx]
+requirements = ["markitdown[pptx]==0.1.8"]
+imports = ["pptx"]
+purpose = "apresentações PowerPoint"
+
+[groups.xlsx]
+requirements = ["markitdown[xlsx]==0.1.8"]
+imports = ["pandas", "openpyxl"]
+purpose = "planilhas XLSX"
+
+[groups.xls]
+requirements = ["markitdown[xls]==0.1.8"]
+imports = ["pandas", "xlrd"]
+purpose = "planilhas XLS"
+
+[groups.outlook]
+requirements = ["markitdown[outlook]==0.1.8"]
+imports = ["olefile"]
+purpose = "mensagens Outlook MSG"
+
+[groups.youtube-transcription]
+requirements = ["markitdown[youtube-transcription]==0.1.8"]
+imports = ["youtube_transcript_api"]
+purpose = "legendas de YouTube"
+
+[groups.audio-transcription]
+requirements = ["markitdown[audio-transcription]==0.1.8"]
+imports = ["speech_recognition", "pydub"]
+purpose = "transcrição de áudio com envio ao Google; consentimento separado"
+
+[groups.ffmpeg]
+requirements = ["imageio-ffmpeg==0.6.0"]
+imports = ["imageio_ffmpeg"]
+purpose = "normalização local de áudio comprimido"
+
+[binaries.windows]
+url = "https://downloads.sourceforge.net/project/exiftool/exiftool-13.59_64.zip"
+sha256 = "44b512b25af500724ba579d0a53c8fc5851628b692dd5e5d94ae4a15c2cba9ec"
+filename = "exiftool-13.59_64.zip"
+
+[binaries.linux]
+url = "https://downloads.sourceforge.net/project/exiftool/Image-ExifTool-13.59.tar.gz"
+sha256 = "668ea3acececb7235fbd0f4900e72d5f12c9b07e5c778fd36cb1e9b5828fd65a"
+filename = "Image-ExifTool-13.59.tar.gz"

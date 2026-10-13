@@ -16,6 +16,9 @@ dependencies = [
     "platformdirs>=4.0.0",
     "tomli-w>=1.0.0",
     "questionary>=2.0.0",
+    "requests>=2.32.0",
+    "watchdog==6.0.0",
+    "pyperclip==1.11.0",
 ]
 
 [project.scripts]
