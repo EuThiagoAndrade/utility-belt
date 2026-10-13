@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-18`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — aberta em rascunho
 > **Integração:** `Pendente`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
@@ -27,7 +27,7 @@ Item 3 da v4 aprovada, issue #18 e pedido humano “Autorizado integrar a PR #20
 - [x] Preflight remoto/local; nenhuma branch, task ou PR anterior para #18.
 - [x] Adaptador, catálogo, propagação não interativa, menu e doctor.
 - [x] Testes, smokes distribuídos na matriz e documentação.
-- [ ] Gates e publicação revisável.
+- [x] Gates e publicação revisável na PR #21, vinculada a #18 e anexada ao chat.
 
 ## Evidências
 
@@ -36,7 +36,7 @@ Item 3 da v4 aprovada, issue #18 e pedido humano “Autorizado integrar a PR #20
 | Testes | Rodada completa final: **207 passed em 206,97 s**, Windows x64 Python 3.13.7, motor/observador reais, sem skips. Rodada anterior: 204 passed em 205,52 s; correção do backend gráfico: 51 passed (CLI/lote). Python 3.11.16: 41 passed em 3,28 s, depois 32 casos da interface final passed em 0,86 s. |
 | Validação | Ruff passou; governança: 31 OK, aviso conhecido 006/007, zero falhas; wheel/sdist construídos, 17 recursos do worker/receitas/ferramenta/manifesto inspecionados nos dois arquivos. |
 | `git diff --check` | Limpo |
-| Checks remotos | Sem PR nesta etapa |
+| Checks remotos | PR #21 aberta/draft e mergeable; zero statuses e zero workflow runs no commit de implementação consultado. Ausência de CI não significa aprovação remota. |
 
 ## Decisões incidentais e desvios
 
@@ -66,7 +66,7 @@ Artefatos finais locais: wheel SHA-256 `8fe5d6d17e36dba01060625b3b44815fe0db958f
 
 ## Resultado
 
-Implementação e matriz concluídas; publicação/PR pendentes. Nenhum merge C, encerramento ou descontinuação do File2MD executados. Python 3.11.16 repetiu todos os 32 testes da interface final: 32 passed em 0,86 s.
+Implementação e matriz concluídas; commit `1a66fb24cd3013478f13bc3cdc4e10f857411855` publicado em `feature/issue-18`, PR #21 aberta/draft e anexada ao chat. Nenhum merge C, encerramento ou descontinuação do File2MD executados. Python 3.11.16 repetiu todos os 32 testes da interface final: 32 passed em 0,86 s.
 
 ### Cinco usos reais apresentados para aceite
 
@@ -87,17 +87,17 @@ Arquivos preservados no workspace (ignorados pelo Git) após copiar os resultado
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
-- `effect_class`: `local_mutation`.
+- `effect_class`: `remote_mutation`.
 - `state_before`: #18 aberta/autorizada, B integrada, main limpa na revisão de origem.
-- `state_after`: escopo C implementado, validado e documentado; branch/task únicas, aguardando publicação.
+- `state_after`: escopo C implementado, validado e documentado; branch publicada, PR #21 aberta/draft, issue #18 aberta.
 - `next_transition`: implementação -> gates -> publicação -> revisão/checks -> integração autorizada.
 - `preconditions`: manter escopo da v4 e satisfazer critérios da #18 antes de publicar.
 - `authority`: responsável autorizou execução; plano e issue delimitam aceite; GitHub governa estado remoto.
-- `evidence`: PR #20 integrada/#17 fechada, base `044605f6e7e44e4a2802aabdee2f163428a66406`, gates, matriz instalada e cinco usos registrados nesta task.
+- `evidence`: PR #20 integrada/#17 fechada, base `044605f6e7e44e4a2802aabdee2f163428a66406`, commit `1a66fb24cd3013478f13bc3cdc4e10f857411855`, PR #21, 207 testes, gates, matriz instalada e cinco usos registrados nesta task.
 - `acceptance`: cinco capacidades acessíveis, distribuição e consentimento comprovados, gates aprovados e PR rastreável.
-- `blockers`: nenhum local; publicação, revisão/aceite e autorização de integração C pendentes.
+- `blockers`: nenhum local; revisão/aceite e autorização de integração C pendentes.
 - `result`: `executed`.
-- `next_workflow_recommended`: concluir implementar_issue; depois revisão/integração.
+- `next_workflow_recommended`: revisão/checks, aceite dos usos e integração somente após autorização própria.
 - `next_workflow_authorized`: implementar/publicar #18; merge exige decisão própria.
 - `actions_prohibited`: integrar C, encerrar ciclo, descontinuar File2MD, ampliar escopo.
 - `rejection_rule`: recusar handoff ausente, incompatível, contraditório ou sem evidência material.

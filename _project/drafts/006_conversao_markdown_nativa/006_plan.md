@@ -305,7 +305,7 @@ Rollback futuro: reverter as PRs específicas em ordem inversa de dependências,
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#16 — A: Núcleo de conversão Markdown e destino seguro](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17 — B: Lote, monitoramento e clipboard](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18 — C: CLI, menus, diagnóstico e distribuição](https://github.com/EuThiagoAndrade/utility-belt/issues/18) |
-| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — A integrada em `13b4719`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B integrada em `044605f`; C em execução. |
+| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — A integrada em `13b4719`; [#20](https://github.com/EuThiagoAndrade/utility-belt/pull/20) — B integrada em `044605f`; [#21](https://github.com/EuThiagoAndrade/utility-belt/pull/21) — C aberta/draft, não integrada. |
 | Branch(es) | `feature/issue-16` — A integrada; `feature/issue-17` — B em execução; tasks por issue neste diretório. |
 | Ideação | `_project/ideations/006_conversao_markdown_nativa.md` |
 | Revisão de origem | Registro de aprovação: conteúdo da `v4` revisada, hash Git `55d97a2ef9c959e65119775ac2532eab3dea148f`; baseline do repositório `b36d04396ca0bb7af3dab79e5781b092df06ef12`. |
@@ -411,13 +411,13 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-18/044605f6e7e44e4a2802aabdee2f163428a66406`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`.
-- `effect_class`: `local_mutation`; publicação autorizada após gates.
+- `effect_class`: `remote_mutation`; branch/PR C publicadas após gates autorizados.
 - `state_before`: B publicada/não integrada, autorização humana para integrar PR #20 e continuar #18.
-- `state_after`: B integrada em `044605f6e7e44e4a2802aabdee2f163428a66406`, #17 fechada; C implementada/validada na branch/task #18, publicação em andamento.
-- `next_transition`: publicar C -> revisão/checks e aceite dos cinco usos -> integração autorizada -> encerramento documental autorizado.
+- `state_after`: B integrada em `044605f6e7e44e4a2802aabdee2f163428a66406`, #17 fechada; C implementada/validada na branch/task #18 e publicada na PR #21 aberta/draft, sem integração.
+- `next_transition`: PR #21 -> revisão/checks e aceite dos cinco usos -> integração autorizada -> encerramento documental autorizado.
 - `preconditions`: gates locais, PR canônica, aceite e autorização própria para integração C/closure.
 - `authority`: responsável autorizou merge B e execução/publicação C; plano/issue delimitam aceite; GitHub governa estado remoto.
-- `evidence`: [task B](006_task_issue-17.md), [task C](006_task_issue-18.md), merge #20/#17 fechada, matriz Windows/Linux x64 Python 3.11/3.13 com pacote instalado/TTY e cinco usos reais preservados na task.
+- `evidence`: [task B](006_task_issue-17.md), [task C](006_task_issue-18.md), merge #20/#17 fechada, PR #21, commit `1a66fb24cd3013478f13bc3cdc4e10f857411855`, 207 testes, matriz Windows/Linux x64 Python 3.11/3.13 com pacote instalado/TTY e cinco usos reais preservados na task.
 - `acceptance`: CLI, catálogo, menus e diagnóstico completos; instalação mínima, consentimento, reuso e resultados reais revisáveis.
 - `blockers`: nenhum local; revisão/aceite e autorização de integração C pendentes.
 - `result`: `executed`.
