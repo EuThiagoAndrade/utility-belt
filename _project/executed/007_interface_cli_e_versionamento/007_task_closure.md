@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/007_interface_cli_e_versionamento/007_plan.md`
 > **Branch:** `chore/cycle-007-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** Pendente
+> **PR:** [#25](https://github.com/EuThiagoAndrade/utility-belt/pull/25)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-13
 > **Última atualização:** 2026-10-13
@@ -31,7 +31,7 @@ Responsável autorizou “Pode fazer o merge. E integração” após apresenta�
 - [x] Branch/PR de closure equivalentes pesquisadas, sem duplicata.
 - [x] Ciclo movido para executed na branch própria; conclusão global condicionada à integração documental.
 - [x] Gates locais e diff seletivo: 35 verificações de governança, zero avisos/falhas; lint passou; 205 testes passaram e 36 integrações opt-in foram ignoradas.
-- [ ] PR documental própria, checks e integração verificada.
+- [x] PR documental própria #25 publicada; integração efetiva somente após checks e merge verificados no GitHub.
 
 ## Evidências
 
@@ -58,7 +58,7 @@ Integração do produto e release comprovadas; encerramento documental em prepar
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+007+atualizar_docs+closure+74e772f`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: PR #24 e release integradas; ciclo Em execução em drafts, documentação pendente.
 - `state_after`: documentação reconciliada e ciclo em executed na branch; conclusão global condicionada ao merge da closure.
 - `next_transition`: checks -> PR documental -> integração verificada -> conclusão canônica.
@@ -66,7 +66,7 @@ Integração do produto e release comprovadas; encerramento documental em prepar
 - `authority`: responsável autorizou merge e integração; README estabelece encerramento documental normal e GitHub governa os estados remotos.
 - `evidence`: tabela acima, plano/task/handoffs e Git de movimentação.
 - `acceptance`: evidências reais, histórico preservado, índice coerente e closure integrada.
-- `blockers`: gates e publicação/integração documental pendentes.
+- `blockers`: checks remotos e integração documental pendentes; gates locais aprovados.
 - `result`: `executed`
 - `next_workflow_recommended`: finalizar integração documental autorizada.
 - `next_workflow_authorized`: reconciliação/encerramento da integração, sem ampliar produto.
