@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/006_conversao_markdown_nativa/006_plan.md`
 > **Branch:** `feature/issue-16`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — aberta em rascunho
 > **Integração:** `Pendente`
 > **Início:** 2026-10-12
 > **Última atualização:** 2026-10-12
@@ -32,7 +32,7 @@ Núcleo, configuração segura, arquivo/URL, worker isolado, receitas fixadas, a
 - [x] Validar aquisições reais e 33 cenários de integração em Windows/Linux x64, Python 3.11/3.13.
 - [x] Executar um smoke externo de áudio e um de URL com consentimentos humanos específicos.
 - [x] Concluir suíte completa final e auditoria antes de publicar.
-- [ ] Publicar PR após evidências completas.
+- [x] Publicar PR #19 após gates; anexá-la ao chat e conferir estado remoto.
 
 ## Evidências
 
@@ -41,7 +41,9 @@ Núcleo, configuração segura, arquivo/URL, worker isolado, receitas fixadas, a
 | Testes | `uv run pytest`: código 0, 138 testes, 138,86 s; `BELT_MARKDOWN_TEST_DATA` aponta para aquisições reais e `PYTEST_ADDOPTS=-p no:cacheprovider`, sem rede externa na suíte |
 | Validação | `uv run python scripts/validate_governance.py`: código 0, 31 OK, aviso conhecido 006/007, nenhuma falha; `uv run ruff check`: código 0, sem erros |
 | `git diff --check` | Código 0, sem erros; inspeção manual de novos arquivos/staging antes de commit |
-| Checks remotos | Pendente |
+| Checks remotos | Consultados no GitHub para `438647eb401e2f37e16fa615e30a3993d50767a8`: zero statuses e zero workflow runs; ausência de CI não é check aprovado |
+
+Commit de implementação validada: `438647eb401e2f37e16fa615e30a3993d50767a8`. PR #19 aberta/draft, `merged=false`, base `main`/`b36d04396ca0bb7af3dab79e5781b092df06ef12`, head `feature/issue-16`, sem conflito observado (`mergeable=true`). Revisão e integração ainda não realizadas. Ajuste posterior desta task/plano registra somente vínculos e estado, sem mudar código, receitas ou fixtures validados.
 
 ### Ambiente e smokes reais
 
@@ -99,24 +101,24 @@ Plano e ideação aprovados, antes não versionados, serão incluídos integralm
 
 ## Resultado
 
-Entrega A implementada e validada localmente. Publicação e revisão da PR são os próximos passos; merge e início de B permanecem sujeitos aos gates próprios. Nenhum código de B/C foi iniciado.
+Entrega A implementada, validada e publicada na PR #19 em rascunho. Aguardando revisão e autorização de integração; início de B depende de A integrada. Nenhum código de B/C foi iniciado, nenhuma issue foi fechada e o ciclo permanece em execução.
 
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: plano v4 aprovado; issues #16/#17/#18 abertas; main atualizada; documentos preexistentes locais; sem task/branch/PR de #16.
-- `state_after`: #16 implementada na branch canônica, 138 testes e gates locais passando, quatro combinações da matriz e smokes específicos registrados; publicação pendente, integração não executada.
-- `next_transition`: implementação -> gates -> publicação de PR -> revisão -> integração autorizada.
+- `state_after`: #16 implementada na branch canônica publicada, PR #19 aberta/draft, 138 testes e gates locais passando, quatro combinações da matriz e smokes específicos registrados; integração não executada.
+- `next_transition`: revisão da PR #19 -> integração autorizada -> implementação de #17.
 - `preconditions`: cumprir Item 1 e gates A antes da publicação; integrar A antes de B.
 - `authority`: solicitação humana atual autoriza implementação/publicação pelo workflow; responsável autoriza integração; GitHub comprova estados remotos.
-- `evidence`: issue remota, plano v4, HEAD/base atualizados, diff e resultados registrados nesta task.
+- `evidence`: issue #16, PR #19, commit `438647eb401e2f37e16fa615e30a3993d50767a8`, plano v4, base atualizada, staging seletivo, gates, hashes, matriz e smokes registrados nesta task; GitHub observou PR não integrada e nenhum status/run de CI.
 - `acceptance`: Item 1 completo, gates reais e PR rastreável, sem expansão de escopo.
-- `blockers`: revisão e autorização de integração ausentes; checks remotos ainda não observados. Nenhum bloqueio local para publicação.
+- `blockers`: revisão e autorização de integração ausentes; nenhum status/run de CI disponível na consulta. Nenhum bloqueio local de testes/lint/governança.
 - `result`: `executed`
-- `next_workflow_recommended`: publicar PR e encaminhar à revisão; integrar somente após autorização.
+- `next_workflow_recommended`: revisar PR #19; integrar somente após autorização, então implementar #17.
 - `next_workflow_authorized`: implementar_issue para #16; #17/#18 somente após suas dependências integradas.
 - `actions_prohibited`: merge, iniciar B antes de A integrada, encerrar ciclo, descontinuar File2MD, envio de áudio sem consentimento próprio.
 - `rejection_rule`: recusar inconsistências ou ausência de evidências materiais/autorizações.

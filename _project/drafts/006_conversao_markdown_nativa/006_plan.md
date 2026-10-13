@@ -232,7 +232,7 @@ Lista prevista para implementação futura; revisão e registro de aprovação a
 
 ## Decomposição em issues e PRs
 
-Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição; nenhuma PR foi criada. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
+Issues [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17) e [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) foram criadas conforme esta decomposição. A entrega A foi implementada e publicada na [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), em rascunho, aguardando revisão/integração autorizada; B/C não iniciadas. A sequência aprovada contém três entregas, normalmente uma issue e uma PR por entrega:
 
 | Entrega proposta | Escopo | Dependência | Evidência de saída |
 | :-- | :-- | :-- | :-- |
@@ -305,12 +305,12 @@ Rollback futuro: reverter as PRs específicas em ordem inversa de dependências,
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#16 — A: Núcleo de conversão Markdown e destino seguro](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17 — B: Lote, monitoramento e clipboard](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18 — C: CLI, menus, diagnóstico e distribuição](https://github.com/EuThiagoAndrade/utility-belt/issues/18) |
-| PR(s) | — (não criadas) |
+| PR(s) | [#19](https://github.com/EuThiagoAndrade/utility-belt/pull/19) — entrega A (#16), aberta/draft, não integrada. |
 | Branch(es) | `feature/issue-16` — entrega A autorizada; registro operacional em `006_task_issue-16.md`. |
 | Ideação | `_project/ideations/006_conversao_markdown_nativa.md` |
 | Revisão de origem | Registro de aprovação: conteúdo da `v4` revisada, hash Git `55d97a2ef9c959e65119775ac2532eab3dea148f`; baseline do repositório `b36d04396ca0bb7af3dab79e5781b092df06ef12`. |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `utility-belt/006/registrar_aprovacao/conversao_markdown_nativa/55d97a2ef9c959e65119775ac2532eab3dea148f` |
+| `handoff_id` | `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12` (vigente; aprovação histórica preservada abaixo) |
 | Destino após conclusão | `_project/executed/006_conversao_markdown_nativa/006_plan.md` |
 
 ### Validação documental e histórico do rascunho
@@ -363,15 +363,15 @@ O handoff abaixo registra somente a aprovação. A autorização humana posterio
 - `handoff_schema_version`: `1`.
 - `handoff_id`: `utility-belt/006/implementar_issue/issue-16/b36d04396ca0bb7af3dab79e5781b092df06ef12`.
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision`; origem Git `b36d04396ca0bb7af3dab79e5781b092df06ef12`, escopo aprovado da v4 e alvo #16.
-- `effect_class`: `local_mutation`; publicação autorizada pelo workflow após gates, ainda pendente neste registro.
+- `effect_class`: `remote_mutation`; branch/PR publicadas após gates autorizados.
 - `state_before`: v4 aprovada, ciclo em Planejamento, issues #16/#17/#18 abertas, documentos locais preexistentes.
-- `state_after`: plano em Em Execução, ciclo Em execução, #16 implementada/validada em `feature/issue-16`, task persistente com evidências; B/C não iniciadas e nenhuma integração.
-- `next_transition`: publicar PR de A -> revisão/checks -> integração autorizada -> implementar B.
+- `state_after`: plano em Em Execução, ciclo Em execução, #16 implementada/validada em `feature/issue-16` publicada, PR #19 aberta/draft e task persistente com evidências; B/C não iniciadas e nenhuma integração.
+- `next_transition`: PR #19 -> revisão/checks -> integração autorizada -> implementar B.
 - `preconditions`: gates A e staging seletivo antes de publicar; revisão e autorização de integração antes do merge; A integrada antes de B, B integrada antes de C.
 - `authority`: pedido humano atual “Pode implentar as issues com implementar_issue.md a partir do plano 006_plan.md em sequencia da ordem de prioridade proposta no plano”; GitHub comprova estados remotos, responsável autoriza integração.
-- `evidence`: [task #16](006_task_issue-16.md), 138 testes, matriz Windows/Linux Python 3.11/3.13, constraints/hashes, smokes consentidos e gates locais registrados na task.
+- `evidence`: [task #16](006_task_issue-16.md), [PR #19](https://github.com/EuThiagoAndrade/utility-belt/pull/19), commit `438647eb401e2f37e16fa615e30a3993d50767a8`, 138 testes, matriz Windows/Linux Python 3.11/3.13, constraints/hashes, smokes consentidos e gates locais registrados na task; zero statuses/runs remotos na consulta, sem inferir sucesso de CI.
 - `acceptance`: cumprir Item 1 e aceitar evidências reais/limites, PR rastreável sem ampliar escopo; receptor verifica novamente o estado remoto.
-- `blockers`: revisão e autorização de integração pendentes; nenhum bloqueio local de publicação.
+- `blockers`: revisão e autorização de integração pendentes; nenhum bloqueio local de testes/lint/governança e nenhum check remoto disponível na consulta.
 - `result`: `executed`.
 - `next_workflow_recommended`: revisão da PR de A; integração somente após autorização, depois entrega B.
 - `next_workflow_authorized`: implementar_issue para #16 (inclui publicação validada); #17/#18 depois das integrações exigidas; merge não autorizado.
