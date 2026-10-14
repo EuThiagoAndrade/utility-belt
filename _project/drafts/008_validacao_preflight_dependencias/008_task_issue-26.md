@@ -43,7 +43,7 @@ Implementar validação prévia de dependências externas (Restic e Docker) com 
 | Linter (`ruff check`) | All checks passed! |
 | Governança (`validate_governance.py`) | 35 verificações OK, 0 Avisos, 0 Falhas |
 | `git diff --check` | Limpo (sem problemas de espaço em branco) |
-| Checks remotos | Pendente (a executar no GitHub Actions após PR) |
+| Checks remotos (CI) | 100% aprovado (validate ubuntu-latest: pass 51s, validate windows-latest: pass 1m59s) |
 
 ## Decisões incidentais e desvios
 
