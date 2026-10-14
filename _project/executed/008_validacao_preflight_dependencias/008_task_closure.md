@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/008_validacao_preflight_dependencias/008_plan.md`
 > **Branch:** `chore/cycle-008-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [PR #28](https://github.com/EuThiagoAndrade/utility-belt/pull/28)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-14
 > **Última atualização:** 2026-10-14
