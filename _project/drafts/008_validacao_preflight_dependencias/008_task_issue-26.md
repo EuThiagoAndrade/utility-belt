@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/008_validacao_preflight_dependencias/008_plan.md`
 > **Branch:** `feature/issue-26`
 > **Worktree:** `c:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-14
 > **Última atualização:** 2026-10-14
@@ -33,7 +33,7 @@ Implementar validação prévia de dependências externas (Restic e Docker) com 
 - [x] Enriquecer `src/utility_belt/doctor.py` e comandos de diagnóstico com `install_guide` e URLs.
 - [x] Criar suíte de testes `tests/test_guard.py` com cobertura completa.
 - [x] Validar gates: `validate_governance.py`, `ruff check`, `pytest` e `git diff --check`.
-- [ ] Publicar branch `feature/issue-26` e abrir Pull Request com rastreabilidade completa.
+- [x] Publicar branch `feature/issue-26` e abrir Pull Request com rastreabilidade completa.
 
 ## Evidências
 

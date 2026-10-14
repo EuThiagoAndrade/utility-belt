@@ -193,7 +193,7 @@ Garantir que a nova camada de guard funcione em múltiplos ambientes sem regress
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#26](https://github.com/EuThiagoAndrade/utility-belt/issues/26) |
-| PR(s) | Pendente |
+| PR(s) | [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27) |
 | Branch(es) | `feature/issue-26` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+008+rascunhar_plano+preflight-guard+cf44c90` |
