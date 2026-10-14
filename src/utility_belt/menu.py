@@ -64,6 +64,11 @@ def show_menu() -> None:
             break
 
         if escolha == "restic":
+            from utility_belt.ui.guard import ensure_dependency
+
+            if not ensure_dependency("restic"):
+                continue
+
             try:
                 from utility_belt.ui.restic_menu import show_restic_menu
 
@@ -72,6 +77,11 @@ def show_menu() -> None:
                 run_dedicated_screen("Restic", lambda: message("ERRO", "Módulo do menu Restic não disponível."))
 
         elif escolha == "docker":
+            from utility_belt.ui.guard import ensure_dependency
+
+            if not ensure_dependency("docker"):
+                continue
+
             try:
                 from utility_belt.ui.docker_menu import show_docker_menu
 
@@ -135,6 +145,8 @@ def _show_diagnostics() -> None:
             tag = "[FALTA]"
             details = info.get("details") or "Não encontrado no PATH"
         typer.echo(f"  {tag} {name:<12} : {details}")
+        if not info.get("installed") and info.get("install_guide"):
+            typer.echo(f"       Dica        : {info['install_guide']}")
 
 
 def _run_system_info() -> None:
