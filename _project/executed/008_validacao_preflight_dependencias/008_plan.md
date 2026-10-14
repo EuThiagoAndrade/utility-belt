@@ -1,7 +1,7 @@
 # Plano de Implementação — Validação prévia de dependências externas (preflight guard)
 
 > **Ciclo:** `008`
-> **Status:** `Aprovado`
+> **Status:** `Concluído` (proposta documental, efetiva após integração da closure)
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-14
 > **Última atualização:** 2026-10-14
@@ -9,7 +9,7 @@
 > **Prioridade:** `P2`
 > **Revisão formal:** `Concluída`
 > **Veredito da revisão:** `APTO PARA APROVAÇÃO`
-> **Aprovação humana pós-revisão:** `Aprovada em 2026-10-14` — autorização explícita para o ciclo completo até a PR (merge retido para autorização humana posterior).
+> **Aprovação humana pós-revisão:** `Aprovada em 2026-10-14` — autorização humana explícita do responsável ("autorizado o merge").
 
 ## Objetivo
 
@@ -235,6 +235,6 @@ Garantir que a nova camada de guard funcione em múltiplos ambientes sem regress
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-10-14
+- **Desvios:** Nenhum. Todo o escopo planejado (guard, integração no menu, enriquecimento do doctor e testes unitários) foi implementado e validado conforme o plano.
+- **Lições comprovadas:** A interceptação modular antes da chamada de submenus (`ensure_dependency`), combinada com o reuso estrito dos componentes de `screen.py`, garante aderência visual e previne falhas de tempo de execução sem introduzir atrito de inicialização.
