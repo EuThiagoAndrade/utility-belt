@@ -1,6 +1,6 @@
 # Registro de ciclos
 
-> **Próximo ciclo:** `008`
+> **Próximo ciclo:** `009`
 > **Última atualização:** 2026-10-14
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
@@ -13,7 +13,9 @@
 | `005` | Ajuste Visual do Banner Retrô e Cinto Utilitário | `Concluído` | `_project/ideations/005_ajuste_visual_banner_retro.md` | `_project/executed/005_ajuste_visual_banner_retro/005_plan.md` | [#13](https://github.com/EuThiagoAndrade/utility-belt/issues/13) | [PR #14](https://github.com/EuThiagoAndrade/utility-belt/pull/14) — integrada em `ccf07b4` |
 | `006` | Conversão Markdown Nativa no Utility Belt | `Concluído` | `_project/ideations/006_conversao_markdown_nativa.md` | `_project/executed/006_conversao_markdown_nativa/006_plan.md` | [#16](https://github.com/EuThiagoAndrade/utility-belt/issues/16), [#17](https://github.com/EuThiagoAndrade/utility-belt/issues/17), [#18](https://github.com/EuThiagoAndrade/utility-belt/issues/18) | [PR #22](https://github.com/EuThiagoAndrade/utility-belt/pull/22) — conclusão efetiva após integração verificável |
 | `007` | Interface CLI e Versionamento Automático | `Concluído` | `_project/ideations/007_interface_cli_e_versionamento.md` | `_project/executed/007_interface_cli_e_versionamento/007_plan.md` | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) | [PR #25](https://github.com/EuThiagoAndrade/utility-belt/pull/25) — efetivo após integração verificável |
-| `008` | Validação Prévia de Dependências Externas | `Em execução` | `_project/ideations/008_validacao_preflight_dependencias.md` | `_project/drafts/008_validacao_preflight_dependencias/008_plan.md` | [#26](https://github.com/EuThiagoAndrade/utility-belt/issues/26) | — |
+| `008` | Validação Prévia de Dependências Externas | `Concluído` | `_project/ideations/008_validacao_preflight_dependencias.md` | `_project/executed/008_validacao_preflight_dependencias/008_plan.md` | [#26](https://github.com/EuThiagoAndrade/utility-belt/issues/26) | [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27) — integrada em `b99d47b`; release v0.3.0 |
+
+O ciclo `008` implementa a validação prévia de dependências externas (preflight guard) e onboarding assistido para Restic e Docker, integrado na [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27) após autorização do responsável e release automática v0.3.0 publicada em `bdcbd9e`. Encerramento Concluído nesta branch é proposta, efetiva após merge da PR documental. Próximo ciclo 009 preservado.
 
 O ciclo `007` entrega o conjunto completo autorizado em 2026-10-13 na [PR #24](https://github.com/EuThiagoAndrade/utility-belt/pull/24), com workflow autoaprovado até a PR por exceção pontual registrada no plano; merge e integração posteriormente autorizados pelo responsável. PR #24 integrada em 328e515 após autorização humana; release automática v0.2.0 publicada em 74e772f. Encerramento Concluído nesta branch é proposta, efetiva após merge da PR documental. Próximo ciclo 008 preservado.
 
