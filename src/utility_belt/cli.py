@@ -127,6 +127,8 @@ def doctor(
         else:
             status = typer.style("Instalado", fg=typer.colors.GREEN) if dep.get("installed") else typer.style("Ausente", fg=typer.colors.RED)
             typer.echo(f"{target}: {status} - {dep.get('details', '')}")
+            if not dep.get("installed") and dep.get("install_guide"):
+                typer.echo(f"Dica: {dep['install_guide']}")
         return
 
     if as_json:
@@ -147,6 +149,8 @@ def doctor(
             tag = typer.style("[FALTA]", fg=typer.colors.YELLOW)
             details = info.get("details") or "Não encontrado no PATH"
         typer.echo(f"  {tag} {name:<12} : {details}")
+        if not info.get("installed") and info.get("install_guide"):
+            typer.echo(f"       Dica        : {info['install_guide']}")
 
 
 @app.command(

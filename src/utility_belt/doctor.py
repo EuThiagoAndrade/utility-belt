@@ -87,6 +87,12 @@ def check_docker() -> dict[str, Any]:
     if not info["installed"]:
         info["daemon_running"] = False
         info["details"] = "Docker não encontrado no PATH."
+        info["install_guide"] = (
+            "Instale com 'winget install Docker.DockerDesktop' ou baixe em https://www.docker.com/products/docker-desktop"
+            if sys.platform == "win32"
+            else "Instale seguindo o guia em https://docs.docker.com/engine/install/"
+        )
+        info["download_url"] = "https://www.docker.com/products/docker-desktop"
         return info
 
     try:
@@ -102,6 +108,11 @@ def check_docker() -> dict[str, Any]:
         else:
             info["daemon_running"] = False
             info["details"] = "Daemon Docker inacessível ou parado."
+            info["install_guide"] = (
+                "Inicie o Docker Desktop para habilitar o daemon."
+                if sys.platform == "win32"
+                else "Inicie o serviço com: sudo systemctl start docker"
+            )
     except subprocess.TimeoutExpired:
         info["daemon_running"] = False
         info["details"] = "Timeout ao consultar daemon do Docker."
@@ -117,6 +128,12 @@ def check_restic() -> dict[str, Any]:
     info = check_executable("restic")
     if not info["installed"]:
         info["details"] = "Restic não encontrado no PATH."
+        info["install_guide"] = (
+            "Instale com 'winget install restic.restic' ou baixe em https://github.com/restic/restic/releases"
+            if sys.platform == "win32"
+            else "Instale com 'sudo apt install restic' ou baixe em https://github.com/restic/restic/releases"
+        )
+        info["download_url"] = "https://restic.net"
         return info
 
     try:
