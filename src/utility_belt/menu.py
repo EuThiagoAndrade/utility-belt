@@ -46,7 +46,8 @@ def show_menu() -> None:
                     tool_choice(1, "Restic", "Backup, restauração e integridade", "restic"),
                     tool_choice(2, "Docker", "Exportar e importar imagens", "docker"),
                     tool_choice(3, "Markdown", "Converter arquivos, URLs e pastas", "markdown"),
-                    tool_choice(4, "Sistema", "Diagnóstico e informações do computador", "system"),
+                    tool_choice(4, "Desenvolvimento", "Faxineiro de caches e Git-Tidy", "dev"),
+                    tool_choice(5, "Sistema", "Diagnóstico e informações do computador", "system"),
                     menu_separator(),
                     questionary.Choice("[0] Sair", value="sair"),
                     menu_footer(),
@@ -93,6 +94,11 @@ def show_menu() -> None:
             from utility_belt.ui.markdown_menu import show_markdown_menu
 
             show_markdown_menu()
+
+        elif escolha == "dev":
+            from utility_belt.ui.dev_menu import show_dev_menu
+
+            show_dev_menu()
 
         elif escolha == "system":
             show_system_menu()
