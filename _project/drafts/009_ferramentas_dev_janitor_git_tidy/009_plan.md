@@ -186,7 +186,7 @@ Criar `src/utility_belt/ui/dev_menu.py` consumindo `screen.py`, plugar subcomand
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#29](https://github.com/EuThiagoAndrade/utility-belt/issues/29) |
-| PR(s) | A criar |
+| PR(s) | [#30](https://github.com/EuThiagoAndrade/utility-belt/pull/30) |
 | Branch(es) | `feature/issue-29` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+009+rascunhar_plano+ferramentas-dev-janitor-git-tidy+d1e72b0` |

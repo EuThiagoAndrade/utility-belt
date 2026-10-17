@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/009_ferramentas_dev_janitor_git_tidy/009_plan.md`
 > **Branch:** `feature/issue-29`
 > **Worktree:** `c:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#30](https://github.com/EuThiagoAndrade/utility-belt/pull/30)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-17
 > **Última atualização:** 2026-10-17
@@ -41,7 +41,7 @@ Implementar o módulo `belt dev` reunindo:
 - [x] Integrar comandos no `src/utility_belt/cli.py`, submenu em `src/utility_belt/ui/menu.py`, ferramentas em `src/utility_belt/catalog.py` e diagnóstico em `src/utility_belt/doctor.py`.
 - [x] Criar testes unitários e de integração (`test_dev_janitor.py`, `test_dev_git_tidy.py`, `test_dev_cli.py`, `test_interactive_menus.py`).
 - [x] Executar gates locais: `scripts/validate_governance.py`, `ruff check`, `pytest`, `git diff --check`.
-- [ ] Publicar branch `feature/issue-29` e abrir PR vinculada à Issue #29.
+- [x] Publicar branch `feature/issue-29` e abrir PR vinculada à Issue #29 ([PR #30](https://github.com/EuThiagoAndrade/utility-belt/pull/30)).
 
 ## Evidências
 
