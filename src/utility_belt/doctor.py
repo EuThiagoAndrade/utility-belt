@@ -153,6 +153,36 @@ def check_restic() -> dict[str, Any]:
     return info
 
 
+def check_git() -> dict[str, Any]:
+    """Verifica executável do Git e sua versão."""
+    info = check_executable("git")
+    if not info["installed"]:
+        info["details"] = "Git não encontrado no PATH."
+        info["install_guide"] = (
+            "Instale com 'winget install Git.Git' ou baixe em https://git-scm.com/download/win"
+            if sys.platform == "win32"
+            else "Instale com 'sudo apt install git' ou baixe em https://git-scm.com/downloads"
+        )
+        info["download_url"] = "https://git-scm.com"
+        return info
+
+    try:
+        res = subprocess.run(
+            ["git", "--version"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if res.returncode == 0:
+            info["details"] = res.stdout.strip()
+        else:
+            info["details"] = "Erro ao obter versão do Git."
+    except Exception as err:
+        info["details"] = f"Erro ao executar Git: {err}"
+
+    return info
+
+
 def run_diagnostics() -> dict[str, Any]:
     """Executa todos os testes de diagnóstico do ambiente."""
     cfg_file = get_config_file()
@@ -177,7 +207,7 @@ def run_diagnostics() -> dict[str, Any]:
             "profiles_count": len(cfg.get("profiles", {})),
         },
         "dependencies": {
-            "git": check_executable("git"),
+            "git": check_git(),
             "docker": check_docker(),
             "restic": check_restic(),
             "powershell": check_executable("pwsh") if shutil.which("pwsh") else check_executable("powershell"),

@@ -67,6 +67,14 @@ class TestCLICallbackBehavior:
         runner.invoke(app, ["docker", "export"])
         # Pode falhar se docker não instalado, mas não deve abrir menu interativo
 
+    def test_belt_dev_no_args_calls_dev_menu_in_tty(self) -> None:
+        """Quando `belt dev` é chamado sem args em TTY, deve chamar show_dev_menu."""
+        with patch("utility_belt.ui.dev_menu.show_dev_menu") as mock_ui:
+            with patch("utility_belt.adapters.dev.sys") as mock_sys:
+                mock_sys.stdin.isatty.return_value = True
+                runner.invoke(app, ["dev"])
+                mock_ui.assert_called_once()
+
 
 # ─── Testes de importação dos módulos de menu ─────────────────────────────────
 
@@ -83,6 +91,11 @@ class TestMenuModulesImport:
         from utility_belt.ui.docker_menu import show_docker_menu
 
         assert callable(show_docker_menu)
+
+    def test_import_dev_menu(self) -> None:
+        from utility_belt.ui.dev_menu import show_dev_menu
+
+        assert callable(show_dev_menu)
 
     def test_import_main_menu(self) -> None:
         from utility_belt.menu import show_menu

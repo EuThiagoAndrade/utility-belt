@@ -1,0 +1,11 @@
+schema_version = 1
+id = "dev.janitor"
+name = "Faxineiro de Caches e Dependências"
+description = "Varre e limpa seletivamente diretórios de compilação e pacotes pesados (node_modules, target, .venv)."
+runtime = "python"
+entry = "main.py"
+platforms = ["windows", "linux"]
+interactive = true
+risk = "destructive"
+supports_dry_run = true
+external_dependencies = []
