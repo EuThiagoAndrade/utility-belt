@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from unittest.mock import patch
 
@@ -13,29 +14,37 @@ from utility_belt.doctor import check_git, run_diagnostics
 runner = CliRunner()
 
 
+def _clean(text: str) -> str:
+    """Remove sequências ANSI para asserções confiáveis em qualquer plataforma."""
+    return re.sub(r"\x1b\[[0-9;]*[a-zA-Z]", "", text)
+
+
 def test_cli_dev_help() -> None:
-    result = runner.invoke(app, ["dev", "--help"])
+    result = runner.invoke(app, ["dev", "--help"], env={"NO_COLOR": "1", "TERM": "dumb"})
     assert result.exit_code == 0
-    assert "janitor" in result.output
-    assert "git-tidy" in result.output
-    assert "menu" in result.output
+    clean = _clean(result.output)
+    assert "janitor" in clean
+    assert "git-tidy" in clean
+    assert "menu" in clean
 
 
 def test_cli_dev_janitor_help() -> None:
-    result = runner.invoke(app, ["dev", "janitor", "--help"])
+    result = runner.invoke(app, ["dev", "janitor", "--help"], env={"NO_COLOR": "1", "TERM": "dumb"})
     assert result.exit_code == 0
-    assert "--dry-run" in result.output
-    assert "--days" in result.output
-    assert "--yes" in result.output
+    clean = _clean(result.output)
+    assert "--dry-run" in clean
+    assert "--days" in clean
+    assert "--yes" in clean
 
 
 def test_cli_dev_git_tidy_help() -> None:
-    result = runner.invoke(app, ["dev", "git-tidy", "--help"])
+    result = runner.invoke(app, ["dev", "git-tidy", "--help"], env={"NO_COLOR": "1", "TERM": "dumb"})
     assert result.exit_code == 0
-    assert "--dry-run" in result.output
-    assert "--remote" in result.output
-    assert "--all" in result.output
-    assert "--yes" in result.output
+    clean = _clean(result.output)
+    assert "--dry-run" in clean
+    assert "--remote" in clean
+    assert "--all" in clean
+    assert "--yes" in clean
 
 
 def test_cli_dev_janitor_invalid_path() -> None:
