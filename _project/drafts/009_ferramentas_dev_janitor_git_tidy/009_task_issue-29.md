@@ -51,7 +51,7 @@ Implementar o módulo `belt dev` reunindo:
 | Validação de governança | 37 OK \| 0 Avisos \| 0 Falhas (`validate_governance.py`) |
 | Lint / Formatação (`ruff`) | Aprovado (0 erros) |
 | `git diff --check` | Aprovado (0 erros) |
-| Checks remotos de CI | Aguardando publicação da PR |
+| Checks remotos de CI | Aprovado (Ubuntu: 50s, Windows: 1m26s - Run 39047871813) |
 
 ## Decisões incidentais e desvios
 
