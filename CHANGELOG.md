@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.0 (2026-10-17)
+
+- docs(cycle-009): registrar sucesso dos checks remotos de CI na task da issue 29
+- fix(issue-29): sanitizar sequencias ansi nos testes de help da cli
+- docs(cycle-009): vincular PR 30 na task persistente e plano
+- feat(issue-29): adicionar ferramentas dev janitor e git-tidy
+- docs(cycle-009): vincular issue 29 ao plano e registro de ciclos
+- docs(cycle-009): plano de implementacao aprovado para ferramentas dev
+- docs(cycle-009): rascunho do plano de implementacao para ferramentas dev
+- docs(cycle-009): registrar ideacao para ferramentas dev janitor e git-tidy
+- docs(cycle-008): vincular PR 28 na task de encerramento
+- chore(cycle-008): encerrar validacao preflight de dependencias
+
 ## v0.3.0 (2026-10-14)
 
 - docs(cycle-008): registrar sucesso dos checks remotos de CI na task da issue 26
