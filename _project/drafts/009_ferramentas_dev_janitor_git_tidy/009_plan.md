@@ -1,15 +1,15 @@
 # Plano de Implementação — Ferramentas Dev: Janitor e Git-Tidy
 
 > **Ciclo:** `009`
-> **Status:** `Rascunho`
+> **Status:** `Aprovado`
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-17
 > **Última atualização:** 2026-10-17
 > **Tipo:** `feature`
 > **Prioridade:** `P2`
-> **Revisão formal:** `Pendente`
-> **Veredito da revisão:** `Pendente`
-> **Aprovação humana pós-revisão:** `Pendente`
+> **Revisão formal:** `Concluída`
+> **Veredito da revisão:** `APTO COM RESSALVAS`
+> **Aprovação humana pós-revisão:** `Aprovada em 2026-10-17` — autorização excepcional até a abertura da PR
 
 ## Objetivo
 
@@ -218,13 +218,20 @@ Criar `src/utility_belt/ui/dev_menu.py` consumindo `screen.py`, plugar subcomand
 
 ## Revisão crítica
 
-- **Data:** —
-- **Versão revisada:** —
-- **Veredito:** `Pendente`
-- **Bloqueios remanescentes:** —
-- **Aprovação humana pós-revisão:** `Pendente`
-- **Correções materiais:** —
-- **Ressalvas:** —
+- **Data:** 2026-10-17
+- **Versão revisada:** v1
+- **Veredito:** `APTO COM RESSALVAS`
+- **Bloqueios remanescentes:** Nenhum para implementação e publicação de PR.
+- **Aprovação humana pós-revisão:** Concedida pelo responsável em 2026-10-17 ("Pode fazer o ciclo todo de idear até a implementação e abertura de PR. Após minha autorização, faça o merge").
+- **Correções materiais:** Delimitação cirúrgica do escopo (`janitor`, `git-tidy`, CLI, TUI, Doctor e Catalog) e definição explícita de allowlist de segurança.
+- **Ressalvas:**
+  - Operações de exclusão de branches remotas em `git-tidy` e exclusão física de diretórios em `janitor` possuem classificação de risco `destructive` e exigem confirmação interativa clara e suporte total a `--dry-run`.
+  - A exclusão remota nunca deve permitir atingir branches canônicas (`main`, `master`, `dev`, etc.) ou a branch `HEAD`.
+  - O merge final da PR permanece terminantemente proibido até manifestação humana explícita posterior.
+
+### Parecer e aceite da revisão
+
+**Autorização excepcional de prosseguimento:** Conforme estabelecido no Ciclo 007 e registrado no histórico deste ciclo, o responsável concedeu autorização humana expressa para conduzir o ciclo de forma contínua até a abertura da PR ("Lembra que eu te disse que você tem permissão para chegar até a PR"). A revisão formal técnica atesta que o plano cumpre integralmente os requisitos arquiteturais, de governança e de segurança. A próxima transição autorizada é `criar_issues` seguida de `implementar` até a publicação da PR, mantendo-se o gate de merge estritamente bloqueado.
 
 ## Pós-mortem
 
