@@ -1,7 +1,7 @@
 # Plano de Implementação — Ferramentas Dev: Janitor e Git-Tidy
 
 > **Ciclo:** `009`
-> **Status:** `Aprovado`
+> **Status:** `Concluído` (proposta documental, efetiva após integração da closure)
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-17
 > **Última atualização:** 2026-10-17
@@ -235,6 +235,10 @@ Criar `src/utility_belt/ui/dev_menu.py` consumindo `screen.py`, plugar subcomand
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-10-17
+- **Desvios:** Ajuste na suíte de testes de CLI (`tests/test_dev_cli.py`) para sanitizar sequências ANSI geradas pelo Rich/Typer no ambiente Ubuntu do GitHub Actions.
+- **Lições comprovadas:** Asserções de CLI construídas sobre Typer e Rich devem considerar variações de renderização de terminal e códigos de escape ANSI entre plataformas Windows e Linux.
+
+## Integração e encerramento
+
+Responsável autorizou: “Sim. Pode fazer”, em 2026-10-17, após apresentação da PR #30 validada com 100% de aprovação nos gates locais e remotos. PR #30 integrada em `f7d5e11cbeb3e58f7dd99a4ea803b14aa9ac4451`; issue #29 fechada formalmente. Release automático [39048338725](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/39048338725) passou em Windows/Linux e publicou [v0.4.0](https://github.com/EuThiagoAndrade/utility-belt/releases/tag/v0.4.0), commit bot `d2d0c50`. Encerramento documental em branch própria `chore/cycle-009-closure` conforme `_project/README.md`, sem issue recursiva. Estado Concluído nesta branch é proposta; efeito canônico somente após integração verificável da PR de closure. Handoff operacional do encerramento em `009_task_closure.md`.
