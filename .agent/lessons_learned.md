@@ -35,3 +35,7 @@ No ciclo `006`, duas suítes completas simultâneas disputaram o lock do mesmo a
 ### 2026-09-13 — Handoffs estáveis e rastreabilidade pós-merge
 
 Em rotinas de governança com múltiplos agentes e revisões, a identidade do handoff (`handoff_id`) deve ser derivada deterministicamente de repositório, ciclo, workflow, alvo lógico e revisão de origem, e nunca de timestamps voláteis ou UUIDs arbitrários. Reexecuções compatíveis devem ser reconciliadas sem duplicação documental.
+
+### 2026-10-17 — Testes de CLI com Rich/Typer devem sanitizar sequências de escape ANSI
+
+No ciclo `009`, a suíte de testes de CLI (`tests/test_dev_cli.py`) comparando substrings em saídas de `--help` falhou no runner Ubuntu do GitHub Actions porque o Rich/Typer renderizou estilos de terminal com sequências ANSI mesmo quando invocado via `CliRunner`. A sanitização prévia via regex (`re.compile(r"\x1b\[[0-9;]*[mK]")`) garante asserções determinísticas e portáveis entre plataformas Windows e Linux.
