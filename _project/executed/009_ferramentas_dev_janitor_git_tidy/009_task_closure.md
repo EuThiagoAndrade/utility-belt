@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/009_ferramentas_dev_janitor_git_tidy/009_plan.md`
 > **Branch:** `chore/cycle-009-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** A vincular
+> **PR:** [PR #31](https://github.com/EuThiagoAndrade/utility-belt/pull/31)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-17
 > **Última atualização:** 2026-10-17
@@ -31,7 +31,7 @@ O responsável autorizou formalmente: "Sim. Pode fazer", após apresentação da
 - [x] Ciclo movido de `_project/drafts/` para `_project/executed/009_ferramentas_dev_janitor_git_tidy/`.
 - [x] Registro em `_project/cycles.md` atualizado com estado `Concluído` e próximo ciclo declarado `010`.
 - [x] Plano atualizado com estado `Concluído`, pós-mortem e histórico de integração.
-- [x] Gates locais de validação de governança executados (38 verificações OK, 0 avisos, 0 falhas).
+- [x] Gates locais de validação de governança executados (39 verificações OK, 0 avisos, 0 falhas).
 
 ## Evidências
 
@@ -42,7 +42,7 @@ O responsável autorizou formalmente: "Sim. Pode fazer", após apresentação da
 | Release | [39048338725](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/39048338725) SUCCESS; [v0.4.0](https://github.com/EuThiagoAndrade/utility-belt/releases/tag/v0.4.0), commit bot `d2d0c50` |
 | Versão fonte | `__version__ = 0.4.0` em `main` |
 | Testes locais | 241 passed, 36 skipped em 46.81s (100% sucesso) |
-| Governança / Lint | 38 OK, 0 avisos/falhas em `validate_governance.py`; `ruff check` limpo |
+| Governança / Lint | 39 OK, 0 avisos/falhas em `validate_governance.py`; `ruff check` limpo |
 
 ## Decisões incidentais e desvios
 
