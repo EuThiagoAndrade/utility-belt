@@ -1,7 +1,7 @@
 # Plano de Implementação — Compatibilidade e Padronização Visual de Menus
 
 > **Ciclo:** `010`
-> **Status:** `Aprovado`
+> **Status:** `Concluído`
 > **Versão:** `v2`
 > **Data de criação:** 2026-10-20
 > **Última atualização:** 2026-10-20
@@ -375,6 +375,10 @@ Por se tratar de correções pontuais, complementares e restritas à camada de i
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-10-20
+- **Desvios:** Nenhum desvio técnico em relação ao plano aprovado (v2). A simplificação formalizada na revisão eliminou código especulativo desnecessário e manteve a implementação cirúrgica.
+- **Lições comprovadas:** Parâmetros repassados genericamente via `**kwargs` para bibliotecas com múltiplas fábricas (como `questionary.select` e `questionary.checkbox`) devem ser compatibilizados ou filtrados contra a assinatura da fábrica executada para evitar vazamento de argumentos inválidos para classes internas do `prompt_toolkit`.
+
+## Integração e encerramento
+
+Responsável autorizou: "Sim autorizado o merge da PR 34", em 2026-10-20, após apresentação da PR #34 validada com 100% de aprovação nos gates locais e remotos. PR #34 integrada em `e943a47`; issue #33 fechada formalmente. Release automático [39514115629](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/39514115629) passou em Windows/Ubuntu e publicou [v0.4.1](https://github.com/EuThiagoAndrade/utility-belt/releases/tag/v0.4.1), commit bot `9e1e558`. Encerramento documental em branch própria `chore/cycle-010-closure` conforme `_project/README.md`, sem issue recursiva. Estado Concluído nesta branch é proposta; efeito canônico somente após integração verificável da PR de closure. Handoff operacional do encerramento em `010_task_closure.md`.
