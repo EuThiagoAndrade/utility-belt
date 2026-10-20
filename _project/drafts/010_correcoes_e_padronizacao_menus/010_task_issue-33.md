@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/010_correcoes_e_padronizacao_menus/010_plan.md`
 > **Branch:** `fix/issue-33`
 > **Worktree:** `C:\Programas\utility-belt`
-> **PR:** — (a registrar após criação)
+> **PR:** [#34](https://github.com/EuThiagoAndrade/utility-belt/pull/34)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-20
 > **Última atualização:** 2026-10-20
