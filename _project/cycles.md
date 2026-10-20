@@ -1,7 +1,7 @@
 # Registro de ciclos
 
 > **Próximo ciclo:** `010`
-> **Última atualização:** 2026-10-17
+> **Última atualização:** 2026-10-20
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
 | :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
@@ -15,6 +15,9 @@
 | `007` | Interface CLI e Versionamento Automático | `Concluído` | `_project/ideations/007_interface_cli_e_versionamento.md` | `_project/executed/007_interface_cli_e_versionamento/007_plan.md` | [#23](https://github.com/EuThiagoAndrade/utility-belt/issues/23) | [PR #25](https://github.com/EuThiagoAndrade/utility-belt/pull/25) — efetivo após integração verificável |
 | `008` | Validação Prévia de Dependências Externas | `Concluído` | `_project/ideations/008_validacao_preflight_dependencias.md` | `_project/executed/008_validacao_preflight_dependencias/008_plan.md` | [#26](https://github.com/EuThiagoAndrade/utility-belt/issues/26) | [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27) — integrada em `b99d47b`; release v0.3.0 |
 | `009` | Ferramentas Dev: Janitor e Git-Tidy | `Concluído` | `_project/ideations/009_ferramentas_dev_janitor_git_tidy.md` | `_project/executed/009_ferramentas_dev_janitor_git_tidy/009_plan.md` | [#29](https://github.com/EuThiagoAndrade/utility-belt/issues/29) | [PR #30](https://github.com/EuThiagoAndrade/utility-belt/pull/30) — integrada em `f7d5e11`; release v0.4.0 |
+| `010` | Compatibilidade e Padronização Visual de Menus | `Planejamento` | `_project/ideations/010_correcoes_e_padronizacao_menus.md` | `_project/drafts/010_correcoes_e_padronizacao_menus/010_plan.md` | — | — |
+
+O ciclo `010` trata da correção de incompatibilidade de parâmetros entre `menu_options()` e `questionary.checkbox`, bem como da padronização de linha separadora (`menu_separator()`) antes da opção `[0]` nos submenus de Markdown e Desenvolvimento.
 
 O ciclo `009` implementa as ferramentas de desenvolvimento (`belt dev`), reunindo o faxineiro de caches (`janitor`) e o higienizador de branches locais e remotas (`git-tidy`), integrado na [PR #30](https://github.com/EuThiagoAndrade/utility-belt/pull/30) após autorização do responsável e release automática v0.4.0 publicada em `d2d0c50`. Encerramento Concluído nesta branch é proposta, efetiva após merge da PR documental. Próximo ciclo 010 preservado.
 
