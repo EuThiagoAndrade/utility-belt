@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/010_correcoes_e_padronizacao_menus/010_plan.md`
 > **Branch:** `chore/cycle-010-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [PR #35](https://github.com/EuThiagoAndrade/utility-belt/pull/35)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-20
 > **Última atualização:** 2026-10-20
