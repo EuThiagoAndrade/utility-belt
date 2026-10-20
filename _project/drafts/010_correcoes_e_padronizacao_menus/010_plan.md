@@ -192,7 +192,7 @@ Por se tratar de correções pontuais, complementares e restritas à camada de i
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | — (a criar via `criar_issues`; número atribuído pelo GitHub) |
-| PR(s) | — |
+| PR(s) | Documental: [#32](https://github.com/EuThiagoAndrade/utility-belt/pull/32) |
 | Branch(es) | — (prevista: `fix/issue-N`) |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+010+rascunhar_plano+correcoes-e-padronizacao-menus+99e7e37/v2` |
