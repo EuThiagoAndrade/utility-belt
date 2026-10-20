@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.1 (2026-10-20)
+
+- docs(cycle-010): registrar sucesso dos checks remotos de CI na task da issue 33
+- docs(cycle-010): vincular PR 34 na task e plano da issue 33
+- fix(issue-33): compatibilidade de opcoes em checkbox e padronizacao visual de menus
+- docs(cycle-010): vincular issue 33 ao plano e registro de ciclos
+- docs(cycle-010): vincular PR documental #32 na rastreabilidade do plano
+- docs(cycle-010): plano de implementacao aprovado para correcoes e padronizacao de menus
+- docs(cycle-009): vincular PR de encerramento #31
+- chore(cycle-009): encerrar ferramentas dev janitor e git-tidy
+
 ## v0.4.0 (2026-10-17)
 
 - docs(cycle-009): registrar sucesso dos checks remotos de CI na task da issue 29
