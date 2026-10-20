@@ -15,6 +15,7 @@ from utility_belt.ui.screen import (
     clear_screen,
     menu_footer,
     menu_options,
+    menu_separator,
     message,
     prompt,
     render_header,
@@ -77,8 +78,9 @@ def show_markdown_menu() -> None:
         ("[3] Monitorar novos arquivos", "watch"),
         ("[4] Converter caminho ou URL do clipboard", "clipboard"),
         ("[5] Configurar pasta central", "config"),
-        ("[0] Voltar ao menu principal", "exit"),
     )]
+    choices.append(menu_separator())
+    choices.append(questionary.Choice("[0] Voltar ao menu principal", "exit"))
     choices.append(menu_footer())
     while True:
         clear_screen()
