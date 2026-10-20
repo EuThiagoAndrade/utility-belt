@@ -103,3 +103,179 @@ def test_result_visible_until_return_confirmation(monkeypatch, capsys):
         return Mock(ask=lambda: None)
     monkeypatch.setattr(screen.questionary, "press_any_key_to_continue", pause)
     screen.run_dedicated_screen("Converter", lambda: print("Resultado final"))
+
+
+# ─── Testes do Ciclo 010 (Compatibilidade de Opções e Separadores) ────────────
+
+
+def test_menu_options_does_not_contain_use_shortcuts():
+    """menu_options() não deve conter 'use_shortcuts' para segurança com checkboxes."""
+    assert "use_shortcuts" not in screen.menu_options()
+
+
+def test_prompt_real_checkbox_with_menu_options():
+    """Instanciação real de questionary.checkbox com menu_options() não levanta TypeError."""
+    import questionary
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as inp:
+        inp.send_text(" \r")
+        result = screen.prompt(
+            questionary.checkbox,
+            "Selecione:",
+            choices=["item1", "item2"],
+            input=inp,
+            output=DummyOutput(),
+            **screen.menu_options(),
+        )
+        assert result == ["item1"]
+
+
+def test_prompt_defensive_guard_discards_use_shortcuts_for_checkbox():
+    """A guarda defensiva em screen.prompt() remove 'use_shortcuts' quando a fábrica não o suporta."""
+    import questionary
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as inp:
+        inp.send_text(" \r")
+        result = screen.prompt(
+            questionary.checkbox,
+            "Selecione:",
+            choices=["item1", "item2"],
+            use_shortcuts=False,
+            input=inp,
+            output=DummyOutput(),
+        )
+        assert result == ["item1"]
+
+
+def test_prompt_real_select_with_menu_options_non_regression():
+    """questionary.select real continua funcionando normalmente com menu_options()."""
+    import questionary
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    with create_pipe_input() as inp:
+        inp.send_text("\r")
+        result = screen.prompt(
+            questionary.select,
+            "Escolha:",
+            choices=["op1", "op2"],
+            input=inp,
+            output=DummyOutput(),
+            **screen.menu_options(),
+        )
+        assert result == "op1"
+
+
+def test_run_git_tidy_local_flow_with_eligible_branch(monkeypatch):
+    """Fluxo local de git-tidy com branch elegível executa checklist real sem falha de use_shortcuts."""
+    from unittest.mock import patch
+
+    from prompt_toolkit.application import create_app_session
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from utility_belt.dev.git_tidy import LocalBranchInfo
+    from utility_belt.ui import dev_menu
+
+    branch = LocalBranchInfo(name="feat/eligible", is_current=False, is_protected=False, is_merged=True, is_gone=False)
+    with patch("utility_belt.ui.dev_menu._check_git_environment", return_value=True), \
+         patch("utility_belt.ui.dev_menu.prune_remote"), \
+         patch("utility_belt.ui.dev_menu.get_local_branches", return_value=[branch]), \
+         patch("utility_belt.ui.dev_menu.delete_local_branches", return_value={"feat/eligible": (True, "")}) as mock_del:
+        with create_pipe_input() as inp:
+            inp.send_text("\ry")
+            with create_app_session(input=inp, output=DummyOutput()):
+                dev_menu.run_git_tidy_local_flow()
+        mock_del.assert_called_once_with(["feat/eligible"])
+
+
+def test_run_git_tidy_remote_flow_with_eligible_branch(monkeypatch):
+    """Fluxo remoto de git-tidy com branch elegível executa checklist real sem falha de use_shortcuts."""
+    from unittest.mock import patch
+
+    from prompt_toolkit.application import create_app_session
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from utility_belt.dev.git_tidy import RemoteBranchInfo
+    from utility_belt.ui import dev_menu
+
+    branch = RemoteBranchInfo(name="origin/feat/eligible", full_ref="refs/remotes/origin/feat/eligible", is_protected=False, is_merged=True)
+    with patch("utility_belt.ui.dev_menu._check_git_environment", return_value=True), \
+         patch("utility_belt.ui.dev_menu.prune_remote"), \
+         patch("utility_belt.ui.dev_menu.get_remote_branches", return_value=[branch]), \
+         patch("utility_belt.ui.dev_menu.delete_remote_branches", return_value={"origin/feat/eligible": (True, "")}) as mock_del:
+        with create_pipe_input() as inp:
+            inp.send_text("\ry")
+            with create_app_session(input=inp, output=DummyOutput()):
+                dev_menu.run_git_tidy_remote_flow()
+        mock_del.assert_called_once_with(["origin/feat/eligible"])
+
+
+def test_run_janitor_flow_with_eligible_cache(monkeypatch):
+    """Fluxo do Janitor com cache elegível executa checklist real sem falha de use_shortcuts."""
+    from unittest.mock import patch
+
+    from prompt_toolkit.application import create_app_session
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from utility_belt.dev.janitor import DiscoveredCache
+    from utility_belt.ui import dev_menu
+
+    cache = DiscoveredCache(Path("dummy/cache"), "cache", 2048, 0.0, False)
+    with patch("utility_belt.ui.dev_menu.scan_caches", return_value=[cache]), \
+         patch("utility_belt.ui.dev_menu.delete_cache", return_value=(True, "")) as mock_del:
+        with create_pipe_input() as inp:
+            inp.send_text("\r\ry")
+            with create_app_session(input=inp, output=DummyOutput()):
+                dev_menu.run_janitor_flow()
+        mock_del.assert_called_once_with(cache.path)
+
+
+def test_markdown_menu_has_separator_before_exit(monkeypatch):
+    """show_markdown_menu() posiciona Separator imediatamente antes da opção de saída [0]."""
+    import questionary
+
+    from utility_belt.ui import markdown_menu
+
+    monkeypatch.setattr(markdown_menu.sys.stdin, "isatty", lambda: True)
+    monkeypatch.setattr(markdown_menu, "clear_screen", lambda: None)
+    captured_choices = []
+
+    def fake_select(*args, **kwargs):
+        captured_choices.extend(kwargs.get("choices", []))
+        return Mock(ask=lambda: "exit")
+
+    monkeypatch.setattr(markdown_menu.questionary, "select", fake_select)
+    markdown_menu.show_markdown_menu()
+
+    exit_idx = next(i for i, c in enumerate(captured_choices) if getattr(c, "value", None) == "exit")
+    assert exit_idx > 0
+    assert isinstance(captured_choices[exit_idx - 1], questionary.Separator)
+
+
+def test_dev_menu_has_separator_before_exit(monkeypatch):
+    """show_dev_menu() posiciona Separator imediatamente antes da opção de saída [0]."""
+    import questionary
+
+    from utility_belt.ui import dev_menu
+
+    monkeypatch.setattr(dev_menu.sys.stdin, "isatty", lambda: True)
+    monkeypatch.setattr(dev_menu, "clear_screen", lambda: None)
+    captured_choices = []
+
+    def fake_select(*args, **kwargs):
+        captured_choices.extend(kwargs.get("choices", []))
+        return Mock(ask=lambda: "exit")
+
+    monkeypatch.setattr(dev_menu.questionary, "select", fake_select)
+    dev_menu.show_dev_menu()
+
+    exit_idx = next(i for i, c in enumerate(captured_choices) if getattr(c, "value", None) == "exit")
+    assert exit_idx > 0
+    assert isinstance(captured_choices[exit_idx - 1], questionary.Separator)

@@ -22,6 +22,7 @@ from utility_belt.ui.screen import (
     clear_screen,
     menu_footer,
     menu_options,
+    menu_separator,
     message,
     prompt,
     render_header,
@@ -262,9 +263,10 @@ def show_dev_menu() -> None:
             ("[2] Higienizar Branches Locais (Git-Tidy)", "git_local"),
             ("[3] Higienizar Branches Remotas (Git-Tidy)", "git_remote"),
             ("[4] Higienização Completa (Local e Remoto)", "git_all"),
-            ("[0] Voltar ao menu principal", "exit"),
         )
     ]
+    choices.append(menu_separator())
+    choices.append(questionary.Choice("[0] Voltar ao menu principal", value="exit"))
     choices.append(menu_footer())
 
     while True:

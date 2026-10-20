@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import inspect
 import os
 import shutil
 import sys
@@ -109,7 +110,7 @@ def menu_style() -> Style:
 
 
 def menu_options() -> dict[str, Any]:
-    return {"qmark": "", "pointer": ">", "style": menu_style(), "use_shortcuts": False,
+    return {"qmark": "", "pointer": ">", "style": menu_style(),
             "instruction": " "}
 
 
@@ -157,6 +158,13 @@ def prompt(factory: Callable[..., Any], text: str, **kwargs: Any) -> Any:
     """Toda pergunta começa em linha própria, após saída de ferramentas."""
     typer.echo()
     kwargs.setdefault("style", menu_style())
+    if "use_shortcuts" in kwargs:
+        try:
+            params = inspect.signature(factory).parameters
+            if "use_shortcuts" not in params:
+                kwargs.pop("use_shortcuts")
+        except (TypeError, ValueError):
+            pass
     return factory(text, **kwargs).ask()
 
 
