@@ -52,7 +52,7 @@ Corrigir a incompatibilidade de opções em `questionary.checkbox` via `menu_opt
 | `uv run ruff check` | All checks passed! |
 | `uv run pytest` | 250 passed, 36 skipped, 1 warning in 48.83s |
 | `git diff --check` | Limpo |
-| Checks remotos | Pendente (aguardando CI na PR) |
+| Checks remotos | 100% sucesso (ubuntu-latest: pass, windows-latest: pass) |
 
 ## Decisões incidentais e desvios
 
