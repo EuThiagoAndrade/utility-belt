@@ -1,7 +1,7 @@
 # Plano de Implementação — Demonstração dos menus em GIF
 
 > **Ciclo:** `012`
-> **Status:** `Aprovado`
+> **Status:** `Em Execução`
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -68,13 +68,13 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 **Critérios de aceite:**
 
-- [ ] Roteiro: principal → Restic → principal → Docker → principal → Markdown → principal → Desenvolvimento → principal → Sistema → principal.
-- [ ] Abertura de cerca de 3 segundos e cada submenu visível por pelo menos 3 segundos; retornos e transições completam 25–35 segundos.
-- [ ] Enter somente abre submenus ou confirma Voltar; nenhuma operação é confirmada.
-- [ ] Rótulos e opções vêm do código atual, sem cópias dos textos de menus no gerador.
-- [ ] Desvio, timeout, exceção ou tentativa de operação abortam a geração; uma captura parcial não é publicada como válida.
-- [ ] Configuração, arquivos pessoais, branches e serviços não são alterados pela captura; adaptações estão documentadas e limitadas ao harness.
-- [ ] Não alterar `src/` nem `pyproject.toml`.
+- [x] Roteiro: principal → Restic → principal → Docker → principal → Markdown → principal → Desenvolvimento → principal → Sistema → principal.
+- [x] Abertura de cerca de 3 segundos e cada submenu visível por pelo menos 3 segundos; retornos e transições completam 25–35 segundos.
+- [x] Enter somente abre submenus ou confirma Voltar; nenhuma operação é confirmada.
+- [x] Rótulos e opções vêm do código atual, sem cópias dos textos de menus no gerador.
+- [x] Desvio, timeout, exceção ou tentativa de operação abortam a geração; uma captura parcial não é publicada como válida.
+- [x] Configuração, arquivos pessoais, branches e serviços não são alterados pela captura; adaptações estão documentadas e limitadas ao harness.
+- [x] Não alterar `src/` nem `pyproject.toml`.
 
 ### Item 2 — GIF e inclusão no README
 
@@ -84,11 +84,11 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 **Critérios de aceite:**
 
-- [ ] GIF íntegro, em loop, com 25–35 segundos e até 5 MB.
-- [ ] Largura alvo entre 960 e 1280 pixels, altura constante, sem cortes e com textos e destaque legíveis.
-- [ ] Sem caminhos pessoais, credenciais, dados do computador ou perfis reais.
-- [ ] README referencia o arquivo existente e descreve o alcance da demonstração.
-- [ ] Quadros e animação inspecionados; task registra comando de regeneração, propriedades da mídia e verificações.
+- [x] GIF íntegro, em loop, com 25–35 segundos e até 5 MB.
+- [x] Largura alvo entre 960 e 1280 pixels, altura constante, sem cortes e com textos e destaque legíveis.
+- [x] Sem caminhos pessoais, credenciais, dados do computador ou perfis reais.
+- [x] README referencia o arquivo existente e descreve o alcance da demonstração.
+- [x] Quadros e animação inspecionados; task registra comando de regeneração, propriedades da mídia e verificações.
 
 ## Arquivos afetados
 
@@ -98,7 +98,7 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 ## Decomposição em issues e PRs
 
-- Uma issue `chore` para os itens 1 e 2; número pendente, sem criação antes dos gates.
+- Issue `chore` [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42) criada após os gates para os itens 1 e 2, incluindo R1–R3.
 - Branch documental local: `chore/cycle-012-plan`; publicação somente depois de revisão e aprovação humana pós-revisão.
 - Branch da implementação: `chore/issue-N`, após issue real e vinculada; commit `chore(issue-N): adicionar demonstracao dos menus em gif`.
 - Uma PR de implementação com gerador, mídia, README e evidências; merge mediante autorização humana específica. Closure documental posterior conforme fluxo canônico.
@@ -107,8 +107,8 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 - pyte e Pillow opcionais, resolvidos via `uv` no ambiente de geração, sem adicioná-los às dependências do produto. FFmpeg disponível como alternativa de otimização.
 - Consolas disponível; outro ambiente poderá usar fonte monoespaçada equivalente, sem exigir equivalência binária do GIF.
-- Revisão formal autorizada em 2026-10-21. Gates seguintes: aprovação humana pós-revisão e issue vinculada antes da implementação, preservando a autorização humana de execução e os gates de publicação.
-- Nenhum bloqueio técnico identificado pela inspeção; captura completa e tamanho final ainda precisam de validação na implementação autorizada.
+- Revisão, aprovação humana pós-revisão e issue #42 confirmadas em 2026-10-21. Implementação autorizada em andamento; publicação e integração preservam seus gates próprios.
+- Captura e tamanho final validados na implementação: 33,5 segundos, 1104 × 776 px, 431.643 bytes, zero tentativas de operação. Evidências completas na task `012_task_issue-42.md`; integração ainda pendente.
 
 ## Riscos, suposições e rollback
 
@@ -141,8 +141,8 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42), aberta; itens 1–2 e R1–R3 |
-| PR(s) | — |
-| Branch(es) | `chore/cycle-012-plan` (local) |
+| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega #42 em draft |
+| Branch(es) | `chore/cycle-012-plan` (documentação); `chore/issue-42` (entrega) |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+012+revisar_plano+demonstracao-gif-menus+5b0cb559/v1` |
 | Destino após conclusão | `_project/executed/012_demonstracao_gif_menus/012_plan.md` |

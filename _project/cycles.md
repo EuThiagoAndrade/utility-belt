@@ -5,7 +5,7 @@
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
 | :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
-| `012` | Demonstração dos Menus em GIF | `Planejamento` | — (solicitação direta; contexto no plano) | `_project/drafts/012_demonstracao_gif_menus/012_plan.md` | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42) | — |
+| `012` | Demonstração dos Menus em GIF | `Em execução` | — (solicitação direta; contexto no plano) | `_project/drafts/012_demonstracao_gif_menus/012_plan.md` | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42) | — |
 | `000` | Fundação CLI e Distribuição | `Concluído` | — (bootstrap do projeto) | `_project/executed/000_fundacao_cli_distribuicao/000_plan.md` | — | Commit `8d8a028` |
 | `001` | Menus Interativos com Questionary | `Concluído` | — | `_project/executed/001_menus_interativos/001_plan.md` | — | [PR #3](https://github.com/EuThiagoAndrade/utility-belt/pull/3) — integrada em `f613ae8` |
 | `002` | Bootstrap da Governança Canônica | `Concluído` | — | `_project/executed/002_bootstrap_governanca_canonica/002_plan.md` | — | [PR #4](https://github.com/EuThiagoAndrade/utility-belt/pull/4) — integrada em `2e201e3` |

@@ -7,6 +7,10 @@ Canivete suíço pessoal de terminal para Windows e Linux.
 
 O **Utility Belt** unifica ferramentas de linha de comando em um pacote Python isolado, distribuível e de fácil atualização. Ele organiza scripts e utilitários em um catálogo declarativo baseado em manifestos (`tool.toml`), oferecendo tanto execução direta e scriptável via CLI quanto uma interface interativa de terminal (TUI) rica com navegação guiada.
 
+![Demonstração dos menus Restic, Docker, Markdown, Desenvolvimento e Sistema do Utility Belt](docs/assets/demo.gif)
+
+Uma visita pelos menus, sem executar suas operações. [Abrir em tamanho original](docs/assets/demo.gif).
+
 ---
 
 ## Recursos Principais
