@@ -141,7 +141,7 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42), aberta; itens 1–2 e R1–R3 |
-| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental; PR de entrega em preparação |
+| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega #42 em draft |
 | Branch(es) | `chore/cycle-012-plan` (documentação); `chore/issue-42` (entrega) |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+012+revisar_plano+demonstracao-gif-menus+5b0cb559/v1` |

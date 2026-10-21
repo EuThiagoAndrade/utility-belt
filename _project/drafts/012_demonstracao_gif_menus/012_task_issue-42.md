@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/012_demonstracao_gif_menus/012_plan.md`
 > **Branch:** `chore/issue-42`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** —
+> **PR:** [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) (draft; base na PR documental #43)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -30,7 +30,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 - [x] Criar branch da issue a partir de `98e02a2`, com base atualizada para `main` `69c8b78` antes do commit documental.
 - [x] Implementar captura com isolamento e validação de estados, incluindo falhas provocadas.
 - [x] Gerar e inspecionar GIF e incluir no README.
-- [ ] Executar gates, registrar propriedades e versões e publicar PR de entrega.
+- [x] Executar gates, registrar propriedades e versões e publicar [PR #44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) em draft.
 
 ## Evidências
 
@@ -38,7 +38,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 | :-- | :-- |
 | Testes | `uv run pytest -q`: 253 passed, 36 skipped, 1 warning, 51.35 s |
 | Validação | Validator: 43 OK, 1 aviso de numeração conhecido, 0 falhas; ruff: All checks passed |
-| `git diff --check` | Passou; staging seletivo será conferido antes do commit |
+| `git diff --check` | Passou, inclusive no staging seletivo dos seis arquivos previstos |
 | Checks remotos | Pendente |
 
 ### Mídia e reprodução
@@ -47,6 +47,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 - Para repetir com as versões opcionais usadas: `uv run --with pyte==0.8.2 --with pillow==13.0.0 python scripts/generate_demo.py`.
 - Versões: pyte 0.8.2; Pillow 13.0.0; Questionary 2.1.1; prompt_toolkit 3.0.53; fonte Consolas, 20 px.
 - GIF: `docs/assets/demo.gif`, 33.500 ms, 1104 × 776 pixels, 431.643 bytes, 46 quadros codificados e loop infinito.
+- SHA-256 do GIF: `88d41494ef02c0521dd6cc0018e308e3e6d9aae519b4e7929bd890d346b91b3c`.
 - Estados validados: main → restic → main → docker → main → markdown → main → dev → main → system → main. Cada submenu permanece inicialmente por 3 segundos, além da navegação até Voltar.
 - Tentativas bloqueadas na captura válida: zero. Apenas a disponibilidade de Restic/Docker foi adaptada no harness; nenhuma consulta/inicialização de serviço ou operação de módulo ocorreu.
 - `--self-check` passou: tentativa de operação com exceção absorvida ainda invalida a captura; timeout finito; controladores encerrados; restauração de adaptações; GIF inválido não substitui destino anterior nem deixa arquivo parcial.
@@ -62,7 +63,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 
 ## Resultado
 
-Implementação e verificações locais concluídas. GIF e README prontos; publicação da PR de entrega em andamento. Integração continua pendente de autorização humana.
+Implementação e verificações locais concluídas no commit `4d057a3`; [PR #44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) publicada em draft. GIF, gerador e README prontos para revisão. Integração continua pendente de autorização humana; plano/ciclo permanecem Em Execução, sem closure antecipada.
 
 ### Handoff de criação da issue (aceito)
 
@@ -93,18 +94,18 @@ Implementação e verificações locais concluídas. GIF e README prontos; publi
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+012+implementar_issue+42-demonstracao-gif-menus+98e02a2`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision` = `EuThiagoAndrade/utility-belt + 012 + implementar_issue + 42-demonstracao-gif-menus + 98e02a2`.
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: issue #42 aberta, plano aprovado e PR documental #43 publicada; nenhuma branch/task/PR da entrega anterior.
-- `state_after`: GIF, gerador e README implementados e validados na branch `chore/issue-42`; publicação da PR em andamento.
+- `state_after`: GIF, gerador e README implementados e validados; branch `chore/issue-42` publicada e PR #44 aberta em draft, base `chore/cycle-012-plan` (PR #43).
 - `next_transition`: `PR -> revisão/checks -> integração autorizada`.
 - `preconditions`: critérios do plano e R1–R3 atendidos, gates aprovados e diff cirúrgico.
 - `authority`: agente executa escopo autorizado; humano decide integração posterior.
-- `evidence`: esta task, GIF, gerador, README, saída de geração, self-check e cinco gates registrados acima.
+- `evidence`: issue #42, PRs #43/#44, commit `4d057a3`, esta task, GIF com hash acima, gerador, README, saída de geração, self-check e cinco gates registrados acima.
 - `acceptance`: GIF válido, README e gerador revisáveis, rastreabilidade e checks comprovados.
-- `blockers`: publicação e checks remotos pendentes; integração exige decisão humana própria.
+- `blockers`: checks remotos e revisão pendentes; integração exige autorização humana e integração prévia da PR documental #43.
 - `result`: `executed`
-- `next_workflow_recommended`: publicar PR validada, acompanhar checks e apresentar entrega para revisão.
-- `next_workflow_authorized`: implementação e publicação de PR após gates; sem merge.
+- `next_workflow_recommended`: acompanhar checks, revisar PR #44 e integrar somente após aprovação própria e integração da documentação #43.
+- `next_workflow_authorized`: inspeção de checks e revisão; merge e closure não autorizados.
 - `actions_prohibited`: merge, closure, alteração de produto ou operações dos módulos.
 - `rejection_rule`: recusar resultado sem GIF válido ou evidências dos controles/gates.
 - `logical_key`: `EuThiagoAndrade/utility-belt+012+implementar_issue+42-demonstracao-gif-menus+98e02a2`.
