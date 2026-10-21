@@ -1,14 +1,14 @@
 # Task — Issue #36: feat: pre-selecionar caches no janitor e padronizar legendas de checklist (ciclo 011)
 
 > **Ciclo:** `011`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `feature`
 > **Issue:** `#36`
-> **Plano:** `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
+> **Plano:** `_project/executed/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
 > **Branch:** `feature/issue-36`
 > **Worktree:** `C:\Programas\utility-belt`
 > **PR:** [#38](https://github.com/EuThiagoAndrade/utility-belt/pull/38)
-> **Integração:** `Pendente`
+> **Integração:** `Integrada na main via PR #38 (release v0.5.0)`
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
 > **handoff_schema_version:** `1`

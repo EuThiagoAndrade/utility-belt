@@ -1,14 +1,14 @@
 # Task — Issue #37: chore: preparar repositorio publico com licenca, metadados, comunidade e readme (ciclo 011)
 
 > **Ciclo:** `011`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `chore`
 > **Issue:** `#37`
-> **Plano:** `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
+> **Plano:** `_project/executed/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
 > **Branch:** `chore/issue-37`
 > **Worktree:** `C:\Programas\utility-belt`
 > **PR:** [#39](https://github.com/EuThiagoAndrade/utility-belt/pull/39)
-> **Integração:** `Pendente`
+> **Integração:** `Integrada na main via PR #39`
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
 > **handoff_schema_version:** `1`
