@@ -57,7 +57,7 @@ def run_janitor_flow() -> None:
         questionary.Choice(
             f"{c.target_name} ({c.formatted_size}) — {c.formatted_time_ago}\n    {c.path}",
             value=c,
-            checked=not c.is_active,
+            checked=True,
         )
         for c in caches
     ]
@@ -65,7 +65,7 @@ def run_janitor_flow() -> None:
     typer.echo()
     selected_caches: list = prompt(
         questionary.checkbox,
-        "Selecione as pastas para exclusão (Espaço marca/desmarca, Enter confirma):",
+        "Selecione as pastas para exclusão ([Espaço] Marcar/Desmarcar · [a] Todos · [Enter] Confirmar):",
         choices=choices,
         **menu_options(),
     )
@@ -149,7 +149,7 @@ def run_git_tidy_local_flow() -> None:
 
     selected_names: list[str] = prompt(
         questionary.checkbox,
-        "Selecione as branches locais para remoção:",
+        "Selecione as branches locais para remoção ([Espaço] Marcar/Desmarcar · [a] Todos · [Enter] Confirmar):",
         choices=choices,
         **menu_options(),
     )
@@ -207,7 +207,7 @@ def run_git_tidy_remote_flow() -> None:
 
     selected_names: list[str] = prompt(
         questionary.checkbox,
-        "Selecione as branches remotas a excluir no origin:",
+        "Selecione as branches remotas a excluir no origin ([Espaço] Marcar/Desmarcar · [a] Todos · [Enter] Confirmar):",
         choices=choices,
         **menu_options(),
     )
