@@ -39,7 +39,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 | Testes | `uv run pytest -q`: 253 passed, 36 skipped, 1 warning, 51.35 s |
 | Validação | Validator: 43 OK, 1 aviso de numeração conhecido, 0 falhas; ruff: All checks passed |
 | `git diff --check` | Passou, inclusive no staging seletivo dos seis arquivos previstos |
-| Checks remotos | Pendente |
+| Checks remotos | [CI #38](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/39693102943): success em Windows/Ubuntu no commit `3e8cb55`; [CI #36](https://github.com/EuThiagoAndrade/utility-belt/actions/runs/39692270792) da PR documental #43 também passou. GitHub permanece autoridade dos checks de commits posteriores. |
 
 ### Mídia e reprodução
 
@@ -102,7 +102,7 @@ Implementação e verificações locais concluídas no commit `4d057a3`; [PR #44
 - `authority`: agente executa escopo autorizado; humano decide integração posterior.
 - `evidence`: issue #42, PRs #43/#44, commit `4d057a3`, esta task, GIF com hash acima, gerador, README, saída de geração, self-check e cinco gates registrados acima.
 - `acceptance`: GIF válido, README e gerador revisáveis, rastreabilidade e checks comprovados.
-- `blockers`: checks remotos e revisão pendentes; integração exige autorização humana e integração prévia da PR documental #43.
+- `blockers`: revisão e autorização humana de integração pendentes, com integração prévia da PR documental #43; CI da entrega validado na execução #38, estado de revisões posteriores consultável no GitHub.
 - `result`: `executed`
 - `next_workflow_recommended`: acompanhar checks, revisar PR #44 e integrar somente após aprovação própria e integração da documentação #43.
 - `next_workflow_authorized`: inspeção de checks e revisão; merge e closure não autorizados.
