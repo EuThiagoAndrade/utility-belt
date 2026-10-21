@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
 > **Branch:** `feature/issue-36`
 > **Worktree:** `C:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#38](https://github.com/EuThiagoAndrade/utility-belt/pull/38)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -45,8 +45,8 @@ Aperfeiçoar a experiência do Janitor (`belt dev janitor`) pré-selecionando to
 - [x] Item 1: Atualizar `run_janitor_flow()`, `run_git_tidy_local_flow()` e `run_git_tidy_remote_flow()` em `src/utility_belt/ui/dev_menu.py`.
 - [x] Item 2: Implementar testes automatizados em `tests/test_ui_experience.py`.
 - [x] Item 3: Executar e validar todos os gates locais mínimos.
-- [ ] Item 4: Fazer commit semântico `feat(issue-36): pre-selecionar caches no janitor e padronizar legendas de checklist` via staging seletivo.
-- [ ] Item 5: Publicar branch `feature/issue-36` e abrir PR vinculada à issue #36.
+- [x] Item 4: Fazer commit semântico `feat(issue-36): pre-selecionar caches no janitor e padronizar legendas de checklist` via staging seletivo (`1aa9cf9`).
+- [x] Item 5: Publicar branch `feature/issue-36` e abrir PR vinculada à issue #36 ([PR #38](https://github.com/EuThiagoAndrade/utility-belt/pull/38)).
 
 ## Evidências
 
@@ -58,7 +58,7 @@ Aperfeiçoar a experiência do Janitor (`belt dev janitor`) pré-selecionando to
 | `git diff --check` | Limpo |
 | `git status --short` | Staging seletivo isolado |
 | `uv build` | Sucesso (tar.gz e whl) |
-| Checks remotos | Pendente (após PR) |
+| Checks remotos | Em execução na PR #38 |
 
 ## Decisões incidentais e desvios
 
@@ -70,20 +70,20 @@ Aperfeiçoar a experiência do Janitor (`belt dev janitor`) pré-selecionando to
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `EuThiagoAndrade/utility-belt+011+implementar_issue+feature-issue-36+cb13947`
-- `identity_source`: `EuThiagoAndrade/utility-belt + 011 + implementar_issue + feature-issue-36 + cb13947`
+- `handoff_id`: `EuThiagoAndrade/utility-belt+011+implementar_issue+feature-issue-36+1aa9cf9`
+- `identity_source`: `EuThiagoAndrade/utility-belt + 011 + implementar_issue + feature-issue-36 + 1aa9cf9`
 - `effect_class`: `local_mutation -> remote_mutation`
 - `state_before`: issue #36 aberta, caches do Janitor desmarcados quando ativos e ausência de legendas padronizadas nos prompts.
-- `state_after`: implementação em andamento.
-- `next_transition`: `implementação -> testes locais -> publicação de PR`.
-- `preconditions`: plano aprovado, autorização concedida em 2026-10-21.
+- `state_after`: escopo técnico implementado, 3 novos testes adicionados em tests/test_ui_experience.py, 5 gates locais aprovados, commit 1aa9cf9 e PR #38 aberta.
+- `next_transition`: `checks remotos de CI -> revisão -> autorização de merge`.
+- `preconditions`: implementação concluída, todos os gates locais atendidos, PR #38 aberta.
 - `authority`: responsável humano do repositório.
-- `evidence`: `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_task_issue-36.md`.
-- `acceptance`: itens de escopo implementados, 100% dos testes e gates passando.
-- `blockers`: nenhum.
-- `result`: `not_executed`
-- `next_workflow_recommended`: abrir PR após validação dos 5 gates locais.
-- `next_workflow_authorized`: implementação e abertura de PR autorizadas; merge pendente.
+- `evidence`: `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_task_issue-36.md`, PR #38.
+- `acceptance`: itens de escopo implementados, 100% dos testes passando e PR vinculada à issue #36.
+- `blockers`: aguardando checks de CI e autorização humana de merge.
+- `result`: `executed`
+- `next_workflow_recommended`: aguardar aprovação de checks remotos e autorização humana de merge.
+- `next_workflow_authorized`: nenhum (merge requer aprovação explícita separada).
 - `actions_prohibited`: fazer merge na main sem aprovação do responsável.
 - `rejection_rule`: recusar handoff com gates incompletos ou testes falhando.
 - `logical_key`: `EuThiagoAndrade/utility-belt+011+implementar_issue+feature-issue-36+cb13947`
