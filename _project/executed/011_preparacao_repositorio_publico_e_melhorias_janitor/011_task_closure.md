@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
 > **Branch:** `chore/cycle-011-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** — (a vincular após abertura)
+> **PR:** [PR #41](https://github.com/EuThiagoAndrade/utility-belt/pull/41)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
