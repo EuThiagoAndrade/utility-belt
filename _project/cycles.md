@@ -1,7 +1,7 @@
 # Registro de ciclos
 
-> **Próximo ciclo:** `011`
-> **Última atualização:** 2026-10-20
+> **Próximo ciclo:** `012`
+> **Última atualização:** 2026-10-21
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
 | :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
@@ -16,6 +16,9 @@
 | `008` | Validação Prévia de Dependências Externas | `Concluído` | `_project/ideations/008_validacao_preflight_dependencias.md` | `_project/executed/008_validacao_preflight_dependencias/008_plan.md` | [#26](https://github.com/EuThiagoAndrade/utility-belt/issues/26) | [PR #27](https://github.com/EuThiagoAndrade/utility-belt/pull/27) — integrada em `b99d47b`; release v0.3.0 |
 | `009` | Ferramentas Dev: Janitor e Git-Tidy | `Concluído` | `_project/ideations/009_ferramentas_dev_janitor_git_tidy.md` | `_project/executed/009_ferramentas_dev_janitor_git_tidy/009_plan.md` | [#29](https://github.com/EuThiagoAndrade/utility-belt/issues/29) | [PR #30](https://github.com/EuThiagoAndrade/utility-belt/pull/30) — integrada em `f7d5e11`; release v0.4.0 |
 | `010` | Compatibilidade e Padronização Visual de Menus | `Concluído` | `_project/ideations/010_correcoes_e_padronizacao_menus.md` | `_project/executed/010_correcoes_e_padronizacao_menus/010_plan.md` | [#33](https://github.com/EuThiagoAndrade/utility-belt/issues/33) | [PR #34](https://github.com/EuThiagoAndrade/utility-belt/pull/34) — integrada em `e943a47`; release v0.4.1 |
+| `011` | Preparação para Repositório Público e Aperfeiçoamento do Janitor | `Concluído` | `_project/ideations/011_preparacao_repositorio_publico_e_melhorias_janitor.md` | `_project/executed/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md` | [#36](https://github.com/EuThiagoAndrade/utility-belt/issues/36), [#37](https://github.com/EuThiagoAndrade/utility-belt/issues/37) | [PR #38](https://github.com/EuThiagoAndrade/utility-belt/pull/38), [PR #39](https://github.com/EuThiagoAndrade/utility-belt/pull/39) — release v0.5.0 |
+
+O ciclo `011` preparou o repositório para abertura pública no GitHub (criação de `LICENSE` MIT, atualização abrangente do `README.md` documentando `belt dev` e correções de menu sem badge de CI, blindagem defensiva do `.gitignore`, metadados em `pyproject.toml` com `/LICENSE` no sdist e documentação comunitária `CONTRIBUTING.md` e `SECURITY.md`) e aperfeiçoou a experiência do Janitor (`belt dev janitor`), selecionando 100% dos caches descobertos por padrão (`checked=True`) e padronizando as legendas visuais nos checklists. Entregas integradas nas [PR #38](https://github.com/EuThiagoAndrade/utility-belt/pull/38) e [PR #39](https://github.com/EuThiagoAndrade/utility-belt/pull/39) após autorizações do responsável, com release automática v0.5.0 publicada no GitHub. Encerramento Concluído nesta branch é proposta documental, efetiva após merge da PR de closure. Próximo ciclo `012` preservado.
 
 O ciclo `010` corrigiu a incompatibilidade de parâmetros entre `menu_options()` e `questionary.checkbox` (resolvendo a exceção de `use_shortcuts` nos fluxos de checklist do `Git-Tidy` e `Janitor`), além de padronizar a identidade visual de todos os submenus com a inserção de `menu_separator()` antes da opção `[0]` em Markdown e Desenvolvimento. Integrado na [PR #34](https://github.com/EuThiagoAndrade/utility-belt/pull/34) após autorização do responsável e release automática v0.4.1 publicada em `9e1e558`. Encerramento Concluído nesta branch é proposta documental, efetiva após merge da PR de closure. Próximo ciclo `011` preservado.
 
