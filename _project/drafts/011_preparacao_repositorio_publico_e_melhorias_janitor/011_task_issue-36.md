@@ -58,7 +58,7 @@ Aperfeiçoar a experiência do Janitor (`belt dev janitor`) pré-selecionando to
 | `git diff --check` | Limpo |
 | `git status --short` | Staging seletivo isolado |
 | `uv build` | Sucesso (tar.gz e whl) |
-| Checks remotos | Em execução na PR #38 |
+| Checks remotos | 100% sucesso (ubuntu-latest: pass, windows-latest: pass) |
 
 ## Decisões incidentais e desvios
 
