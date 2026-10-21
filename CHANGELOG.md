@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0 (2026-10-21)
+
+- docs(cycle-011): registrar sucesso dos checks remotos de CI na task da issue 36
+- docs(cycle-011): vincular PR 38 na task da issue 36
+- feat(issue-36): pre-selecionar caches no janitor e padronizar legendas de checklist
+- docs(cycle-010): vincular PR 35 na task de encerramento
+- chore(cycle-010): encerramento documental de compatibilidade e padronizacao de menus
+
 ## v0.4.1 (2026-10-20)
 
 - docs(cycle-010): registrar sucesso dos checks remotos de CI na task da issue 33
