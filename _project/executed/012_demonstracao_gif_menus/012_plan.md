@@ -1,7 +1,7 @@
 # Plano de Implementação — Demonstração dos menus em GIF
 
 > **Ciclo:** `012`
-> **Status:** `Em Execução`
+> **Status:** `Concluído` (proposta documental, efetiva após integração da PR de closure)
 > **Versão:** `v1`
 > **Data de criação:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -107,8 +107,8 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 - pyte e Pillow opcionais, resolvidos via `uv` no ambiente de geração, sem adicioná-los às dependências do produto. FFmpeg disponível como alternativa de otimização.
 - Consolas disponível; outro ambiente poderá usar fonte monoespaçada equivalente, sem exigir equivalência binária do GIF.
-- Revisão, aprovação humana pós-revisão e issue #42 confirmadas em 2026-10-21. Implementação autorizada em andamento; publicação e integração preservam seus gates próprios.
-- Captura e tamanho final validados na implementação: 33,5 segundos, 1104 × 776 px, 431.643 bytes, zero tentativas de operação. Evidências completas na task `012_task_issue-42.md`; integração ainda pendente.
+- Revisão, aprovação humana pós-revisão e issue #42 confirmadas em 2026-10-21. Implementação integrada na main pela PR #44 após revisão e autorização humana; closure documental em PR própria.
+- Captura e tamanho final validados na implementação: 33,5 segundos, 1104 × 776 px, 431.643 bytes, zero tentativas de operação. Evidências completas na task `012_task_issue-42.md`; integração verificada em `98a735e`, encerramento documental na task de closure.
 
 ## Riscos, suposições e rollback
 
@@ -140,14 +140,18 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 | Campo | Valor |
 | :-- | :-- |
-| Issue(s) | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42), aberta; itens 1–2 e R1–R3 |
-| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega #42 em draft |
-| Branch(es) | `chore/cycle-012-plan` (documentação); `chore/issue-42` (entrega) |
+| Issue(s) | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42), fechada; itens 1–2 e R1–R3 atendidos |
+| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental integrada; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega integrada |
+| Branch(es) | `chore/cycle-012-plan`; `chore/issue-42`; `chore/cycle-012-closure` |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `EuThiagoAndrade/utility-belt+012+revisar_plano+demonstracao-gif-menus+5b0cb559/v1` |
+| `handoff_id` | `EuThiagoAndrade/utility-belt+012+atualizar_docs+closure+98a735e` |
 | Destino após conclusão | `_project/executed/012_demonstracao_gif_menus/012_plan.md` |
 
 ## Handoff de saída
+
+Encerramento documental em `012_task_closure.md`, que contém o contrato completo atual. A entrega foi integrada em `98a735e`, com autorização humana “Revisado pode seguir o fluxo”. O handoff abaixo permanece como histórico da revisão do plano, sem substituir o estado atual de integração.
+
+### Handoff da revisão v1 (histórico)
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+012+revisar_plano+demonstracao-gif-menus+5b0cb559/v1`
@@ -228,6 +232,6 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-10-21 (entrega integrada; encerramento documental efetivo após merge da closure).
+- **Desvios:** nenhum desvio material. A entrega foi publicada inicialmente sobre a branch documental e redirecionada à main após integração de #43, preservando o mesmo head revisado. Captura VT e dependências opcionais evitaram alterações do produto ou execução das operações.
+- **Lições comprovadas:** menus Questionary podem ser apresentados a partir da saída VT real com teclado controlado; barreiras no harness e validação de falhas permitem gerar uma demonstração curta sem executar ações dos módulos. Evidências e versões na task #42; nenhum novo registro transitório em lessons_learned.
