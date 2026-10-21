@@ -1,5 +1,9 @@
 # Utility Belt (`belt`)
 
+[![Release](https://img.shields.io/github/v/release/EuThiagoAndrade/utility-belt)](https://github.com/EuThiagoAndrade/utility-belt/releases)
+[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Canivete suíço pessoal de terminal para Windows e Linux.
 
 O **Utility Belt** unifica ferramentas de linha de comando em um pacote Python isolado, distribuível e de fácil atualização. Ele organiza scripts e utilitários em um catálogo declarativo baseado em manifestos (`tool.toml`), oferecendo tanto execução direta e scriptável via CLI quanto uma interface interativa de terminal (TUI) rica com navegação guiada.
@@ -14,6 +18,7 @@ O **Utility Belt** unifica ferramentas de linha de comando em um pacote Python i
   - **Docker:** Exportação e importação segura de imagens com manifestos e simulação (`--dry-run`).
   - **Restic:** Gerenciamento de repositórios, backups incrementais, restauração de snapshots e conferência de integridade.
   - **Markdown:** Arquivo/URL, lote recursivo, monitor de novos arquivos, clipboard e pasta central configurável.
+  - **Desenvolvimento (`belt dev`):** Faxineiro de caches e dependências de compilação (`janitor`) com pré-seleção universal e modo simulação, e higienizador seguro de branches locais e remotas órfãs ou mescladas (`git-tidy`).
   - **System Info:** Coleta rápida de diagnósticos do ambiente de execução.
 - **Configuração Atômica e Perfis:** Persistência segura em TOML (`tomli-w`) no diretório padrão do usuário (`platformdirs`), com suporte a múltiplos perfis de backup.
 - **Diagnóstico do Ambiente (`doctor`):** Verificação imediata da integridade de binários e dependências externas instaladas no sistema operacional.
@@ -70,14 +75,17 @@ belt menu             # Menu interativo principal
 belt docker menu      # Menu interativo de operações com Docker (ou apenas 'belt docker')
 belt restic menu      # Menu interativo de operações com Restic (ou apenas 'belt restic')
 belt markdown menu    # Menu das cinco ações Markdown (ou apenas 'belt markdown')
+belt dev menu         # Menu interativo de ferramentas de desenvolvimento (ou apenas 'belt dev')
 ```
 
 > **Nota:** Em ambientes não interativos (como rotinas de CI ou cron jobs), chamar `belt` sem argumentos exibe a ajuda padrão em vez de aguardar entrada do usuário.
 
-O menu principal apresenta **Restic**, **Docker**, **Markdown** e **Sistema**, com
-descrições curtas e seleção destacada. **Sistema** reúne Verificar ambiente,
+O menu principal apresenta **Restic**, **Docker**, **Markdown**, **Desenvolvimento** e **Sistema**, com
+descrições curtas e seleção destacada. **Desenvolvimento** reúne o Faxineiro de Caches (Janitor)
+e o Higienizador Git-Tidy (local e remoto). **Sistema** reúne Verificar ambiente,
 Informações do computador e Sobre o Utility Belt. Navegue com ↑↓ e Enter;
-Ctrl+C volta do submenu ou encerra o menu principal. Os números identificam as
+em telas de seleção múltipla (checklists), a Barra de Espaço marca/desmarca, a tecla 'a' seleciona
+todos e Enter confirma; Ctrl+C volta do submenu ou encerra o menu principal. Os números identificam as
 opções; a seleção é por setas e Enter.
 
 As operações mostram informação, sucesso, aviso, erro ou cancelamento em blocos
@@ -244,6 +252,52 @@ Clipboard aceita um caminho de arquivo existente (com um par de aspas externas o
 | `2` | Entrada/configuração/requisito ausente ou recusado; nenhum candidato elegível |
 | `130` | Cancelamento; monitor encerrado por Ctrl+C, resultados preservados |
 
+### Ferramentas de Desenvolvimento (`belt dev`)
+
+O módulo `belt dev` fornece utilitários dedicados ao dia a dia de desenvolvimento de software, com suporte a simulação (`--dry-run`), execução direta scriptável e interface interativa com checklists guiados (TUI MS-DOS).
+
+```bash
+# Abrir menu interativo de desenvolvimento em TTY (ou apenas 'belt dev')
+belt dev menu
+
+# Janitor: varredura e faxina de dependências e caches de compilação
+belt dev janitor                              # Varre o diretório atual (.)
+belt dev janitor ./meu-projeto                # Varre pasta específica
+belt dev janitor --dry-run                    # Simula a exclusão sem remover arquivos
+belt dev janitor --days 60                    # Define limiar para considerar projeto ativo (padrão: 30)
+belt dev janitor --yes                        # Confirma exclusão sem confirmação interativa
+
+# Git-Tidy: higienização segura de branches locais e remotas
+belt dev git-tidy                             # Higieniza branches locais órfãs ou mergeadas
+belt dev git-tidy --dry-run                   # Simula os comandos git de deleção
+belt dev git-tidy --remote                    # Higieniza branches remotas em origin
+belt dev git-tidy --all                       # Higieniza ambas (locais e remotas)
+belt dev git-tidy --yes                       # Confirma exclusão sem confirmação interativa
+
+# Diagnóstico de integridade para Git
+belt doctor git                               # Avalia se o Git está instalado e funcional
+```
+
+#### Faxineiro de Caches e Dependências (`belt dev janitor`)
+- **Alvos detectados:** diretórios de dependências pesadas e caches de compilação como `node_modules`, `target`, `.venv`, `.pytest_cache`, `.next`, `__pycache__`, `.turbo`, `.gradle`, entre outros.
+- **Interatividade:** na TUI, todos os diretórios encontrados vêm pré-selecionados por padrão (`checked=True`), permitindo confirmação rápida ou ajuste via `<Espaço>` (marcar/desmarcar) e tecla `a` (todos).
+- **Segurança operacional:** confirmação final obrigatória com padrão negativo (`default=False`), exibindo o total de bytes e contagem de pastas a serem excluídas.
+- **Códigos de retorno:**
+  - `0`: varredura concluída com sucesso ou nenhum cache descartável encontrado.
+  - `1`: concluído com falhas parciais de remoção de arquivos.
+  - `2`: caminho informado não é um diretório válido ou comando chamado sem `--yes`/`--dry-run` em ambiente sem TTY.
+- **Identificador no catálogo:** `dev.janitor` (classificação: `destructive`, suporta `--dry-run`).
+
+#### Higienizador Git (`belt dev git-tidy`)
+- **Sincronização prévia:** executa preventivamente `git fetch --prune` antes da análise de branches.
+- **Detecção de órfãs:** identifica branches locais cuja contraparte remota foi excluída no servidor (comum após *Squash & Merge* no GitHub), além de branches mescladas via `git branch --merged`.
+- **Proteção inviolável:** as branches canônicas (`main`, `master`, `dev`, `development`, `staging`, `prod`, `production`) e a branch corrente (`HEAD`) são protegidas contra qualquer exclusão.
+- **Remoção remota:** branches em `origin` requerem `--remote` ou `--all` com aviso de segurança explícito antes do envio de `git push origin --delete`.
+- **Códigos de retorno:**
+  - `0`: higienização concluída com sucesso.
+  - `2`: Git ausente do `PATH` ou diretório corrente não é um repositório Git.
+- **Identificador no catálogo:** `dev.git-tidy` (classificação: `destructive`, suporta `--dry-run`).
+
 ### Autocompletar no Shell (`belt show-completion`)
 
 Exibe instruções nativas para habilitar autocompletar de comandos sem modificar perfis de usuário de forma invasiva:
@@ -316,11 +370,13 @@ uv run python scripts/validate_governance.py
 git diff --check
 ```
 
-### Governança Canônica
+### Governança e Contribuição
 
 Este projeto adota um modelo de governança desacoplado e agnóstico de ferramentas proprietárias. Para compreender o ciclo de vida de desenvolvimento, padrões de branches, decomposição de issues, tasks persistentes e tomadas de decisão:
 
-- Consulte o guia canônico em [**`_project/README.md`**](_project/README.md).
+- Consulte o guia de contribuição em [**`CONTRIBUTING.md`**](CONTRIBUTING.md).
+- Consulte a política de segurança em [**`SECURITY.md`**](SECURITY.md).
+- Consulte a governança do repositório em [**`_project/README.md`**](_project/README.md).
 - Consulte o registro de ciclos em [**`_project/cycles.md`**](_project/cycles.md).
 - Consulte o comportamento canônico de agentes em [**`.agent/ai_behavior.md`**](.agent/ai_behavior.md).
 
@@ -328,4 +384,4 @@ Este projeto adota um modelo de governança desacoplado e agnóstico de ferramen
 
 ## Licença
 
-Este projeto é desenvolvido para uso pessoal e sob licença aberta. Consulte o repositório para maiores detalhes.
+Este projeto é software livre distribuído sob os termos da licença [MIT](LICENSE). Consulte o arquivo [LICENSE](LICENSE) para maiores detalhes.

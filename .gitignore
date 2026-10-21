@@ -23,3 +23,13 @@ dist/
 build/
 *.egg-info/
 .ruff_cache/
+
+# Arquivos de ambiente e segredos locais
+.env
+.env.*
+*.local
+*.pem
+*.key
+
+# Logs
+*.log
