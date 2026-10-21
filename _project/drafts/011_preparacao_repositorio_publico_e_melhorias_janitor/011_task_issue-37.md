@@ -68,7 +68,7 @@ Preparar o repositório `utility-belt` para abertura pública no GitHub com conf
 | `git status --short` | Staging seletivo isolado |
 | `uv build` | Sucesso (utility_belt-0.5.0 tar.gz e whl) |
 | `uv lock` | Resolvido (26 packages in 1ms) |
-| Checks remotos | Em execução na PR #39 |
+| Checks remotos | 100% sucesso (ubuntu-latest: pass, windows-latest: pass) |
 
 ## Decisões incidentais e desvios
 
