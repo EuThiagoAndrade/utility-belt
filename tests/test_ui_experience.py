@@ -279,3 +279,113 @@ def test_dev_menu_has_separator_before_exit(monkeypatch):
     exit_idx = next(i for i, c in enumerate(captured_choices) if getattr(c, "value", None) == "exit")
     assert exit_idx > 0
     assert isinstance(captured_choices[exit_idx - 1], questionary.Separator)
+
+
+def test_janitor_flow_preselects_all_caches_including_active():
+    """run_janitor_flow() pré-seleciona todos os caches (checked=True), mesmo ativos recentemente."""
+    from unittest.mock import patch
+
+    import questionary
+
+    from utility_belt.dev.janitor import DiscoveredCache
+    from utility_belt.ui import dev_menu
+
+    active_cache = DiscoveredCache(Path("dummy/active"), "active", 1024, 100.0, True)
+    inactive_cache = DiscoveredCache(Path("dummy/inactive"), "inactive", 2048, 5000000.0, False)
+
+    captured_prompt = {}
+
+    def fake_prompt(factory, text, **kwargs):
+        if factory == questionary.text:
+            return "."
+        if factory == questionary.checkbox:
+            captured_prompt["text"] = text
+            captured_prompt["choices"] = kwargs.get("choices", [])
+            return []  # Cancela fluxo após inspecionar escolhas
+        return False
+
+    with patch("utility_belt.ui.dev_menu.scan_caches", return_value=[active_cache, inactive_cache]), \
+         patch("utility_belt.ui.dev_menu.prompt", side_effect=fake_prompt):
+        dev_menu.run_janitor_flow()
+
+    choices = captured_prompt.get("choices", [])
+    assert len(choices) == 2
+    assert all(getattr(c, "checked", False) is True for c in choices)
+    assert captured_prompt.get("text") == (
+        "Selecione as pastas para exclusão ([Espaço] Marcar/Desmarcar · [a] Todos · [Enter] Confirmar):"
+    )
+
+
+def test_dev_menu_checklist_prompts_have_standard_legend():
+    """Prompts de checklist no dev_menu exibem a legenda padronizada ([Espaço] ... [a] ... [Enter] ...)."""
+    from unittest.mock import patch
+
+    import questionary
+
+    from utility_belt.dev.git_tidy import LocalBranchInfo, RemoteBranchInfo
+    from utility_belt.ui import dev_menu
+
+    expected_legend = "([Espaço] Marcar/Desmarcar · [a] Todos · [Enter] Confirmar):"
+
+    # 1. Git-Tidy Local
+    captured_local = {}
+    local_branch = LocalBranchInfo(name="feat/local", is_current=False, is_protected=False, is_merged=True, is_gone=False)
+
+    def fake_local_prompt(factory, text, **kwargs):
+        if factory == questionary.checkbox:
+            captured_local["text"] = text
+            return []
+        return False
+
+    with patch("utility_belt.ui.dev_menu._check_git_environment", return_value=True), \
+         patch("utility_belt.ui.dev_menu.prune_remote"), \
+         patch("utility_belt.ui.dev_menu.get_local_branches", return_value=[local_branch]), \
+         patch("utility_belt.ui.dev_menu.prompt", side_effect=fake_local_prompt):
+        dev_menu.run_git_tidy_local_flow()
+
+    assert expected_legend in captured_local.get("text", "")
+    assert captured_local.get("text") == (
+        f"Selecione as branches locais para remoção {expected_legend}"
+    )
+
+    # 2. Git-Tidy Remoto
+    captured_remote = {}
+    remote_branch = RemoteBranchInfo(name="origin/feat/remote", full_ref="refs/remotes/origin/feat/remote", is_protected=False, is_merged=True)
+
+    def fake_remote_prompt(factory, text, **kwargs):
+        if factory == questionary.checkbox:
+            captured_remote["text"] = text
+            return []
+        return False
+
+    with patch("utility_belt.ui.dev_menu._check_git_environment", return_value=True), \
+         patch("utility_belt.ui.dev_menu.prune_remote"), \
+         patch("utility_belt.ui.dev_menu.get_remote_branches", return_value=[remote_branch]), \
+         patch("utility_belt.ui.dev_menu.prompt", side_effect=fake_remote_prompt):
+        dev_menu.run_git_tidy_remote_flow()
+
+    assert expected_legend in captured_remote.get("text", "")
+    assert captured_remote.get("text") == (
+        f"Selecione as branches remotas a excluir no origin {expected_legend}"
+    )
+
+
+def test_run_janitor_flow_deletes_active_cache_by_default_selection():
+    """Janitor exclui cache ativo com confirmação de Enter por estar pré-selecionado por padrão."""
+    from unittest.mock import patch
+
+    from prompt_toolkit.application import create_app_session
+    from prompt_toolkit.input import create_pipe_input
+    from prompt_toolkit.output import DummyOutput
+
+    from utility_belt.dev.janitor import DiscoveredCache
+    from utility_belt.ui import dev_menu
+
+    active_cache = DiscoveredCache(Path("dummy/active_cache"), "active_cache", 4096, 10.0, True)
+    with patch("utility_belt.ui.dev_menu.scan_caches", return_value=[active_cache]), \
+         patch("utility_belt.ui.dev_menu.delete_cache", return_value=(True, "")) as mock_del:
+        with create_pipe_input() as inp:
+            inp.send_text("\r\ry")
+            with create_app_session(input=inp, output=DummyOutput()):
+                dev_menu.run_janitor_flow()
+        mock_del.assert_called_once_with(active_cache.path)
