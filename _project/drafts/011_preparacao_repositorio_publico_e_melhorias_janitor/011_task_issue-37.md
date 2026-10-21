@@ -7,7 +7,7 @@
 > **Plano:** `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md`
 > **Branch:** `chore/issue-37`
 > **Worktree:** `C:\Programas\utility-belt`
-> **PR:** —
+> **PR:** [#39](https://github.com/EuThiagoAndrade/utility-belt/pull/39)
 > **Integração:** `Pendente`
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -54,8 +54,8 @@ Preparar o repositório `utility-belt` para abertura pública no GitHub com conf
 - [x] Item 4: Criar `CONTRIBUTING.md` e `SECURITY.md`.
 - [x] Item 5: Atualizar `README.md` de forma abrangente sem badge de CI.
 - [x] Item 6: Executar todos os 5 gates locais mínimos e validações de build.
-- [ ] Item 7: Fazer commit semântico `chore(issue-37): preparar repositorio publico com licenca, metadados, comunidade e readme` via staging seletivo.
-- [ ] Item 8: Publicar branch `chore/issue-37` e abrir PR vinculada à issue #37.
+- [x] Item 7: Fazer commit semântico `chore(issue-37): preparar repositorio publico com licenca, metadados, comunidade e readme` via staging seletivo (`733e496`).
+- [x] Item 8: Publicar branch `chore/issue-37` e abrir PR vinculada à issue #37 ([PR #39](https://github.com/EuThiagoAndrade/utility-belt/pull/39)).
 
 ## Evidências
 
@@ -68,7 +68,7 @@ Preparar o repositório `utility-belt` para abertura pública no GitHub com conf
 | `git status --short` | Staging seletivo isolado |
 | `uv build` | Sucesso (utility_belt-0.5.0 tar.gz e whl) |
 | `uv lock` | Resolvido (26 packages in 1ms) |
-| Checks remotos | Pendente (após PR) |
+| Checks remotos | Em execução na PR #39 |
 
 ## Decisões incidentais e desvios
 
@@ -83,16 +83,20 @@ Preparar o repositório `utility-belt` para abertura pública no GitHub com conf
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `EuThiagoAndrade/utility-belt+011+implementar_issue+chore-issue-37+daec63c`
-- `identity_source`: `EuThiagoAndrade/utility-belt + 011 + implementar_issue + chore-issue-37 + daec63c`
+- `handoff_id`: `EuThiagoAndrade/utility-belt+011+implementar_issue+chore-issue-37+733e496`
+- `identity_source`: `EuThiagoAndrade/utility-belt + 011 + implementar_issue + chore-issue-37 + 733e496`
 - `effect_class`: `local_mutation -> remote_mutation`
 - `state_before`: issue #37 aberta, repositório sem LICENSE, pyproject.toml sem URLs/classifiers/keywords, README defasado sem belt dev.
-- `state_after`: implementação em andamento.
-- `next_transition`: `implementação -> validação de gates -> publicação de PR`.
-- `preconditions`: issue #37 aberta, autorização concedida em 2026-10-21.
+- `state_after`: LICENSE, CONTRIBUTING, SECURITY, .gitignore e pyproject.toml atualizados, README completo sem badge de CI, PR #39 aberta.
+- `next_transition`: `checks remotos de CI -> revisão -> autorização de merge`.
+- `preconditions`: implementação concluída, todos os gates locais atendidos, PR #39 aberta.
 - `authority`: responsável humano do repositório.
-- `evidence`: `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_task_issue-37.md`.
-- `acceptance`: conformidade de comunidade, metadados e documentação sem badge de CI.
+- `evidence`: `_project/drafts/011_preparacao_repositorio_publico_e_melhorias_janitor/011_task_issue-37.md`, PR #39.
+- `acceptance`: conformidade jurídica, metadados e documentação sem badge de CI, com todos os checks passando.
+- `blockers`: aguardando checks de CI e autorização humana de merge.
+- `result`: `executed`
+- `next_workflow_recommended`: aguardar aprovação de checks remotos e autorização humana de merge.
+- `next_workflow_authorized`: nenhum (merge requer aprovação explícita separada).
 - `blockers`: nenhum.
 - `result`: `not_executed`
 - `next_workflow_recommended`: abrir PR após validação dos gates locais.
