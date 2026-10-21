@@ -141,7 +141,7 @@ Produzir um GIF de 25–35 segundos que percorra os menus Restic, Docker, Markdo
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42), fechada; itens 1–2 e R1–R3 atendidos |
-| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental integrada; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega integrada |
+| PR(s) | [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43), documental integrada; [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), entrega integrada; [#45](https://github.com/EuThiagoAndrade/utility-belt/pull/45), closure |
 | Branch(es) | `chore/cycle-012-plan`; `chore/issue-42`; `chore/cycle-012-closure` |
 | `handoff_schema_version` | `1` |
 | `handoff_id` | `EuThiagoAndrade/utility-belt+012+atualizar_docs+closure+98a735e` |

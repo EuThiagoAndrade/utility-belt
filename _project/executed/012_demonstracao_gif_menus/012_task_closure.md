@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/012_demonstracao_gif_menus/012_plan.md`
 > **Branch:** `chore/cycle-012-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** — (em preparação)
+> **PR:** [#45](https://github.com/EuThiagoAndrade/utility-belt/pull/45)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
@@ -35,7 +35,7 @@ Em 2026-10-21, após revisão da demonstração e das PRs, o responsável inform
 - [x] Consolidar plano e ciclo como proposta de Concluído, efetiva após merge da própria closure; manter próximo ciclo 013.
 - [x] Mover o diretório para `_project/executed/012_demonstracao_gif_menus/` e instanciar esta task a partir de `.agent/templates/task.md`, sem issue recursiva.
 - [x] Executar os cinco gates locais e conferir templates, caminhos e diff documental.
-- [ ] Publicar PR documental de encerramento.
+- [x] Publicar [PR documental #45](https://github.com/EuThiagoAndrade/utility-belt/pull/45) de encerramento.
 - [x] Condicionar a integração aos checks da PR, dentro da autorização humana de continuidade; confirmação final permanece na autoridade remota GitHub.
 
 ## Evidências
@@ -50,7 +50,7 @@ Em 2026-10-21, após revisão da demonstração e das PRs, o responsável inform
 | Testes da closure | `uv run pytest -q`: 253 passed, 36 skipped, 1 aviso conhecido de cache, 51.33 s |
 | Validação / lint | Validator: 45 OK, 0 avisos, 0 falhas; ruff: All checks passed |
 | `git diff --check` e status | Sem erros; somente cycles e documentos do ciclo 012 no diff; templates/caminhos conferidos |
-| Checks remotos da closure | GitHub é autoridade; consultar PR de encerramento |
+| Checks remotos da closure | GitHub é autoridade; consultar [PR #45](https://github.com/EuThiagoAndrade/utility-belt/pull/45/checks) |
 
 ## Decisões incidentais e desvios
 
@@ -63,22 +63,22 @@ Em 2026-10-21, após revisão da demonstração e das PRs, o responsável inform
 
 ## Resultado
 
-Entrega integrada e issue resolvida. Encerramento documental validado localmente, pendente de publicação, checks e integração da PR própria. O estado definitivo da closure e o SHA de seu merge permanecem verificáveis no GitHub.
+Entrega integrada e issue resolvida. Encerramento documental validado localmente e publicado na PR #45, com integração condicionada aos checks. O estado definitivo da closure e o SHA de seu merge permanecem verificáveis no GitHub.
 
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+012+atualizar_docs+closure+98a735e`
 - `identity_source`: `repository + cycle + workflow + logical_target + source_revision` = `EuThiagoAndrade/utility-belt + 012 + atualizar_docs + closure + 98a735ec0c5c99955402934cb423aa95954a3233`.
-- `effect_class`: `local_mutation`
+- `effect_class`: `remote_mutation`
 - `state_before`: PRs #43/#44 integradas e issue #42 fechada; ciclo em drafts e Em execução; responsável autorizou seguir o fluxo após revisar.
-- `state_after`: documentos de integração reconciliados, proposta de closure em executed, próximo ciclo 013 preservado; publicação/merge da closure ainda pendentes.
+- `state_after`: documentos reconciliados e proposta de closure publicada na PR #45, em executed; próximo ciclo 013 preservado. Estado final de checks e integração na autoridade remota.
 - `next_transition`: `closure validada -> publicação/checks -> integração autorizada`.
 - `preconditions`: merges anteriores comprovados, escopo exclusivamente documental, gates locais e checks da PR aprovados.
 - `authority`: responsável humano em 2026-10-21, “Revisado pode seguir o fluxo”; GitHub e Git comprovam as transições.
-- `evidence`: PRs #43/#44, issue #42, CI #39, SHAs de integração, esta task e arquivos do ciclo.
+- `evidence`: PRs #43/#44/#45, issue #42, CI #39, SHAs de integração, esta task e arquivos do ciclo.
 - `acceptance`: histórico preservado, estados e caminhos coerentes, sem issue recursiva, gates aprovados e merge da closure verificável no GitHub.
-- `blockers`: publicação e checks da closure em andamento; nenhum bloqueio local ou da entrega integrada.
+- `blockers`: nenhum bloqueio local ou da entrega integrada; checks e merge da closure são verificados na PR #45, autoridade remota.
 - `result`: `executed`
 - `next_workflow_recommended`: publicar e integrar closure após gates, depois confirmar estado remoto e sincronizar main.
 - `next_workflow_authorized`: publicação e integração documental dentro da continuidade explicitamente autorizada, condicionadas aos checks.
