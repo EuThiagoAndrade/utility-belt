@@ -1,14 +1,14 @@
 # Task — Issue #42: Demonstração dos menus em GIF
 
 > **Ciclo:** `012`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `chore`
 > **Issue:** `#42`
-> **Plano:** `_project/drafts/012_demonstracao_gif_menus/012_plan.md`
+> **Plano:** `_project/executed/012_demonstracao_gif_menus/012_plan.md`
 > **Branch:** `chore/issue-42`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) (draft; base na PR documental #43)
-> **Integração:** `Pendente`
+> **PR:** [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) (integrada na main)
+> **Integração:** `98a735ec0c5c99955402934cb423aa95954a3233`, verificada no GitHub
 > **Início:** 2026-10-21
 > **Última atualização:** 2026-10-21
 > **handoff_schema_version:** `1`
@@ -31,6 +31,9 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 - [x] Implementar captura com isolamento e validação de estados, incluindo falhas provocadas.
 - [x] Gerar e inspecionar GIF e incluir no README.
 - [x] Executar gates, registrar propriedades e versões e publicar [PR #44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) em draft.
+- [x] Receber revisão e autorização humana de continuidade: “Revisado pode seguir o fluxo”.
+- [x] Integrar PR documental #43, redirecionar #44 à main, conferir CI e integrar a entrega sem alterar o head revisado.
+- [x] Confirmar issue #42 fechada e conteúdo da demonstração na main.
 
 ## Evidências
 
@@ -63,7 +66,7 @@ Plano v1 aprovado após parecer `APTO COM RESSALVAS`, incluindo R1–R3. Autoriz
 
 ## Resultado
 
-Implementação e verificações locais concluídas no commit `4d057a3`; [PR #44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) publicada em draft. GIF, gerador e README prontos para revisão. Integração continua pendente de autorização humana; plano/ciclo permanecem Em Execução, sem closure antecipada.
+Entrega integrada na main em 2026-10-21 após revisão e autorização humana. PR documental #43 integrada em `72726070822cca2d2e914f23cae063270431c14f`; PR #44 redirecionada à main e integrada em `98a735ec0c5c99955402934cb423aa95954a3233`, preservando o head revisado `5e08e632a5279122d5396d153b64af7953ee2374`. CI #39 passou nesse head e a issue #42 foi fechada automaticamente. GIF e README publicados; encerramento do ciclo consolidado em task própria, sem issue recursiva.
 
 ### Handoff de criação da issue (aceito)
 
@@ -89,7 +92,7 @@ Implementação e verificações locais concluídas no commit `4d057a3`; [PR #44
 - `reconcile_existing`: reutilizar #42 e não duplicar issue.
 - `ambiguous_state`: interromper se outra issue concorrer pela mesma entrega.
 
-### Handoff de execução
+### Handoff de execução (histórico da publicação)
 
 - `handoff_schema_version`: `1`
 - `handoff_id`: `EuThiagoAndrade/utility-belt+012+implementar_issue+42-demonstracao-gif-menus+98e02a2`
@@ -112,3 +115,27 @@ Implementação e verificações locais concluídas no commit `4d057a3`; [PR #44
 - `check_before_mutation`: issue consultada novamente, branch inexistente e nenhuma PR duplicada identificada.
 - `reconcile_existing`: retomar esta branch/task e uma única PR da issue.
 - `ambiguous_state`: interromper em divergência entre issue, plano, branch ou PR.
+
+### Handoff de integração
+
+- `handoff_schema_version`: `1`
+- `handoff_id`: `EuThiagoAndrade/utility-belt+012+integrar_pr+42-demonstracao-gif-menus+5e08e63`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision` = `EuThiagoAndrade/utility-belt + 012 + integrar_pr + 42-demonstracao-gif-menus + 5e08e632a5279122d5396d153b64af7953ee2374`.
+- `effect_class`: `remote_mutation`
+- `state_before`: PRs #43 e #44 abertas em draft, CI aprovado, entrega revisada e continuidade autorizada pelo responsável.
+- `state_after`: #43 e #44 integradas na main, issue #42 fechada, entrega local sincronizada com `98a735e`.
+- `next_transition`: `entrega integrada -> encerramento documental`.
+- `preconditions`: integração comprovada, autorização humana para seguir o fluxo e validação dos documentos de closure.
+- `authority`: responsável humano, em 2026-10-21: “Revisado pode seguir o fluxo”; GitHub confirma merges e fechamento da issue.
+- `evidence`: URLs #43/#44/#42, SHAs e CI #39 registrados acima; fetch/fast-forward da main.
+- `acceptance`: mesmo head revisado integrado, issue resolvida, mídia preservada e ausência de ampliação de escopo; aceito para encerramento.
+- `blockers`: nenhum bloqueio da entrega; closure segue seus checks e integração próprios.
+- `result`: `executed`
+- `next_workflow_recommended`: `atualizar_docs` para closure.
+- `next_workflow_authorized`: encerramento documental e integração após gates, dentro da continuidade autorizada pelo responsável.
+- `actions_prohibited`: ampliar escopo, alterar produto ou declarar closure integrada sem verificação remota.
+- `rejection_rule`: recusar encerramento sem merge verificável ou com divergência de head/escopo.
+- `logical_key`: `EuThiagoAndrade/utility-belt+012+integrar_pr+42-demonstracao-gif-menus+5e08e63`.
+- `check_before_mutation`: PRs/head/CI/mergeabilidade e autorização conferidos antes do merge; API de merge usou expected_head_sha.
+- `reconcile_existing`: consultar estado antes de repetir merge; reconciliar integração já realizada sem duplicação.
+- `ambiguous_state`: interromper em divergência entre merge, issue, base ou head revisado.
