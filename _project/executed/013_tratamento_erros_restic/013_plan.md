@@ -1,7 +1,7 @@
 # Plano de Implementação — Tratamento orientado de erros no Restic
 
 > **Ciclo:** `013`
-> **Status:** `Em Execução`
+> **Status:** `Concluído` (proposta documental, efetiva após integração da PR de closure)
 > **Versão:** `v1`
 > **Data de criação:** 2026-11-03
 > **Última atualização:** 2026-11-03
@@ -171,9 +171,9 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 | :-- | :-- |
 | Issue(s) | [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) |
 | PR(s) | [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) |
-| Branch(es) | `feature/issue-46` |
+| Branch(es) | `feature/issue-46` (integrada na main em `98e3734`) |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/pr-47` |
+| `handoff_id` | `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/integrado-98e3734` |
 | Destino após conclusão | `_project/executed/013_tratamento_erros_restic/013_plan.md` |
 
 ## Handoff de saída
@@ -324,6 +324,11 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 
 ## Pós-mortem
 
-- **Data de conclusão:** —
-- **Desvios:** —
-- **Lições comprovadas:** —
+- **Data de conclusão:** 2026-11-03
+- **Desvios:**
+  - No extrator de caminhos de restauração em `restic_diagnostics.py`, ajustado o parser para respeitar letras de unidade do Windows (ex.: `C:\...`), buscando o delimitador `:` subsequente ao prefixo de disco.
+  - Em `main.py` e `restic_menu.py`, adicionada guarda de tipo `isinstance(res.stderr, str)` antes de invocar `sys.stderr.write()`, blindando a execução contra objetos mock nos testes.
+  - Em `restic_menu.py`, adicionada guarda `hasattr(os, "startfile")` e `create=True` no mock de testes para compatibilidade estrita em ambientes Linux (GitHub Actions).
+- **Lições comprovadas:**
+  - Isolamento de testes de adaptadores CLI (`run_tool`) impede acionamento acidental de ferramentas reais e prompts de senha em subprocessos durante a execução do pytest.
+  - Métodos nativos dependentes do sistema operacional como `os.startfile` exigem verificação de presença (`hasattr(os, "startfile")`) e `create=True` em mocks para não quebrar runners Linux em CI.
