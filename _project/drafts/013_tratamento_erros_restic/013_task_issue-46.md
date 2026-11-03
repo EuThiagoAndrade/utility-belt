@@ -50,7 +50,7 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 | Validação de governança (`validate_governance.py`) | 46 verificações (45 OK, 1 Aviso esperado de ciclo, 0 Falhas) |
 | Linter (`ruff check`) | All checks passed! (0 avisos/erros) |
 | `git diff --check` | 100% limpo |
-| Checks remotos | Em andamento no GitHub Actions: validate (`ubuntu-latest` / `windows-latest`) |
+| Checks remotos | 100% sucesso no GitHub Actions (`validate ubuntu-latest` e `validate windows-latest`) |
 
 ## Decisões incidentais e desvios
 
