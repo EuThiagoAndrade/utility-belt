@@ -99,6 +99,7 @@ def restic_check(
     repo: str | None = typer.Option(None, "--repo", "-r", help="Caminho do repositório."),
     profile: str | None = typer.Option(None, "--profile", "-p", help="Nome do perfil de configuração."),
     read_data: bool = typer.Option(False, "--read-data", help="Lê todos os dados dos arquivos para conferência total."),
+    non_interactive: bool = typer.Option(False, "--non-interactive", help="Proíbe prompts interativos de senha."),
 ) -> None:
     args: list[str] = []
     if repo:
@@ -107,22 +108,44 @@ def restic_check(
         args.extend(["--profile", profile])
     if read_data:
         args.append("--read-data")
+    if non_interactive:
+        args.append("--non-interactive")
 
-    _exec_restic_tool("check", args)
+    _exec_restic_tool("check", args, non_interactive=non_interactive)
 
 
 @restic_app.command(name="snapshots", help="Lista todos os snapshots existentes no repositório.")
 def restic_snapshots(
     repo: str | None = typer.Option(None, "--repo", "-r", help="Caminho do repositório."),
     profile: str | None = typer.Option(None, "--profile", "-p", help="Nome do perfil de configuração."),
+    non_interactive: bool = typer.Option(False, "--non-interactive", help="Proíbe prompts interativos de senha."),
 ) -> None:
     args: list[str] = []
     if repo:
         args.extend(["--repo", repo])
     if profile:
         args.extend(["--profile", profile])
+    if non_interactive:
+        args.append("--non-interactive")
 
-    _exec_restic_tool("snapshots", args)
+    _exec_restic_tool("snapshots", args, non_interactive=non_interactive)
+
+
+@restic_app.command(name="unlock", help="Remove locks obsoletos do repositório Restic.")
+def restic_unlock(
+    repo: str | None = typer.Option(None, "--repo", "-r", help="Caminho do repositório."),
+    profile: str | None = typer.Option(None, "--profile", "-p", help="Nome do perfil de configuração."),
+    non_interactive: bool = typer.Option(False, "--non-interactive", help="Proíbe prompts interativos de senha."),
+) -> None:
+    args: list[str] = []
+    if repo:
+        args.extend(["--repo", repo])
+    if profile:
+        args.extend(["--profile", profile])
+    if non_interactive:
+        args.append("--non-interactive")
+
+    _exec_restic_tool("unlock", args, non_interactive=non_interactive)
 
 
 @restic_app.command(name="init", help="Inicializa deliberadamente um novo repositório Restic.")

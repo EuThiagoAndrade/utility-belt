@@ -1,10 +1,11 @@
 # Registro de ciclos
 
-> **Próximo ciclo:** `013`
-> **Última atualização:** 2026-10-21
+> **Próximo ciclo:** `014`
+> **Última atualização:** 2026-11-03
 
 | Ciclo | Assunto | Estado | Ideação | Plano | Issues | Encerramento |
 | :---- | :------ | :----- | :------ | :---- | :----- | :----------- |
+| `013` | Tratamento Orientado de Erros no Restic | `Em execução` | `_project/ideations/013_tratamento_erros_restic.md` | `_project/drafts/013_tratamento_erros_restic/013_plan.md` | [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) | — |
 | `012` | Demonstração dos Menus em GIF | `Concluído` | — (solicitação direta; contexto no plano) | `_project/executed/012_demonstracao_gif_menus/012_plan.md` | [#42](https://github.com/EuThiagoAndrade/utility-belt/issues/42) | PRs [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43)/[#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44) integradas; closure [#45](https://github.com/EuThiagoAndrade/utility-belt/pull/45) |
 | `000` | Fundação CLI e Distribuição | `Concluído` | — (bootstrap do projeto) | `_project/executed/000_fundacao_cli_distribuicao/000_plan.md` | — | Commit `8d8a028` |
 | `001` | Menus Interativos com Questionary | `Concluído` | — | `_project/executed/001_menus_interativos/001_plan.md` | — | [PR #3](https://github.com/EuThiagoAndrade/utility-belt/pull/3) — integrada em `f613ae8` |
@@ -19,7 +20,9 @@
 | `010` | Compatibilidade e Padronização Visual de Menus | `Concluído` | `_project/ideations/010_correcoes_e_padronizacao_menus.md` | `_project/executed/010_correcoes_e_padronizacao_menus/010_plan.md` | [#33](https://github.com/EuThiagoAndrade/utility-belt/issues/33) | [PR #34](https://github.com/EuThiagoAndrade/utility-belt/pull/34) — integrada em `e943a47`; release v0.4.1 |
 | `011` | Preparação para Repositório Público e Aperfeiçoamento do Janitor | `Concluído` | `_project/ideations/011_preparacao_repositorio_publico_e_melhorias_janitor.md` | `_project/executed/011_preparacao_repositorio_publico_e_melhorias_janitor/011_plan.md` | [#36](https://github.com/EuThiagoAndrade/utility-belt/issues/36), [#37](https://github.com/EuThiagoAndrade/utility-belt/issues/37) | [PR #38](https://github.com/EuThiagoAndrade/utility-belt/pull/38), [PR #39](https://github.com/EuThiagoAndrade/utility-belt/pull/39) — release v0.5.0; closure na [PR #41](https://github.com/EuThiagoAndrade/utility-belt/pull/41) |
 
-O ciclo `012` entrega o GIF dos cinco menus (33,5 segundos, 431.643 bytes), o gerador reproduzível e a apresentação no README, integrado nas PRs [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43) e [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), com issue #42 fechada após revisão e autorização humana. Encerramento Concluído nesta branch é proposta documental, efetiva após merge da [PR #45](https://github.com/EuThiagoAndrade/utility-belt/pull/45); evidências em `_project/executed/012_demonstracao_gif_menus/012_task_closure.md`. Próximo ciclo `013` preservado.
+O ciclo `013` encontra-se em `Em execução` com o plano v1 `Em Execução` e implementação da issue [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) autorizada na branch `feature/issue-46`. Próximo ciclo `014`.
+
+O ciclo `012` entrega o GIF dos cinco menus (33,5 segundos, 431.643 bytes), o gerador reproduzível e a apresentação no README, integrado nas PRs [#43](https://github.com/EuThiagoAndrade/utility-belt/pull/43) e [#44](https://github.com/EuThiagoAndrade/utility-belt/pull/44), com issue #42 fechada após revisão e autorização humana. Encerramento Concluído nesta branch é proposta documental, efetiva após merge da [PR #45](https://github.com/EuThiagoAndrade/utility-belt/pull/45); evidências em `_project/executed/012_demonstracao_gif_menus/012_task_closure.md`. O ciclo `013` foi reservado para a ideação de tratamento de erros.
 
 O ciclo `011` preparou o repositório para abertura pública no GitHub (criação de `LICENSE` MIT, atualização abrangente do `README.md` documentando `belt dev` e correções de menu sem badge de CI, blindagem defensiva do `.gitignore`, metadados em `pyproject.toml` com `/LICENSE` no sdist e documentação comunitária `CONTRIBUTING.md` e `SECURITY.md`) e aperfeiçoou a experiência do Janitor (`belt dev janitor`), selecionando 100% dos caches descobertos por padrão (`checked=True`) e padronizando as legendas visuais nos checklists. Entregas integradas nas [PR #38](https://github.com/EuThiagoAndrade/utility-belt/pull/38) e [PR #39](https://github.com/EuThiagoAndrade/utility-belt/pull/39) após autorizações do responsável, com release automática v0.5.0 publicada no GitHub. Encerramento Concluído nesta branch é proposta documental, efetiva após merge da PR de closure ([PR #41](https://github.com/EuThiagoAndrade/utility-belt/pull/41)). Próximo ciclo `012` preservado.
 
