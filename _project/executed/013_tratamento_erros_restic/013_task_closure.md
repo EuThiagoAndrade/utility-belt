@@ -7,7 +7,7 @@
 > **Plano:** `_project/executed/013_tratamento_erros_restic/013_plan.md`
 > **Branch:** `chore/cycle-013-closure`
 > **Worktree:** `C:/Programas/utility-belt`
-> **PR:** — (a registrar na abertura da PR)
+> **PR:** [#48](https://github.com/EuThiagoAndrade/utility-belt/pull/48)
 > **Integração:** verificável no GitHub; não registrar SHA do próprio merge nesta task.
 > **Início:** 2026-11-03
 > **Última atualização:** 2026-11-03
@@ -31,7 +31,7 @@ Em 2026-11-03, o responsável autorizou a criação da issue, o início da imple
 - [x] Consolidar plano e ciclo como proposta de Concluído, efetiva após merge da própria closure; manter próximo ciclo 014.
 - [x] Mover o diretório para `_project/executed/013_tratamento_erros_restic/` e instanciar esta task a partir de `.agent/templates/task.md`, sem issue recursiva.
 - [x] Executar os cinco gates locais e conferir templates, caminhos e diff documental.
-- [ ] Publicar PR documental de encerramento.
+- [x] Publicar PR documental de encerramento ([PR #48](https://github.com/EuThiagoAndrade/utility-belt/pull/48)).
 
 ## Evidências
 
