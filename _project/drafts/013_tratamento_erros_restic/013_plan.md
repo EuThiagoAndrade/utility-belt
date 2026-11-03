@@ -170,10 +170,10 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 | Campo | Valor |
 | :-- | :-- |
 | Issue(s) | [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) |
-| PR(s) | — |
-| Branch(es) | `feature/issue-46` (planejada; aguarda autorização de implementação) |
+| PR(s) | [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) |
+| Branch(es) | `feature/issue-46` |
 | `handoff_schema_version` | `1` |
-| `handoff_id` | `EuThiagoAndrade/utility-belt+013+criar_issues+tratamento-erros-restic+c5a679a3e6a2/issue-46` |
+| `handoff_id` | `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/pr-47` |
 | Destino após conclusão | `_project/executed/013_tratamento_erros_restic/013_plan.md` |
 
 ## Handoff de saída
