@@ -1,18 +1,18 @@
 # Task — Issue #46: orientar erros e desbloqueio assistido no Restic
 
 > **Ciclo:** `013`
-> **Estado:** `Em andamento`
+> **Estado:** `Concluído`
 > **Tipo:** `feature`
 > **Issue:** `#46`
-> **Plano:** `_project/drafts/013_tratamento_erros_restic/013_plan.md`
+> **Plano:** `_project/executed/013_tratamento_erros_restic/013_plan.md`
 > **Branch:** `feature/issue-46`
 > **Worktree:** `c:\Programas\utility-belt`
-> **PR:** [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47)
-> **Integração:** `Pendente`
+> **PR:** [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) (integrada na main)
+> **Integração:** `98e3734694d04df9b21cdab8be47faeda2233f29`, verificada no GitHub
 > **Início:** 2026-11-03
 > **Última atualização:** 2026-11-03
 > **handoff_schema_version:** `1`
-> **handoff_id:** `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/v1-in-progress`
+> **handoff_id:** `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/integrado-98e3734`
 
 ## Objetivo
 
@@ -41,6 +41,7 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 - [x] Criar testes do menu em `tests/test_restic_menu.py` cobrindo unlock, código 11, retry-lock e restore incompleto.
 - [x] Executar e registrar os 5 gates locais: `validate_governance.py`, `ruff check`, `pytest`, `git diff --check`, `git status --short`.
 - [x] Publicar branch `feature/issue-46` e abrir PR vinculada à Issue #46 ([PR #47](https://github.com/EuThiagoAndrade/utility-belt/pull/47)).
+- [x] Integração (merge) da PR #47 autorizada pelo responsável e confirmada no commit `98e3734694d04df9b21cdab8be47faeda2233f29`; issue #46 fechada.
 
 ## Evidências
 
@@ -56,29 +57,30 @@ Explicar erros e resultados incompletos do Restic em linguagem acionável, prese
 
 - No extrator de caminhos de restauração em `restic_diagnostics.py`, ajustado o parser para respeitar letras de unidade do Windows (ex.: `C:\...`), buscando o delimitador `:` subsequente ao prefixo de disco.
 - Em `main.py` e `restic_menu.py`, adicionada guarda de tipo `isinstance(res.stderr, str)` antes de invocar `sys.stderr.write()`, blindando a execução contra objetos mock nos testes.
+- Em `restic_menu.py`, adicionada guarda `hasattr(os, "startfile")` e `create=True` no mock de testes para compatibilidade estrita em ambientes Linux (GitHub Actions).
 
 ## Resultado
 
 ### Handoff de execução
 
 - `handoff_schema_version`: `1`
-- `handoff_id`: `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/pr-47`
-- `identity_source`: `repository + cycle + workflow + logical_target + source_revision` = `EuThiagoAndrade/utility-belt + 013 + implementar_issue + issue-46 + c5a679a3e6a2068fc28b3bb63fd2794d6c671cdf/pr-47`
+- `handoff_id`: `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2/integrado-98e3734`
+- `identity_source`: `repository + cycle + workflow + logical_target + source_revision` = `EuThiagoAndrade/utility-belt + 013 + implementar_issue + issue-46 + c5a679a3e6a2068fc28b3bb63fd2794d6c671cdf/integrado-98e3734`
 - `effect_class`: `remote_mutation`
 - `state_before`: issue #46 criada, branch `feature/issue-46` criada, plano v1 `Em Execução`, implementação iniciada.
-- `state_after`: escopo implementado, testes e gates locais aprovados, branch publicada e PR [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) aberta vinculada à Issue #46.
-- `next_transition`: `PR -> revisão e checks remotos -> integração autorizada`.
-- `preconditions`: conclusão dos checks remotos do GitHub Actions e aprovação humana para integração (merge).
-- `authority`: responsável humano para autorização de integração.
-- `evidence`: PR [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47), Issue [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46), commit `9f74248`, evidências de gates registradas acima.
-- `acceptance`: todos os critérios de aceite da Issue #46 e do plano atendidos com cobertura de testes completa.
-- `blockers`: nenhum bloqueador técnico; aguardando conclusão dos checks remotos e autorização humana para merge.
+- `state_after`: escopo implementado, testes e gates locais aprovados, PR [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) integrada na main (commit `98e3734`) e issue [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) fechada.
+- `next_transition`: `integração concluída -> encerramento documental (closure) do ciclo 013`.
+- `preconditions`: merges anteriores comprovados e issue fechada.
+- `authority`: responsável humano (autorizou a integração da PR #47 em 2026-11-03).
+- `evidence`: PR [#47](https://github.com/EuThiagoAndrade/utility-belt/pull/47) (MERGED), commit `98e3734`, Issue [#46](https://github.com/EuThiagoAndrade/utility-belt/issues/46) (CLOSED).
+- `acceptance`: todos os critérios de aceite da Issue #46 e do plano atendidos e integrados.
+- `blockers`: nenhum bloqueador técnico.
 - `result`: `executed`
-- `next_workflow_recommended`: aguardar conclusão dos checks e revisão humana da PR #47.
-- `next_workflow_authorized`: `nenhum` (merge e integração dependem de autorização explícita).
-- `actions_prohibited`: merge automático da PR ou integração sem autorização humana explícita.
+- `next_workflow_recommended`: `atualizar_docs` (elaboração da closure do ciclo 013 e movimentação para executed/).
+- `next_workflow_authorized`: encerramento documental do ciclo 013.
+- `actions_prohibited`: merge automático sem autorização ou ampliação de escopo fora do Restic.
 - `rejection_rule`: o receptor recusa handoff ausente, incompatível, contraditório ou sem evidência material.
 - `logical_key`: `EuThiagoAndrade/utility-belt+013+implementar_issue+issue-46+c5a679a3e6a2`
-- `check_before_mutation`: conferido PR e branch existentes antes da criação.
-- `reconcile_existing`: task atualizada com PR #47.
+- `check_before_mutation`: conferido PR integrada na main e issue fechada.
+- `reconcile_existing`: task atualizada com integração verificada.
 - `ambiguous_state`: parar se houver divergência entre issue, task, PR e plano.
