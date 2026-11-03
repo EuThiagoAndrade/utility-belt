@@ -124,7 +124,7 @@ def test_do_restore_success_offers_explorer():
          patch("utility_belt.ui.restic_menu.get_profile", return_value={"restic": {"repo": "D:\\repo"}}), \
          patch("utility_belt.ui.restic_menu.prompt", side_effect=["abcdef123456", "D:\\restored", "", True]), \
          patch("utility_belt.ui.restic_menu.run_restic", return_value=success_proc), \
-         patch("utility_belt.ui.restic_menu.os.startfile") as mock_startfile:
+         patch("utility_belt.ui.restic_menu.os.startfile", create=True) as mock_startfile:
         rm.do_restore()
         mock_startfile.assert_called_once_with("D:\\restored")
 
@@ -137,7 +137,7 @@ def test_do_restore_failure_does_not_offer_explorer():
          patch("utility_belt.ui.restic_menu.get_profile", return_value={"restic": {"repo": "D:\\repo"}}), \
          patch("utility_belt.ui.restic_menu.prompt", side_effect=["abcdef123456", "D:\\restored", ""]), \
          patch("utility_belt.ui.restic_menu.run_restic", return_value=failed_proc), \
-         patch("utility_belt.ui.restic_menu.os.startfile") as mock_startfile, \
+         patch("utility_belt.ui.restic_menu.os.startfile", create=True) as mock_startfile, \
          patch("utility_belt.ui.restic_menu.status_message") as mock_status:
         rm.do_restore()
         # Must not offer or open explorer!

@@ -351,7 +351,8 @@ def do_restore() -> None:
     if result is not None and result.returncode == 0:
         status_message("\nRestauração concluída com sucesso!", fg=typer.colors.GREEN)
         if prompt(questionary.confirm, "Deseja abrir a pasta no Windows Explorer?"):
-            os.startfile(target)
+            if hasattr(os, "startfile"):
+                os.startfile(target)
     elif result is not None and result.returncode != 0:
         if result.returncode != 11:
             diag = diagnose_restic_result("restore", result.returncode, result.stderr or "")
