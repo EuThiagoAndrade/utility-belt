@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.6.0 (2026-11-03)
+
+- docs(issue-46): registrar evidencias de checks remotos concluidos com sucesso
+- fix(issue-46): compatibilidade de os.startfile em ambientes Linux
+- docs(issue-46): atualizar task persistente e plano com PR #47
+- feat(issue-46): orientar erros e desbloqueio do Restic
+- docs(cycle-012): vincular PR 45 ao encerramento
+- docs(cycle-012): consolidar estados e evidencias do encerramento
+- docs(cycle-012): encerrar demonstracao dos menus em gif
+- chore(issue-42): registrar CI aprovado em Windows e Linux
+- chore(issue-42): vincular PR 44 e evidencias da demonstracao
+- chore(issue-42): adicionar demonstracao dos menus em gif
+- docs(cycle-012): registrar plano revisado e aprovado da demonstracao gif
+- docs(cycle-011): vincular PR 41 na task de closure e cycles
+- chore(cycle-011): encerramento documental de preparacao repositorio publico e janitor
+- docs(cycle-011): registrar sucesso dos checks remotos de CI na task da issue 37
+- docs(cycle-011): vincular PR 39 na task da issue 37
+- chore(issue-37): preparar repositorio publico com licenca, metadados, comunidade e readme
+
 ## v0.5.0 (2026-10-21)
 
 - docs(cycle-011): registrar sucesso dos checks remotos de CI na task da issue 36
