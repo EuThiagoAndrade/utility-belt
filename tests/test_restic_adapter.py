@@ -163,3 +163,117 @@ def test_restic_backup_code_3_incomplete(tmp_path: Path, monkeypatch) -> None:
                 code = restic_main()
                 # Preserva código 3 de backup incompleto
                 assert code == 3
+
+
+def test_restic_unlock_command_success(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "config").write_text("dummy")
+
+    monkeypatch.setenv("RESTIC_PASSWORD", "segredo")
+
+    executed_cmds = []
+
+    def fake_subprocess_run(cmd, *args, **kwargs):
+        executed_cmds.append(cmd)
+        proc = MagicMock()
+        proc.returncode = 0
+        proc.stderr = ""
+        proc.stdout = ""
+        return proc
+
+    with patch("utility_belt.tools.restic_backup.main.get_profile", return_value={}):
+        with patch("subprocess.run", side_effect=fake_subprocess_run):
+            result = runner.invoke(app, ["restic", "unlock", "--repo", str(repo), "--non-interactive"])
+            assert result.exit_code == 0
+            assert "Locks obsoletos removidos com sucesso!" in result.output
+            assert any("unlock" in cmd for cmd in executed_cmds)
+
+
+def test_restic_unlock_with_profile(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "config").write_text("dummy")
+
+    monkeypatch.setenv("RESTIC_PASSWORD", "segredo")
+
+    executed_cmds = []
+
+    def fake_subprocess_run(cmd, *args, **kwargs):
+        executed_cmds.append(cmd)
+        proc = MagicMock()
+        proc.returncode = 0
+        proc.stderr = ""
+        proc.stdout = json.dumps({"id": "mesmo-id"})
+        return proc
+
+    profile_data = {
+        "restic": {
+            "repo": str(repo),
+            "repo_id": "mesmo-id",
+        }
+    }
+
+    with patch("utility_belt.tools.restic_backup.main.get_profile", return_value=profile_data):
+        with patch("subprocess.run", side_effect=fake_subprocess_run):
+            result = runner.invoke(app, ["restic", "unlock", "--profile", "meu_perfil", "--non-interactive"])
+            assert result.exit_code == 0
+            assert any("unlock" in cmd for cmd in executed_cmds)
+
+
+def test_restic_unlock_failure_propagates_code(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "config").write_text("dummy")
+
+    monkeypatch.setenv("RESTIC_PASSWORD", "segredo")
+
+    def fake_subprocess_run(cmd, *args, **kwargs):
+        proc = MagicMock()
+        if "unlock" in cmd:
+            proc.returncode = 11
+            proc.stderr = "unable to create lock in backend: repository is already locked"
+        else:
+            proc.returncode = 0
+            proc.stderr = ""
+            proc.stdout = ""
+        return proc
+
+    with patch("utility_belt.tools.restic_backup.main.get_profile", return_value={}):
+        with patch("subprocess.run", side_effect=fake_subprocess_run):
+            result = runner.invoke(app, ["restic", "unlock", "--repo", str(repo), "--non-interactive"])
+            assert result.exit_code == 11
+            assert "DIAGNÓSTICO RESTIC" in result.output
+            assert "Falha ao obter lock" in result.output
+
+
+def test_restic_restore_error_shows_incomplete_guidance(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "repo"
+    target = tmp_path / "destino"
+    repo.mkdir()
+    target.mkdir()
+    (repo / "config").write_text("dummy")
+
+    monkeypatch.setenv("RESTIC_PASSWORD", "segredo")
+
+    def fake_subprocess_run(cmd, *args, **kwargs):
+        proc = MagicMock()
+        if "restore" in cmd:
+            proc.returncode = 1
+            proc.stderr = "ignoring error for /destino/item.txt: permission denied"
+        else:
+            proc.returncode = 0
+            proc.stderr = ""
+            proc.stdout = ""
+        return proc
+
+    with patch("utility_belt.tools.restic_backup.main.get_profile", return_value={}):
+        with patch("subprocess.run", side_effect=fake_subprocess_run):
+            result = runner.invoke(
+                app,
+                ["restic", "restore", "--repo", str(repo), "--target", str(target), "--non-interactive"],
+            )
+            assert result.exit_code == 1
+            assert "DIAGNÓSTICO RESTIC" in result.output
+            assert "não pôde ser confirmada como completa" in result.output
+            assert "/destino/item.txt" in result.output

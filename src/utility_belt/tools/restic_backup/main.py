@@ -20,6 +20,7 @@ from utility_belt.config import (
     migrate_legacy_restic_config,
     save_config,
 )
+from utility_belt.restic_diagnostics import diagnose_restic_result, format_cli_guidance
 
 
 def overlaps(a: Path | str, b: Path | str) -> bool:
@@ -60,9 +61,9 @@ class ResticController:
         if self._password:
             return self._password
 
-        if self.non_interactive:
+        if self.non_interactive or not sys.stdin.isatty():
             raise ValueError(
-                "Modo não-interativo ativo mas a variável de ambiente RESTIC_PASSWORD não foi informada."
+                "Modo não-interativo ativo ou stdin não é TTY, mas a variável de ambiente RESTIC_PASSWORD não foi informada."
             )
 
         self._password = getpass.getpass("Senha do repositório Restic (não será salva em disco): ")
@@ -78,14 +79,28 @@ class ResticController:
         record_audit(cmd, "inicio")
 
         try:
-            res = subprocess.run(
-                cmd,
-                env=env,
-                capture_output=capture_output,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-            )
+            if capture_output:
+                res = subprocess.run(
+                    cmd,
+                    env=env,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                )
+            else:
+                res = subprocess.run(
+                    cmd,
+                    env=env,
+                    stdout=None,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                )
+                if res.stderr and isinstance(res.stderr, str):
+                    sys.stderr.write(res.stderr)
+                    sys.stderr.flush()
             record_audit(cmd, "fim", code=res.returncode)
             return res
         except KeyboardInterrupt:
@@ -107,8 +122,10 @@ class ResticController:
         if not self.expected_repo_id:
             return
 
-        res = self.run_restic(["cat", "config"], capture_output=True)
+        res = self.run_restic(["cat", "config", "--no-lock"], capture_output=True)
         if res.returncode != 0:
+            if res.returncode == 11:
+                raise ValueError("Falha ao obter lock do repositório durante verificação de identidade (código 11).")
             raise ValueError(f"Não foi possível ler a configuração do repositório (código {res.returncode}).")
 
         try:
@@ -179,13 +196,14 @@ def cmd_backup(args: argparse.Namespace) -> int:
         return 2
 
     if proc.returncode == 3:
-        print(
-            "\nAVISO [CÓDIGO 3]: Backup finalizado, mas alguns arquivos não puderam ser lidos (backup incompleto).",
-            file=sys.stderr,
-        )
+        diag = diagnose_restic_result("backup", 3, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
         return 3
     elif proc.returncode != 0:
-        print(f"\nErro no backup do Restic (código {proc.returncode}).", file=sys.stderr)
+        diag = diagnose_restic_result("backup", proc.returncode, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
         return proc.returncode
 
     print("\nBackup concluído com sucesso!")
@@ -231,8 +249,20 @@ def cmd_restore(args: argparse.Namespace) -> int:
 
     target_path.mkdir(parents=True, exist_ok=True)
     print(f"\nIniciando restauração Restic do snapshot '{snapshot}' em '{target_path}'...")
-    proc = controller.run_restic(restic_args)
-    return proc.returncode
+    try:
+        proc = controller.run_restic(restic_args)
+    except ValueError as err:
+        print(f"Erro: {err}", file=sys.stderr)
+        return 2
+
+    if proc.returncode != 0:
+        diag = diagnose_restic_result("restore", proc.returncode, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
+        return proc.returncode
+
+    print("\nRestauração concluída com sucesso!")
+    return 0
 
 
 def cmd_check(args: argparse.Namespace) -> int:
@@ -245,7 +275,7 @@ def cmd_check(args: argparse.Namespace) -> int:
         return 1
 
     try:
-        controller = ResticController(str(repo), repo_id=repo_id)
+        controller = ResticController(str(repo), repo_id=repo_id, non_interactive=args.non_interactive)
         controller.verify_repo_id()
     except ValueError as err:
         print(f"Erro: {err}", file=sys.stderr)
@@ -256,8 +286,20 @@ def cmd_check(args: argparse.Namespace) -> int:
         restic_args.append("--read-data")
 
     print(f"\nVerificando integridade do repositório '{repo}'...")
-    proc = controller.run_restic(restic_args)
-    return proc.returncode
+    try:
+        proc = controller.run_restic(restic_args)
+    except ValueError as err:
+        print(f"Erro: {err}", file=sys.stderr)
+        return 2
+
+    if proc.returncode != 0:
+        diag = diagnose_restic_result("check", proc.returncode, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
+        return proc.returncode
+
+    print("\nVerificação de integridade concluída com sucesso!")
+    return 0
 
 
 def cmd_snapshots(args: argparse.Namespace) -> int:
@@ -270,14 +312,59 @@ def cmd_snapshots(args: argparse.Namespace) -> int:
         return 1
 
     try:
-        controller = ResticController(str(repo), repo_id=repo_id)
+        controller = ResticController(str(repo), repo_id=repo_id, non_interactive=args.non_interactive)
         controller.verify_repo_id()
     except ValueError as err:
         print(f"Erro: {err}", file=sys.stderr)
         return 2
 
-    proc = controller.run_restic(["snapshots"])
-    return proc.returncode
+    try:
+        proc = controller.run_restic(["snapshots"])
+    except ValueError as err:
+        print(f"Erro: {err}", file=sys.stderr)
+        return 2
+
+    if proc.returncode != 0:
+        diag = diagnose_restic_result("snapshots", proc.returncode, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
+        return proc.returncode
+
+    return 0
+
+
+def cmd_unlock(args: argparse.Namespace) -> int:
+    profile = get_profile(args.profile).get("restic", {})
+    repo = args.repo or profile.get("repo")
+    repo_id = profile.get("repo_id", "")
+
+    if not repo:
+        print("Erro: Repositório não informado via --repo ou perfil.", file=sys.stderr)
+        return 1
+
+    repo_path = Path(repo).resolve()
+    try:
+        controller = ResticController(str(repo_path), repo_id=repo_id, non_interactive=args.non_interactive)
+        controller.verify_repo_id()
+    except ValueError as err:
+        print(f"Erro: {err}", file=sys.stderr)
+        return 2
+
+    print(f"\nDesbloqueando locks obsoletos no repositório '{repo_path}'...")
+    try:
+        proc = controller.run_restic(["unlock"])
+    except ValueError as err:
+        print(f"Erro: {err}", file=sys.stderr)
+        return 2
+
+    if proc.returncode != 0:
+        diag = diagnose_restic_result("unlock", proc.returncode, proc.stderr or "")
+        if diag:
+            print(format_cli_guidance(diag), file=sys.stderr)
+        return proc.returncode
+
+    print("\nLocks obsoletos removidos com sucesso!")
+    return 0
 
 
 def cmd_init(args: argparse.Namespace) -> int:
@@ -354,11 +441,19 @@ def main() -> int:
     p_check.add_argument("--repo", help="Caminho do repositório")
     p_check.add_argument("--profile", help="Nome do perfil de configuração")
     p_check.add_argument("--read-data", action="store_true", help="Lê todos os dados dos packs")
+    p_check.add_argument("--non-interactive", action="store_true", help="Proíbe prompts interativos de senha")
 
     # Snapshots
     p_snap = subparsers.add_parser("snapshots", help="Lista snapshots do repositório")
     p_snap.add_argument("--repo", help="Caminho do repositório")
     p_snap.add_argument("--profile", help="Nome do perfil de configuração")
+    p_snap.add_argument("--non-interactive", action="store_true", help="Proíbe prompts interativos de senha")
+
+    # Unlock
+    p_unlock = subparsers.add_parser("unlock", help="Remove locks obsoletos do repositório")
+    p_unlock.add_argument("--repo", help="Caminho do repositório")
+    p_unlock.add_argument("--profile", help="Nome do perfil de configuração")
+    p_unlock.add_argument("--non-interactive", action="store_true", help="Proíbe prompts interativos de senha")
 
     # Init
     p_init = subparsers.add_parser("init", help="Inicializa novo repositório deliberadamente")
@@ -378,6 +473,8 @@ def main() -> int:
         return cmd_check(args)
     elif args.subcommand == "snapshots":
         return cmd_snapshots(args)
+    elif args.subcommand == "unlock":
+        return cmd_unlock(args)
     elif args.subcommand == "init":
         return cmd_init(args)
     elif args.subcommand == "migrate-config":

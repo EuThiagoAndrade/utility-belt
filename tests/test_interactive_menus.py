@@ -50,9 +50,11 @@ class TestCLICallbackBehavior:
 
     def test_belt_restic_with_subcommand_does_not_open_menu(self) -> None:
         """Quando `belt restic snapshots` é chamado, NÃO deve abrir o menu do restic."""
-        # snapshots requer a ferramenta restic.backup no catálogo, mas não deve abrir menu
-        runner.invoke(app, ["restic", "snapshots"])
-        # Pode falhar se restic não instalado, mas não deve abrir menu interativo
+        with patch("utility_belt.adapters.restic.run_tool", return_value=0) as mock_run, \
+             patch("utility_belt.ui.restic_menu.show_restic_menu") as mock_menu:
+            runner.invoke(app, ["restic", "snapshots"])
+            mock_menu.assert_not_called()
+            mock_run.assert_called_once()
 
     def test_belt_docker_no_args_calls_docker_menu_in_tty(self) -> None:
         """Quando `belt docker` é chamado sem args em TTY, deve chamar show_docker_menu."""
@@ -64,8 +66,11 @@ class TestCLICallbackBehavior:
 
     def test_belt_docker_with_subcommand_does_not_open_menu(self) -> None:
         """Quando `belt docker export` é chamado, NÃO deve abrir o menu do docker."""
-        runner.invoke(app, ["docker", "export"])
-        # Pode falhar se docker não instalado, mas não deve abrir menu interativo
+        with patch("utility_belt.adapters.docker.run_tool", return_value=0) as mock_run, \
+             patch("utility_belt.ui.docker_menu.show_docker_menu") as mock_menu:
+            runner.invoke(app, ["docker", "export"])
+            mock_menu.assert_not_called()
+            mock_run.assert_called_once()
 
     def test_belt_dev_no_args_calls_dev_menu_in_tty(self) -> None:
         """Quando `belt dev` é chamado sem args em TTY, deve chamar show_dev_menu."""

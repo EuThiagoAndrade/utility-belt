@@ -202,9 +202,18 @@ belt restic restore --snapshot abc12345 --target /destino --include "documentos/
 belt restic check --profile trabalho
 belt restic check --profile trabalho --read-data     # Conferência profunda lendo todos os blocos de dados
 
+# Desbloquear locks obsoletos do repositório
+belt restic unlock --repo /caminho/do/repositorio
+belt restic unlock --profile trabalho
+
 # Migrar configurações legadas do ResticMenu para o config.toml do Utility Belt
 belt restic migrate-config
 ```
+
+#### Tratamento de Erros e Desbloqueio Seguro no Restic
+
+- **Falhas de lock (Código 11):** O código 11 indica falha ao obter lock exclusivo no repositório. Ele não comprova isoladamente abandono do lock. No CLI, o Belt preserva a saída original e anexa orientações em `stderr`. No menu interativo, são oferecidas opções deliberadas: aguardar com limite de um minuto (`--retry-lock 1m`), executar `unlock` sob confirmação explícita ou voltar. O comando `unlock` utiliza o comportamento padrão do Restic (nunca aplica `--remove-all` para não romper operações ativas de outras instâncias) e a conclusão do desbloqueio não repete automaticamente a operação anterior.
+- **Restauração parcial ou com erro:** Caso o comando `restore` encerre com código diferente de zero (mesmo que arquivos tenham sido gravados), a operação **não é confirmada como completa**. O Belt exibe o erro e o item/caminho reportado pelo Restic e orienta conferir manualmente os arquivos na pasta de destino antes de utilizá-los. No menu, pastas com erro de restauração não são abertas como concluídas.
 
 ### Conversão Markdown (`belt markdown`)
 

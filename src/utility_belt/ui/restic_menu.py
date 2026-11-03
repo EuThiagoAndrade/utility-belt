@@ -5,12 +5,17 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 from typing import Any
 
 import questionary
 import typer
 
 from utility_belt.config import get_profile, load_config, set_profile
+from utility_belt.restic_diagnostics import (
+    diagnose_restic_result,
+    format_menu_guidance,
+)
 from utility_belt.ui.screen import (
     clear_screen,
     menu_footer,
@@ -54,11 +59,31 @@ def ask_password_if_needed() -> bool:
         return False
 
 
-def run_restic(cmd_args: list[str], capture_output: bool = False) -> subprocess.CompletedProcess[Any] | None:
-    """Executa um comando restic de forma segura."""
-    if not ask_password_if_needed():
-        return None
+def _extract_subcommand(cmd_args: list[str]) -> str:
+    known_subs = {"backup", "restore", "check", "snapshots", "unlock", "init", "ls"}
+    for arg in cmd_args:
+        if arg in known_subs:
+            return arg
+    return "restic"
 
+
+def _extract_repo_from_args(cmd_args: list[str]) -> str | None:
+    for i, arg in enumerate(cmd_args):
+        if arg == "-r" and i + 1 < len(cmd_args):
+            return cmd_args[i + 1]
+        elif arg.startswith("-r="):
+            return arg.split("=", 1)[1]
+        elif arg.startswith("--repo="):
+            return arg.split("=", 1)[1]
+        elif arg == "--repo" and i + 1 < len(cmd_args):
+            return cmd_args[i + 1]
+    return None
+
+
+def _execute_restic(
+    cmd_args: list[str],
+    capture_output: bool = False,
+) -> subprocess.CompletedProcess[Any] | None:
     try:
         if capture_output:
             return subprocess.run(
@@ -66,25 +91,117 @@ def run_restic(cmd_args: list[str], capture_output: bool = False) -> subprocess.
                 env=get_restic_env(),
                 capture_output=True,
                 text=True,
-                check=True
+                encoding="utf-8",
+                errors="replace",
             )
         else:
-            return subprocess.run(
+            res = subprocess.run(
                 ["restic"] + cmd_args,
                 env=get_restic_env(),
-                check=True
+                stdout=None,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
             )
-    except subprocess.CalledProcessError as e:
-        status_message(f"Erro ao executar restic: {e}", fg=typer.colors.RED)
-        if e.stderr:
-            status_message(e.stderr, fg=typer.colors.RED)
-        return None
+            if res.stderr and isinstance(res.stderr, str):
+                sys.stderr.write(res.stderr)
+                sys.stderr.flush()
+            return res
     except FileNotFoundError:
-        status_message("Executável 'restic' não encontrado. Certifique-se de que está instalado e no PATH.", fg=typer.colors.RED)
+        status_message(
+            "Executável 'restic' não encontrado. Certifique-se de que está instalado e no PATH.",
+            fg=typer.colors.RED,
+        )
         return None
     except KeyboardInterrupt:
         status_message("\nOperação cancelada pelo usuário.", fg=typer.colors.YELLOW)
         return None
+
+
+def run_restic(
+    cmd_args: list[str],
+    capture_output: bool = False,
+    allow_lock_recovery: bool = True,
+) -> subprocess.CompletedProcess[Any] | None:
+    """Executa um comando restic de forma segura, com streaming e diagnóstico assistido."""
+    if not ask_password_if_needed():
+        return None
+
+    res = _execute_restic(cmd_args, capture_output=capture_output)
+    if res is None:
+        return None
+
+    subcmd = _extract_subcommand(cmd_args)
+
+    # Se a operação terminou com código 11 (falha de lock) e a recuperação assistida é cabível
+    if res.returncode == 11 and allow_lock_recovery and subcmd != "unlock":
+        diag = diagnose_restic_result(subcmd, 11, res.stderr or "", getattr(res, "stdout", "") or "")
+        if diag:
+            status_message("\n" + format_menu_guidance(diag), fg=typer.colors.YELLOW)
+
+        while True:
+            choice = prompt(
+                questionary.select,
+                "Falha de lock no repositório (código 11). Como deseja prosseguir?",
+                choices=[
+                    questionary.Choice("Aguardar e tentar novamente (limite de 1 minuto)", "retry"),
+                    questionary.Choice("Executar unlock (desbloquear locks obsoletos)", "unlock"),
+                    questionary.Choice("Voltar", "back"),
+                ],
+            )
+            if choice == "retry":
+                status_message("\nTentando novamente com espera de até 1 minuto (--retry-lock 1m)...", fg=typer.colors.CYAN)
+                retry_args = list(cmd_args)
+                if "--retry-lock" not in retry_args:
+                    retry_args.extend(["--retry-lock", "1m"])
+                retry_res = _execute_restic(retry_args, capture_output=capture_output)
+                if retry_res is not None and retry_res.returncode == 0:
+                    return retry_res
+                elif retry_res is not None and retry_res.returncode == 11:
+                    diag = diagnose_restic_result(subcmd, 11, retry_res.stderr or "", getattr(retry_res, "stdout", "") or "")
+                    if diag:
+                        status_message("\n" + format_menu_guidance(diag), fg=typer.colors.YELLOW)
+                    continue
+                else:
+                    return retry_res
+            elif choice == "unlock":
+                repo = _extract_repo_from_args(cmd_args)
+                if not repo:
+                    status_message("Não foi possível identificar o repositório nos argumentos.", fg=typer.colors.RED)
+                    return res
+
+                status_message(
+                    "\nAviso: Remova locks apenas se nenhuma outra operação estiver em execução no repositório.",
+                    fg=typer.colors.YELLOW,
+                )
+                confirmed = prompt(
+                    questionary.confirm,
+                    "Tem certeza de que deseja executar 'restic unlock' para remover locks obsoletos?",
+                    default=False,
+                )
+                if confirmed:
+                    status_message("\nExecutando 'restic unlock'...", fg=typer.colors.CYAN)
+                    unlock_res = _execute_restic(["-r", repo, "unlock"], capture_output=False)
+                    if unlock_res is not None and unlock_res.returncode == 0:
+                        status_message("\nLocks obsoletos removidos com sucesso.", fg=typer.colors.GREEN)
+                    else:
+                        status_message("\nFalha ao executar unlock.", fg=typer.colors.RED)
+                else:
+                    status_message("Desbloqueio cancelado pelo usuário.", fg=typer.colors.YELLOW)
+                # Preserva o código 11 da operação original sem repetição automática
+                return res
+            else:  # "back" ou None
+                return res
+
+    # Se unlock falhar com código 11, exibe diagnóstico sem oferecer unlock recursivo
+    if res.returncode == 11 and subcmd == "unlock":
+        diag = diagnose_restic_result("unlock", 11, res.stderr or "")
+        if diag:
+            status_message("\n" + format_menu_guidance(diag), fg=typer.colors.YELLOW)
+        return res
+
+    return res
 
 
 def show_wizard() -> None:
@@ -158,7 +275,18 @@ def do_backup() -> None:
         cmd.extend(["--exclude-file", exclude_file])
 
     status_message(f"\nIniciando backup de {source} para {repo}...", fg=typer.colors.CYAN)
-    run_restic(cmd)
+    res = run_restic(cmd)
+    if res is not None:
+        if res.returncode == 0:
+            status_message("\nBackup concluído com sucesso!", fg=typer.colors.GREEN)
+        elif res.returncode == 3:
+            diag = diagnose_restic_result("backup", 3, res.stderr or "")
+            if diag:
+                status_message("\n" + format_menu_guidance(diag), fg=typer.colors.YELLOW)
+        elif res.returncode != 11:
+            diag = diagnose_restic_result("backup", res.returncode, res.stderr or "")
+            if diag:
+                status_message("\n" + format_menu_guidance(diag), fg=typer.colors.RED)
 
 
 def get_snapshots() -> list[dict[str, Any]]:
@@ -220,9 +348,15 @@ def do_restore() -> None:
     status_message(f"\nIniciando restauração para {target}...", fg=typer.colors.CYAN)
     result = run_restic(cmd)
 
-    if result is not None:
-        if prompt(questionary.confirm, "Restauração concluída. Deseja abrir a pasta no Windows Explorer?"):
+    if result is not None and result.returncode == 0:
+        status_message("\nRestauração concluída com sucesso!", fg=typer.colors.GREEN)
+        if prompt(questionary.confirm, "Deseja abrir a pasta no Windows Explorer?"):
             os.startfile(target)
+    elif result is not None and result.returncode != 0:
+        if result.returncode != 11:
+            diag = diagnose_restic_result("restore", result.returncode, result.stderr or "")
+            if diag:
+                status_message("\n" + format_menu_guidance(diag), fg=typer.colors.RED)
 
 
 def do_check() -> None:
@@ -249,7 +383,42 @@ def do_check() -> None:
         cmd.append("--read-data")
 
     status_message(f"\nIniciando verificação ({mode})...", fg=typer.colors.CYAN)
-    run_restic(cmd)
+    res = run_restic(cmd)
+    if res is not None:
+        if res.returncode == 0:
+            status_message("\nVerificação concluída com sucesso! Repositório íntegro.", fg=typer.colors.GREEN)
+        elif res.returncode != 11:
+            diag = diagnose_restic_result("check", res.returncode, res.stderr or "")
+            if diag:
+                status_message("\n" + format_menu_guidance(diag), fg=typer.colors.RED)
+
+
+def do_unlock() -> None:
+    """Executa o desbloqueio de locks obsoletos com confirmação explícita."""
+    profile = get_profile()
+    repo = profile.get("restic", {}).get("repo")
+    if not repo:
+        status_message("Repositório não configurado.", fg=typer.colors.RED)
+        return
+
+    status_message(f"Repositório: {repo}", fg=typer.colors.CYAN)
+    status_message(
+        "Aviso: Execute o desbloqueio apenas se tiver certeza de que nenhuma outra operação está em andamento.",
+        fg=typer.colors.YELLOW,
+    )
+    confirmed = prompt(questionary.confirm, "Deseja realmente executar o desbloqueio (unlock)?", default=False)
+    if not confirmed:
+        status_message("Operação cancelada pelo usuário.", fg=typer.colors.YELLOW)
+        return
+
+    status_message("\nExecutando 'restic unlock'...", fg=typer.colors.CYAN)
+    res = run_restic(["-r", repo, "unlock"], allow_lock_recovery=False)
+    if res is not None and res.returncode == 0:
+        status_message("\nLocks obsoletos removidos com sucesso!", fg=typer.colors.GREEN)
+    elif res is not None and res.returncode != 11:
+        diag = diagnose_restic_result("unlock", res.returncode, res.stderr or "")
+        if diag:
+            status_message("\n" + format_menu_guidance(diag), fg=typer.colors.RED)
 
 
 def do_ls() -> None:
@@ -332,7 +501,8 @@ def show_restic_menu() -> None:
                     questionary.Choice("[3] Restaurar Snapshot", "restore"),
                     questionary.Choice("[4] Verificar Repositório (check)", "check"),
                     questionary.Choice("[5] Listar Arquivos (ls)", "ls"),
-                    questionary.Choice("[6] Configurar Caminhos", "config"),
+                    questionary.Choice("[6] Desbloquear locks obsoletos (unlock)", "unlock"),
+                    questionary.Choice("[7] Configurar Caminhos", "config"),
                     menu_separator(),
                     questionary.Choice("[0] Voltar ao menu principal", "exit"),
                     menu_footer(),
@@ -353,6 +523,8 @@ def show_restic_menu() -> None:
                 run_dedicated_screen(["UTILITY BELT", "RESTIC", "VERIFICAÇÃO"], do_check)
             elif choice == "ls":
                 run_dedicated_screen(["UTILITY BELT", "RESTIC", "LISTAR ARQUIVOS"], do_ls)
+            elif choice == "unlock":
+                run_dedicated_screen(["UTILITY BELT", "RESTIC", "DESBLOQUEIO"], do_unlock)
             elif choice == "config":
                 run_dedicated_screen(["UTILITY BELT", "RESTIC", "CONFIGURAÇÃO"], edit_config)
 
