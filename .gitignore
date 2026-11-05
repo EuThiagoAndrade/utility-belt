@@ -30,6 +30,8 @@ build/
 *.local
 *.pem
 *.key
+local/
+.local/
 
 # Logs
 *.log
